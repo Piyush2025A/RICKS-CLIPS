@@ -164,22 +164,13 @@ TS sources; Python uses `subprocess` only for ffmpeg/ffprobe. No install scripts
 | ElevenLabs narration | External, unspecified | API integration + timestamps |
 | 360p/24 fps dev tests | 540p stills, 30 fps | Our test harness |
 
-## 4. Recommended setup script (proposed — not applied)
-To run once Phase 2/3 are approved (versions to pin at that time):
-```bash
-apt-get install -y --no-install-recommends libgl1 sox
-```
-```bash
-pip install opencv-python-headless scipy scikit-image matplotlib soundfile librosa
-```
-Project-local (in `package.json`, not global): `remotion`, `@remotion/cli`, `@remotion/three`, `@remotion/renderer`,
-`three`, `@react-three/fiber`, `@react-three/postprocessing`, `postprocessing`, `typescript`.
-Optional, decision-dependent: `faster-whisper` (word timings fallback), `elevenlabs` SDK, `yt-dlp` **only** if the
-user confirms authorised acquisition of reference footage.
-Note: saving a setup script changes the stored environment and requires user approval.
+## 4. Recommended setup script
+Superseded by the Phase 2 proposal in `setup/` (D010): isolated venv, hash-pinned CPython 3.13 lock files (core 22
+packages; optional audio tier 40), no apt packages needed (`opencv-python-headless`, `soundfile` bundles libsndfile),
+idempotent `setup/setup-analysis.sh`. Not run; cloud environment configuration unchanged.
 
 ## 5. Open items
-- Remotion licence: free for individuals/small companies; a company licence may be required depending on team size —
-  confirm before commercial use (not verified in this phase).
-- Reference footage authorisation and storage method for Phase 3.
+- Remotion licence: official Free License covers individuals and companies of up to 3 people with unlimited
+  commercial use (D008); read full terms before publishing.
+- Reference footage authorisation and storage method for Phase 3 (RC30 rule, D007).
 - GPU availability for final-resolution renders.

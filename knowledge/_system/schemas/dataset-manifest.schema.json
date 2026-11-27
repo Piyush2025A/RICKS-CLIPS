@@ -1,0 +1,117 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "RC30 frozen dataset manifest",
+  "type": "object",
+  "required": [
+    "dataset_id",
+    "channel_url",
+    "selection_rule",
+    "frozen_at",
+    "frozen_by",
+    "videos"
+  ],
+  "properties": {
+    "dataset_id": {
+      "const": "RC30"
+    },
+    "channel_url": {
+      "type": "string"
+    },
+    "selection_rule": {
+      "type": "string",
+      "description": "30 most recently published Shorts by publication date at freeze time"
+    },
+    "frozen_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "frozen_by": {
+      "type": "string"
+    },
+    "acquisition_method": {
+      "type": "string",
+      "description": "user-approved authorised method; recorded, never a download URL with tokens"
+    },
+    "videos": {
+      "type": "array",
+      "minItems": 30,
+      "maxItems": 30,
+      "items": {
+        "type": "object",
+        "required": [
+          "key",
+          "video_id",
+          "title",
+          "published_at",
+          "duration_s",
+          "source_url",
+          "availability"
+        ],
+        "properties": {
+          "key": {
+            "type": "string",
+            "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
+          },
+          "video_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "published_at": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "duration_s": {
+            "type": "number"
+          },
+          "source_url": {
+            "type": "string"
+          },
+          "availability": {
+            "enum": [
+              "available",
+              "unavailable"
+            ]
+          },
+          "metadata_source": {
+            "type": "string"
+          },
+          "media": {
+            "type": "object",
+            "description": "filled after authorised acquisition (private copy, not committed)",
+            "properties": {
+              "sha256": {
+                "type": "string"
+              },
+              "width": {
+                "type": "integer"
+              },
+              "height": {
+                "type": "integer"
+              },
+              "avg_frame_rate": {
+                "type": "string"
+              },
+              "r_frame_rate": {
+                "type": "string"
+              },
+              "nb_frames": {
+                "type": "integer"
+              },
+              "video_codec": {
+                "type": "string"
+              },
+              "audio_codec": {
+                "type": "string"
+              },
+              "audio_sample_rate": {
+                "type": "integer"
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

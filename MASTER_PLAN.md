@@ -11,9 +11,9 @@ stories and narration. Priorities: quality → automation → scaling.
 ## Stack hypothesis (to be confirmed by experiments, not assumed)
 | Layer | Candidate | Status |
 |---|---|---|
-| Visual asset generation | Google Flow (Nano Banana Pro / Imagen, via user's Google AI Pro) | Primary by mandate; integration path open (Phase 4) |
+| Visual asset generation | Google Flow (Nano Banana Pro / 2.1 / 2 Lite via user's Google AI Pro; published AI Pro limits 100 + 1,000 shared images/day, 200 2K upscales/day) | Primary by mandate; tiered integration D003 rev 2 (Phase 4) |
 | 3D / 2.5D scene | Three.js inside Remotion (`@remotion/three`) | Pattern proven upstream; not yet built or rendered here |
-| Compositing / timeline | Remotion (React) | Licence terms to confirm for commercial use (Phase 1 open item) |
+| Compositing / timeline | Remotion (React) | Free licence applies to individuals / ≤ 3 people (D008); full terms before publishing |
 | Encode / analysis | FFmpeg 6.1.1, FFprobe, OpenCV (to install), NumPy | FFmpeg verified; OpenCV missing |
 | Narration | ElevenLabs API (TTS with timestamps) | Key not configured; untested |
 | SFX / music | Synthesized (NumPy/SciPy) and/or licensed libraries | To evaluate (Phase 8) |
@@ -31,23 +31,30 @@ Completion criteria:
 - No dependencies installed, no renders, no generations, no API credits spent.
 
 ### Phase 2 — Specialized agent architecture and agent creation
-- Write the 29 agent definitions in `.claude/agents/` (one file each) with: responsibilities, tool permissions,
-  research methods, file ownership, measurable quality standards, knowledge-file paths.
-- Define the knowledge base layout (`knowledge/<department>/<topic>.md`) and the file-ownership map.
-- Define the orchestration protocol: max concurrent agents (default 2), hand-off format, verifier independence.
-- Gate: user reviews every agent definition; one dry-run of a single agent on a read-only task.
+- 29 agent definitions in `.claude/agents/` (generated from one data source; validated by `tools/validate_agents.py`).
+- Knowledge base: `knowledge/` (layout in `knowledge/README.md`); ownership matrix `knowledge/_system/OWNERSHIP.md`.
+- Orchestration protocol: `knowledge/_system/ORCHESTRATION.md` (max 2 concurrent, briefs by path, independence).
+- Templates and schemas: `knowledge/_system/templates/`, `knowledge/_system/schemas/`.
+- Proposed reproducible analysis setup: `setup/` (not applied).
+- Gate: validator passes; one read-only dry run (or documented blocker); user reviews all definitions.
 
 ### Phase 3 — Exhaustive reference video analysis
-- Precondition: user confirms how reference footage is lawfully obtained and stored (private, never committed).
-- Every frame at native fps (30 fps: no skipped frames), timestamps preserved; FFprobe metadata per file.
+- **Dataset rule (RC30, D007):** only the 30 most recently published Shorts of
+  https://www.youtube.com/@RicksClips3000, by publication date (not popularity), frozen at phase start in
+  `knowledge/dataset/MANIFEST.json` with video IDs, publication dates, durations and source metadata. No older
+  Shorts; no substitution for unavailable videos; all specialists use the same frozen dataset.
+- Precondition: user confirms the authorised acquisition and private storage method (never committed), and approves
+  running `setup/setup-analysis.sh`.
+- Every frame at native fps (30 fps: every frame accounted for), timestamps (pts) preserved; FFprobe metadata per file.
+- Order and concurrency: `knowledge/_system/ORCHESTRATION.md` §4 (A27 shared tables first).
 - Measurements: camera motion, frame change, character motion, lighting, colour, outlines, textures, DOF,
-  transitions, pacing, audio sync (voice WPM, loudness, ducking).
+  transitions, pacing, narration, sound effects, music, editing and audio/picture synchronisation.
 - Separate coverage ledgers: `computational_coverage` (per-frame) vs `visual_inspection_coverage` (frames an agent
   actually viewed, with agent id). Every conclusion lists evidence, method, confidence, limitations.
-- Re-verify the upstream repo's measured claims instead of trusting them (see audit §2.6).
+- Upstream repo reports are supplementary hypotheses (`H-UP`) only; re-verify them (see audit §2.6).
 
 ### Phase 4 — Google Flow and ElevenLabs integration
-- Google Flow: choose and verify an approved path (see `research/integration-feasibility.md` §1.4–1.5). End-to-end
+- Google Flow: tiered architecture D003 rev 2 (`research/integration-feasibility.md` §1.8, checklist §1.10). End-to-end
   test = prompt → image in Flow → asset in our pipeline with provenance metadata, verified by checksum and viewing.
 - ElevenLabs: network secret via environment settings; one approved low-cost TTS-with-timestamps test.
 - Gate: both integrations verified end-to-end with recorded evidence and credit usage.
@@ -105,7 +112,7 @@ One 6 s shot through the full pipeline; side-by-side evaluation by independent e
 | | A29 | Final quality assurance specialist |
 
 The master director (main session) coordinates, owns phase gates, and records decisions. Quality agents (A27–A29)
-never evaluate work they produced.
+never evaluate work they produced. Definitions: `.claude/agents/a<NN>-*.md`; matrix: `knowledge/_system/OWNERSHIP.md`.
 
 ## Standing technical constraints
 - Dev tests 360p / 24 fps (e.g. 360×640 vertical). Reference analysis at native fps.

@@ -1,93 +1,160 @@
-# Integration feasibility — Google Flow and ElevenLabs (Phase 1, 2026-11-27)
+# Integration feasibility — Google Flow and ElevenLabs
 
-Desk research only. Nothing was authenticated, installed or generated. Sources are listed at the end; third-party
-claims are marked as such.
+Revision 2 (2026-11-27, Phase 1 corrections requested by the user). Owner from Phase 2 on: A23; this revision was
+written by the director. Desk research only: nothing was authenticated, installed or generated.
+Labels: **PUBLISHED** = stated on an official page (quoted, fetched 2026-11-27) · **VERIFIED** = observed in our own
+account/test · **THIRD-PARTY** = non-official source · **UNVERIFIED** = not tested.
 
 ## 1. Google Flow
 
-### 1.1 Official integration possibilities
-- **No official Flow API found.** Flow is a web app at labs.google (also mobile). Multiple sources report no endpoint,
-  key or SDK; developers are pointed to the Gemini API / Vertex AI instead. (Confidence: medium-high; absence of
-  evidence, consistent across sources, no Google page contradicts it.)
-- **Official export paths:** in-app download of images/videos; Google Takeout export of Flow data (Google Help).
-- Flow's default image model is **Nano Banana Pro**; aspect ratio, output count and model are selectable (Google Help).
-- All Flow outputs carry an invisible **SynthID** watermark; a visible watermark is a user toggle for images, and
-  Pro-tier videos carry a visible Veo watermark (Flow FAQ). Google does not claim ownership of generated content.
-- Reported AI Pro allowance: ~1,000 Flow credits/month (third-party; verify in the user's account).
+### 1.1 Correction to revision 1
+Revision 1 quoted "~1,000 Flow credits/month" (a THIRD-PARTY figure about **monthly credits**, mainly for video) and
+did not address the **separate daily image allowance**. That was the wrong basis for image planning. Image generation
+is governed by per-model daily limits, below.
 
-### 1.2 Is local browser assistance required?
-**Yes, for any Flow automation.** Flow requires the user's interactive Google login. The only allowance-funded path
-is a human (or a browser assistant acting on the user's own computer, in the user's own logged-in browser).
+### 1.2 Image generation limits — PUBLISHED (support.google.com/flow/answer/16729550)
+"Generating and upscaling images in Google Flow does not currently use your monthly Google Flow credits or AI
+credits. Instead, each Google AI plan has a daily image generation limit per model."
 
-### 1.3 Cloud environment limitations
-- The container has no logged-in Google session. Creating one would mean logging in from a datacenter IP (likely to
-  trip Google's anti-abuse checks) or importing cookies/session tokens — **both prohibited by our rules**.
-- Therefore the cloud container **cannot drive Flow directly**. It can receive Flow outputs via a hand-off channel.
-- The session has a **Google Drive connector**, which can read files the user places in Drive — a clean hand-off.
-- The platform supports attaching the user's own computer (Remote Control) — a possible route for browser
-  assistance, subject to user approval and ToS review.
-
-### 1.4 MCP approaches and security risks
-| Option | How it works | Risk | Verdict |
+| Model / action | No Google AI plan | Google AI Plus & **Pro** | Google AI Ultra |
 |---|---|---|---|
-| Community CDP/browser MCPs (e.g. `GTAI-1/flow-mcp`, `google-flow-browser-mcp`, `gflow-cli`, others) | Local server drives a logged-in Chrome via DevTools Protocol | Full control of a Google-logged-in browser (Gmail, Drive, payments); unreviewed code; alpha, breaks on UI changes; ToS unclear | **Do not install.** Possible later only after source review, pinned commit, dedicated Chrome profile, ToS check, user approval |
-| useapi.net hosted Flow API/MCP | Third party drives *your* Flow account; paid ($15/mo reported) | Requires handing over Google session credentials to a third party | **Rejected** (violates "no session token extraction", adds paid service) |
-| Claude in Chrome / computer use on user's machine | Claude operates the visible Flow UI in the user's browser with the user present | Lower (official Anthropic tooling, user-visible), but still automation of a Google UI — ToS unknown | Candidate for Phase 4 pilot, after ToS review |
-| Manual Flow + Drive hand-off | User generates and downloads; drops files into a shared Drive folder; we pull via Drive connector | Minimal | **Recommended first path** |
+| Nano Banana Pro | up to 20/day | **up to 100/day** | up to 500/day |
+| Nano Banana 2.1 + Nano Banana 2 Lite (one shared pool) | up to 400/day combined | **up to 1,000/day combined** | up to 1,000/day combined |
+| 2K upscale | up to 200/day | **up to 200/day** | up to 200/day |
+| 4K upscale | not available | **not available** | up to 200/day |
 
-### 1.5 Asset download and transfer workflow (proposed)
-1. We generate prompt packs (`prompts/<asset-id>.md`: prompt, model, aspect ratio, seed/variation notes).
-2. User runs them in Flow (AI Pro allowance), downloads originals at full resolution, uses filename `<asset-id>_vN.png`.
-3. User places files in a Drive folder, e.g. `RicksClips/flow-inbox/`.
-4. Pipeline pulls via the Google Drive connector into git-ignored `assets/flow-inbox/`, records a manifest
-   (asset id, prompt hash, model, Flow project, download date, SHA-256, dimensions, SynthID note).
-5. Asset processing (A24): background removal, part separation, upscaling where needed, normalisation.
-6. Only approved, original assets ever leave git-ignored storage; publishing decisions are recorded.
-End-to-end verification (Phase 4): checksum match Drive ↔ local, dimensions as downloaded, image visually viewed.
+Further published rules: the limit "resets 24 hours after your first generation with that model or shared model
+pool" (a rolling window, not midnight); failed or safety-blocked generations "do not count toward your daily
+limit"; extra short-term limits may apply to "suspicious activity or very rapid generations". Default model: Nano
+Banana Pro.
 
-### 1.6 Separate API billing implications
-- **Google AI Pro does not cover Gemini API usage.** Subscription benefits apply in the apps / AI Studio UI; API keys
-  bill separately through Cloud Billing (Google AI-plans doc; Google support replies on the developer forum).
-- Programmatic Nano Banana / Imagen / Veo = **separately billed**; per-image prices must be read from Google's pricing
-  page (a third-party figure of ~$0.02/image is unverified). Developer-program Cloud credits may apply — unverified.
-- Any API route needs explicit approval (rule 10). It would, however, be the only fully automatable cloud path.
+**Your figures match the official page exactly.** Status: PUBLISHED, confirmed. **Account-specific limits for our
+subscription are UNVERIFIED** (we have not signed in; region, account state or short-term throttling could differ).
+Verification method for Phase 4: the user reads the in-app limit indicators and we log actual counts per model per
+rolling 24 h window.
 
-### 1.7 Open questions for the user
-1. Approve the manual Flow → Drive hand-off as the Phase 4 baseline?
-2. Is browser assistance on your own computer acceptable for a later pilot (after a ToS review)?
-3. Would separately billed Gemini API image generation ever be acceptable as a fallback, and with what budget?
-4. Commercial-use terms for Flow outputs must be read in Google's current ToS / Generative AI terms before publishing.
+Planning implication (INFERRED): about 100 high-quality (Nano Banana Pro) + 1,000 fast-model images and 200 2K upscales
+per rolling day is far above what Phases 5–9 need. Rapid automated bursts risk the "very rapid generations" throttle,
+so any automation must be paced.
 
-## 2. ElevenLabs
+### 1.3 Open discrepancy: Agent and Tools credit use
+- Flow Agent page (17093911): "Media generated by the Agent uses your Google Flow credits."
+- Tools page (17104535): "Media generated through Tools uses your Google Flow credits."
+- Images page (16729550): image generation "does not currently use your monthly Google Flow credits".
+It is **unclear** whether images made *through* the Agent or Tools spend credits or only the image allowance.
+Resolve in Phase 4 with one approved image via the Agent while the user watches the credit balance. Until then,
+plan direct image generation (not Agent/Tools) when credits matter.
 
-- **API:** `POST /v1/text-to-speech/{voice_id}/with-timestamps` returns audio (base64) plus character-level
-  `alignment` (start/end seconds) — directly usable for word timing, replacing a separate STT step (ElevenLabs docs).
-- **Billing:** usage-based, priced per 1K characters / credits; exact cost for the timestamp endpoint vs plain TTS not
-  confirmed — measure with one short approved test and record credit deltas.
-- **Credentials:** no ElevenLabs key in the environment. Recommended: store it as an environment **network secret**
-  (injected by the proxy for `api.elevenlabs.io`), never in `.env` committed files or chat.
-- **Connector:** this session also has a claude.ai ElevenLabs connector (speech generation tools). Untested; it spends
-  credits on the user's account; voice and model choice need approval.
-- **Licensing:** commercial use rights depend on the ElevenLabs plan tier — confirm the user's plan before publishing.
-- Feasibility: **high**; blockers are only the credential and approval.
+### 1.4 Official in-Flow automation features — PUBLISHED
+**Flow Agent** (17093911): a built-in conversational "creative collaborator". It can brainstorm and plan
+(storyboards, mood boards, prompts), generate images or videos with a chosen model, edit project assets,
+**"Batch generate"** variations, and organise assets (rename, group into Collections, delete). Output saves to the
+open project. Agent queries are free but have an unspecified daily cap. A confirmation setting controls whether it
+asks before spending credits (default: asks; "Never" removes the pause). No API, external control or export
+integration is documented.
 
-## 3. Summary of blockers
+**Custom Tools** (17104535): reusable mini-apps built from a natural-language description ("Google Flow writes the
+code and builds the tool's interface"). Web/PC only. Building custom tools requires Google AI Plus, Pro or Ultra.
+There is a daily (unspecified) creation quota, output saves to the open project, and "anyone with the link to your
+Tool can access the Tool's code, name, and thumbnail". No Drive, URL, webhook or API output is documented.
+
+How they reduce manual work (INFERRED, to be tested):
+- A custom Tool can hold our fixed house-style prompt scaffolding (e.g. "character turnaround sheet", "expression
+  sheet", "environment plate"), so each asset needs only variable fields. This cuts typing and prompt drift.
+- The Agent can batch-generate from a pasted prompt pack and rename assets to our IDs (e.g. `A01-hero-turn-v1`),
+  which removes manual renaming before download.
+- Neither removes the human-in-browser step or the download/transfer step.
+- Because shared Tool links expose code, Tools must never contain anything private. This is low risk because
+  prompts are not secrets.
+
+### 1.5 Claude Code ↔ Flow through official browser assistance — PUBLISHED (code.claude.com/docs/en/chrome)
+- Claude Code integrates with the **Claude in Chrome** extension "to give you browser automation capabilities from
+  the CLI or the VS Code extension". It "shares your browser's login state", runs actions "in a visible Chrome
+  window", and pauses for logins/CAPTCHAs so the user handles them. This means no credentials are handled and no
+  protection is bypassed.
+- Requirements: Chrome/Edge/Chromium, extension ≥ 1.0.36, Claude Code signed in with a direct Anthropic plan (Pro
+  is listed). Not supported in WSL, with third-party API providers, or in ZDR organisations.
+- Per-site permission prompts. Recordings capture everything visible, so review them before sharing.
+- **Cloud/remote sessions: not documented as supported.** The page does not say browser control works from a cloud
+  session. Treat it as **local Claude Code on the user's computer only** (UNVERIFIED for cloud).
+- **File downloads: not documented.** Uploads are (≤ 10 MB, credential paths refused). Whether Flow's download
+  button saves files to a folder Claude Code can read must be tested.
+- Terms-of-service status: operating Flow's UI at human pace in the user's own visible browser with the user
+  present is the most defensible automation form, but Google's terms on automated use have **not yet been read**.
+  This is a Phase 4 gate item.
+
+### 1.6 Cloud environment limitations (unchanged, VERIFIED in Phase 1)
+The cloud container has no Google session. It must not create one (datacenter login, cookie import) and cannot use
+Chrome integration as far as documented. Flow therefore always runs on the user's computer, and the question is
+only how outputs reach the pipeline.
+
+### 1.7 Local-to-cloud asset bridge options
+| Bridge | How | Status / risk |
+|---|---|---|
+| **B1 Remote Control folder** | The user shares a local folder (e.g. `~/RicksClips/flow-inbox`) via the Claude desktop app → Remote Control; the cloud session attaches it and reads files there | Supported platform feature. **Byte-exact transfer into the cloud filesystem is UNVERIFIED**: tools run *on* the attached machine, so copying binaries into the container needs a test. Alternative: run intake on the local machine and push only manifests. |
+| **B2 Local Claude Code session** | A local session (with Chrome integration) does generation → download → intake → processing locally; the cloud session handles text/code/analysis | Avoids the transfer problem; splits the pipeline across machines. |
+| **B3 Google Drive** | The user (or the local session) puts files in a Drive folder; the cloud session uses the Google Drive connector | The connector lists `download_file_content`, but **whether it writes binary image bytes to the cloud filesystem (vs returning text/limited content to the model) is UNVERIFIED** and must not be assumed. |
+| **B4 Private asset store** | Separate *private* Git (LFS) repo or bucket for generated assets | Needs a user decision; never the public repo. |
+| Rejected | Third-party Flow wrappers needing our Google session (useapi.net), unreviewed CDP browser MCPs, cookie/token extraction | Violates rules 9/13. |
+
+### 1.8 Recommended architecture (proposed, D003 rev 2)
+- **Tier 0: approved fallback and first hand-off test.** The user runs one prompt manually in Flow, downloads it, and
+  drops it in the hand-off folder. We test bridges B1 and B3 for byte-exact transfer (SHA-256 on both sides,
+  dimensions, visual check). This establishes the intake manifest format.
+- **Tier 1: Flow-native assistance.** House-style custom Tools + Agent batch generation and renaming reduce per-asset
+  manual work. The user still clicks download.
+- **Tier 2: preferred target.** Local Claude Code + Claude in Chrome operates Flow in the user's visible, logged-in
+  Chrome with the user present, at paced rates within published limits. Downloads go to the local inbox, and
+  B1/B2 carries them to the pipeline. Preconditions: ToS review, user approval, local Claude Code + extension
+  setup, and a verified download behaviour test.
+- Separately billed Gemini API: not used. It would need an explicit decision and budget (§1.9).
+
+### 1.9 Separate API billing (unchanged)
+Google AI Pro benefits do not cover Gemini API key usage. That is billed via Cloud Billing (ai.google.dev AI-plans
+doc; developer-forum support replies). No API use without approval.
+
+### 1.10 Phase 4 end-to-end verification checklist (planned)
+1. Read the Flow / Google generative-AI terms on automation and commercial use, then record conclusions.
+2. Tier 0 test: 1 image → bridge → cloud; SHA-256 match, dimensions, and a visual check logged.
+3. Record the in-app limit counters before and after (account-specific limit verification).
+4. Agent/Tools credit discrepancy test (1 image, credit balance before and after).
+5. Chrome-integration download test on the user's machine (Tier 2), with the user present.
+6. Mark "working" only when steps 2–5 pass, with evidence in `PROGRESS.md`.
+
+## 2. ElevenLabs (unchanged from revision 1)
+- `POST /v1/text-to-speech/{voice_id}/with-timestamps` returns audio plus character-level alignment, usable for word
+  timings.
+- Usage-based billing. The cost of the timestamp endpoint vs plain TTS is not confirmed, so measure it with one
+  approved test.
+- No API key in the environment. Use an environment network secret when approved.
+- A claude.ai ElevenLabs connector exists in the session (UNVERIFIED; spends credits).
+- Commercial rights depend on the plan tier, so confirm before publishing.
+
+## 3. Remotion licence — PUBLISHED (remotion.dev/docs/license/pricing)
+"Free License: For individuals and companies of up to 3 people. Create and automate, all features included,
+unlimited commercial use. Terms apply." A Company License is required otherwise (Automators $0.01/render, min $100/mo;
+Creators $25/seat/mo; Enterprise from $500/mo). **Applicability (INFERRED):** an individual producing commercial
+videos qualifies for the free licence. Verify the full terms (remotion.dev/docs/terms) and the eligibility quiz before
+publication, and re-check if the team grows beyond 3 people or a company entity is formed.
+
+## 4. Blockers
 | Blocker | Owner | Unblocks |
 |---|---|---|
-| No official Flow API; cloud cannot log in | Architecture (accept hand-off) | Phase 4 Flow path |
-| Flow ToS on automation and commercial use unread | User + A23 | Browser-assistance pilot, publishing |
-| ElevenLabs key not configured | User (environment secret) | Phase 4 TTS test |
-| Credit-spend approval | User | Any generation |
+| No official Flow API; cloud cannot log in | accepted architecture (§1.8) | — |
+| Flow/Google ToS on automation and commercial use unread | A23 + user | Tier 2, publishing |
+| Agent/Tools credit discrepancy | A23 test with user | Tier 1 cost model |
+| Bridge byte-transfer unverified (B1/B3) | A23 test | Tier 0 completion |
+| Chrome integration on the user's computer not set up | user | Tier 2 |
+| ElevenLabs key not configured | user | TTS test |
 
-## Sources
-- Google Flow Help — Create & edit images: https://support.google.com/labs/answer/16729550
-- Google Flow Help — Download your Flow data: https://support.google.com/flow/answer/17571126
-- Google Flow FAQ: https://labs.google/fx/tools/flow/faq
-- Google AI plans in AI Studio: https://ai.google.dev/gemini-api/docs/google-ai-plans
-- Developer forum, Pro subscription vs API quota: https://discuss.ai.google.dev/t/pro-subscription-gemini-advanced-vs-api-quota-0-resource-exhausted/113011
-- Third-party: "There is no official Flow API": https://www.wireflow.ai/blog/google-flow-api
-- Third-party: Flow pricing/credits: https://costgoat.com/pricing/google-flow
-- Third-party wrapper (rejected): https://useapi.net/docs/api-google-flow-v1
-- Community MCPs (not reviewed): https://github.com/GTAI-1/flow-mcp/wiki · https://github.com/Mitanshp5/Google-Flow_MCP · https://mcpservers.org/servers/ffroliva/gflow-cli
-- ElevenLabs TTS with timestamps: https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps
-- ElevenLabs API pricing: https://elevenlabs.io/pricing/api
+## Sources (fetched 2026-11-27 unless marked)
+- Flow — Create & edit images: https://support.google.com/flow/answer/16729550
+- Flow — Use the Google Flow Agent: https://support.google.com/flow/answer/17093911
+- Flow — Create & manage Tools: https://support.google.com/flow/answer/17104535
+- Claude Code — Chrome integration: https://code.claude.com/docs/en/chrome
+- Remotion — License pricing: https://www.remotion.dev/docs/license/pricing
+- Flow — Download your data: https://support.google.com/flow/answer/17571126 (rev 1)
+- Flow FAQ (SynthID, ownership): https://labs.google/fx/tools/flow/faq (rev 1)
+- Google AI plans vs API billing: https://ai.google.dev/gemini-api/docs/google-ai-plans (rev 1)
+- ElevenLabs TTS with timestamps: https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps (rev 1)
+- THIRD-PARTY, rev 1 (superseded for images): https://costgoat.com/pricing/google-flow, https://www.wireflow.ai/blog/google-flow-api

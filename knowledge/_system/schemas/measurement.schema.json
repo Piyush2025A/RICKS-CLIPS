@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Measurement record",
+  "type": "object",
+  "required": [
+    "metric",
+    "agent",
+    "label",
+    "value",
+    "unit",
+    "n",
+    "evidence",
+    "method"
+  ],
+  "properties": {
+    "metric": {
+      "type": "string"
+    },
+    "agent": {
+      "type": "string",
+      "pattern": "^A(0[1-9]|1[0-9]|2[0-9])$"
+    },
+    "label": {
+      "enum": [
+        "MEASURED",
+        "OBSERVED",
+        "INFERRED",
+        "HYPOTHESIS",
+        "H-UP"
+      ]
+    },
+    "confidence": {
+      "enum": [
+        "high",
+        "medium",
+        "low"
+      ]
+    },
+    "value": {},
+    "unit": {
+      "type": "string"
+    },
+    "n": {
+      "type": "integer"
+    },
+    "distribution": {
+      "type": "object",
+      "properties": {
+        "median": {
+          "type": "number"
+        },
+        "p25": {
+          "type": "number"
+        },
+        "p75": {
+          "type": "number"
+        },
+        "min": {
+          "type": "number"
+        },
+        "max": {
+          "type": "number"
+        }
+      }
+    },
+    "per_video": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "number"
+      }
+    },
+    "evidence": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "frame IDs/ranges, experiment IDs"
+    },
+    "method": {
+      "type": "object",
+      "required": [
+        "script"
+      ],
+      "properties": {
+        "script": {
+          "type": "string"
+        },
+        "commit": {
+          "type": "string"
+        },
+        "params": {
+          "type": "object"
+        },
+        "exclusions": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "manifest_sha256": {
+      "type": "string"
+    },
+    "limitations": {
+      "type": "string"
+    }
+  }
+}

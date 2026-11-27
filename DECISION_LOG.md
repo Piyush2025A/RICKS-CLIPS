@@ -15,15 +15,20 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Why: rule 2 (no unverified findings). Phase 3 re-measures from footage we are authorised to analyse.
 - Status: accepted.
 
-## D003 · 2026-11-27 · Google Flow is reached through the user's own browser, not from the cloud container (proposed)
-- No official Flow API exists (no endpoint, key or SDK found). The container has no logged-in Google session and must
-  not create one by extracting cookies or automating a login from a datacenter IP.
-- Proposed primary path: **user-operated Flow → download → hand-off folder (Google Drive) → pipeline pulls via the
-  Google Drive connector**, with a provenance manifest. Optional later: browser assistance on the user's own computer
-  (Claude in Chrome / Remote Control) after a terms-of-service review.
-- Rejected: third-party hosted wrappers that require our Google session cookies (e.g. useapi.net); unreviewed CDP
-  browser MCPs that take over a logged-in Chrome profile.
-- Status: proposed — needs user decision in Phase 4.
+## D003 · 2026-11-27 · Google Flow integration architecture (rev 2, proposed)
+- Rev 1 (superseded): "user-operated Flow → Drive → Drive connector" as the primary path. The user corrected this:
+  manual Flow-to-Drive transfer is approved **only as a fallback and initial hand-off test**, not the final
+  architecture. Rev 1 also wrongly used monthly video-credit figures instead of the daily image allowance.
+- Rev 2: tiered architecture (`research/integration-feasibility.md` §1.8):
+  Tier 0 manual hand-off test (approved fallback) → Tier 1 Flow-native custom Tools + Agent batch generation →
+  Tier 2 preferred target: local Claude Code + official Claude in Chrome operating Flow in the user's visible,
+  logged-in browser, with a local-to-cloud bridge (Remote Control folder or local intake).
+- Basis: no official Flow API; official image limits (AI Pro: Nano Banana Pro 100/day, Nano Banana 2.1 + 2 Lite
+  1,000/day shared, 2K upscale 200/day, no monthly credits for image generation/upscaling) confirmed on Google's
+  page; account-specific limits unverified. Chrome integration is documented for local CLI/VS Code, not for cloud
+  sessions. Drive connector binary transfer to the cloud filesystem is unverified.
+- Rejected: third-party session-cookie wrappers, unreviewed CDP MCP servers, token extraction.
+- Status: proposed. Tier 0 approved by the user; Tier 2 needs a ToS review and user approval in Phase 4.
 
 ## D004 · 2026-11-27 · Google AI Pro does not pay for Gemini API calls
 - Google's AI-plans doc and support replies state subscription benefits apply in the apps / AI Studio UI; API keys
@@ -31,8 +36,47 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Status: accepted as a finding; any API use requires user approval (rule 10).
 
 ## D005 · 2026-11-27 · No dependencies installed in Phase 1; setup script proposed, not applied
-- Proposed contents are in `research/technical-audit.md` §4. Status: proposed.
+- Proposed contents were in `research/technical-audit.md` §4. Status: superseded by D010.
 
 ## D006 · 2026-11-27 · Development render spec
 - 360p vertical (360×640), 24 fps for all development tests; reference analysis at native fps.
 - Status: accepted (user rule 6 and 7).
+
+## D007 · 2026-11-27 · RC30 frozen reference dataset (permanent rule)
+- Phase 3 analyses **only** the 30 most recently published Shorts of https://www.youtube.com/@RicksClips3000, by
+  publication date (not popularity), frozen at the start of Phase 3 in `knowledge/dataset/MANIFEST.json` with IDs,
+  publication dates, durations and source metadata. No older Shorts; no substitution for unavailable videos.
+- Every native frame processed computationally; 30 fps footage fully accounted for; separate computational and
+  visual coverage ledgers; narration, SFX, music, editing and sync analysed; upstream reports are hypotheses only;
+  footage acquired and stored only through authorised methods, never committed.
+- Why: one shared, reproducible evidence base for all 29 specialists. Status: accepted (user, Phase 1 review).
+
+## D008 · 2026-11-27 · Remotion licence
+- The official pricing page offers a Free License for "individuals and companies of up to 3 people … unlimited
+  commercial use. Terms apply." An individual commercial workflow qualifies (INFERRED). Full terms to be read before
+  publication; re-check if the team exceeds 3 people. Status: accepted as a finding.
+
+## D009 · 2026-11-27 · Agent architecture: 29 ordinary subagents with exclusive file ownership
+- Format: Markdown + YAML frontmatter in `.claude/agents/` (official docs). Explicit `tools` allowlists (never
+  inherited); no `Agent`/`SendMessage` tools, so specialists cannot spawn agents; web tools only for A10, A17,
+  A23–A26; A18/A19 have no shell; A28/A29 have no Edit and write only to `evaluations/` / `qa/`.
+- Models: `sonnet` for 26 specialists; `opus` for A18 (script), A28 (independent evaluation), A29 (release QA) to
+  conserve Claude Pro usage. `maxTurns` caps per agent.
+- Definitions and `knowledge/_system/OWNERSHIP.md` are generated from one data source so they cannot drift;
+  `tools/validate_agents.py` checks format, uniqueness, tools, models, sections and ownership conflicts.
+- Limitation: `tools` cannot restrict Bash to specific commands (whole tools only), so Bash limits rely on
+  instructions; `permissions.deny` rules are a possible later hardening step (not applied).
+- Status: proposed for user review (Phase 2 deliverable).
+
+## D010 · 2026-11-27 · Reproducible analysis environment (proposed)
+- Isolated venv `.venv-analysis/`, hash-pinned lock files for CPython 3.13 (core: 22 packages; +audio/librosa: 40),
+  binary wheels only, idempotent script `setup/setup-analysis.sh`. Rendering dependencies kept separate (Node, later).
+- Lock resolution was verified with `pip install --dry-run --require-hashes`; nothing installed; cloud environment
+  configuration unchanged. Status: proposed — awaiting approval to run and/or save as the setup script.
+
+## D011 · 2026-11-27 · Agent discovery limitation recorded
+- New agents in `.claude/agents/` were **not** discoverable in the session that created the directory
+  (`Agent type 'a27-frame-analysis-specialist' not found`), despite the docs saying changes are detected without
+  restart. The dry run therefore used a general-purpose subagent instructed to follow the A27 definition verbatim.
+  It is evidence that the definition and protocols are usable, **not** that the registered agent was invoked.
+  A real invocation must be confirmed in a fresh session. Status: accepted (documented limitation).

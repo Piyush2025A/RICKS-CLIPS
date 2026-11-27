@@ -31,11 +31,30 @@ the primary visual asset provider. The benchmark channel is studied for craft, n
 14. Visual inspection claims require that the frames were actually viewed; computational processing is recorded
     separately.
 
+## Reference dataset rule (RC30, permanent — D007)
+- Analyse **only** the 30 most recently published Shorts of https://www.youtube.com/@RicksClips3000, chosen by
+  publication date (not popularity) at the start of Phase 3 and frozen in `knowledge/dataset/MANIFEST.json`
+  (IDs, publication dates, durations, source metadata). Every agent uses this same dataset.
+- No older Shorts, no substitutes for unavailable videos (record them as unavailable).
+- Process every native frame computationally (30 fps: every frame accounted for); keep computational and visual
+  inspection coverage separate; analyse narration, SFX, music, editing and synchronisation too.
+- Upstream repo reports are supplementary hypotheses (`H-UP`), never evidence.
+- Acquire and store footage only through user-authorised methods; never commit it. Details:
+  `knowledge/dataset/README.md`.
+
+## Agents and knowledge
+- 29 specialists in `.claude/agents/` (A01–A29); coordination rules in `knowledge/_system/ORCHESTRATION.md`;
+  exclusive file ownership in `knowledge/_system/OWNERSHIP.md`; evidence rules in `knowledge/_system/EVIDENCE.md`.
+- Max 2 concurrent agents. Brief by file paths, not pasted content.
+- Agent files and the ownership matrix are generated: edit `tools/agentgen/agents_data.py`, then run
+  `python3 tools/agentgen/generate.py .` and `python3 tools/validate_agents.py`.
+
 ## Where things go
 - Reference media, downloaded footage, frames, contact sheets: **outside the repo** (or in git-ignored `private/`).
 - Generated media and renders: git-ignored `out/`, `renders/`, `assets/generated/` until the user approves publishing.
 - Secrets: environment network secrets / local `.env` (git-ignored). Never in code, docs or commits.
-- Research write-ups: `research/`. Decisions: `DECISION_LOG.md`.
+- Research write-ups: `research/`. Decisions: `DECISION_LOG.md`. Permanent knowledge: `knowledge/`.
+- Analysis environment: `setup/` (isolated venv, hash-pinned; run only when approved).
 
 ## Environment facts (verified 2026-11-27, see `research/technical-audit.md`)
 - Ephemeral cloud container: only what is committed and pushed survives. Scratch work goes in the session scratchpad.

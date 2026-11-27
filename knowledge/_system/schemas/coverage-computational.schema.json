@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Computational coverage record (one JSON line per video per analysis)",
+  "type": "object",
+  "required": [
+    "analysis_id",
+    "video_key",
+    "frames_container",
+    "frames_decoded",
+    "frames_expected",
+    "frames_processed",
+    "missing",
+    "script",
+    "commit",
+    "input_sha256",
+    "run_at"
+  ],
+  "properties": {
+    "analysis_id": {
+      "type": "string"
+    },
+    "video_key": {
+      "type": "string",
+      "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+)$"
+    },
+    "native_fps": {
+      "type": "string"
+    },
+    "frames_expected": {
+      "type": "integer",
+      "description": "= frames_decoded once frame accounting is reconciled; any difference from frames_container is explained in notes"
+    },
+    "frames_processed": {
+      "type": "integer"
+    },
+    "missing": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "frame": {
+            "type": "string",
+            "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+)-f[0-9]{6}$"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "script": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "string"
+    },
+    "input_sha256": {
+      "type": "string"
+    },
+    "run_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "frames_container": {
+      "type": "integer",
+      "description": "ffprobe stream nb_frames (or nb_read_packets if nb_frames absent; say which in notes)"
+    },
+    "frames_decoded": {
+      "type": "integer",
+      "description": "ffprobe -count_frames nb_read_frames / our decoder count"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

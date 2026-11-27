@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Visual inspection record (one JSON line per image actually opened)",
+  "type": "object",
+  "required": [
+    "agent",
+    "viewed_at",
+    "image_kind",
+    "frames",
+    "view_resolution",
+    "purpose"
+  ],
+  "properties": {
+    "agent": {
+      "type": "string"
+    },
+    "viewed_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "image_kind": {
+      "enum": [
+        "frame",
+        "crop",
+        "contact_sheet",
+        "strip",
+        "overlay",
+        "render"
+      ]
+    },
+    "frames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "frame IDs or ranges shown in the image"
+    },
+    "view_resolution": {
+      "type": "string",
+      "description": "per-frame size as seen, e.g. 108x192 in a sheet"
+    },
+    "purpose": {
+      "type": "string"
+    },
+    "notes": {
+      "type": "string"
+    }
+  }
+}

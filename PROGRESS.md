@@ -1,31 +1,46 @@
 # PROGRESS
 
-**Current phase:** Phase 1 — complete, **awaiting user approval**. Phase 2 not started.
+**Current phase:** Phase 2 — complete, **awaiting user review and approval**. Phase 3 not started.
 **Last updated:** 2026-11-27
 
-## Phase 1 — verified accomplishments
-- [x] Task A: environment inspected (OS, CPU/RAM/disk, GPU, runtimes, FFmpeg, Python libs, browsers, WebGL2,
-      network, subagents, persistence, GitHub access) → `research/technical-audit.md` §1.
-- [x] Task B: reference repo `mromidev/claude-animated-shorts` cloned outside the project at
-      `e3b817b6afc6cd413466d43f11ba31209e034bbf`, inspected read-only, nothing executed or copied → audit §2–3.
-- [x] Task C: Google Flow / ElevenLabs feasibility research → `research/integration-feasibility.md`.
-- [x] Task D: `CLAUDE.md`, `MASTER_PLAN.md`, `PROGRESS.md`, `DECISION_LOG.md`, `.gitignore` created.
-- [x] Task E: consistency and secret/media check of the changes; committed and pushed to
-      `claude/beautiful-fermat-fs0iqn` (push result is the evidence of write access).
+## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
+- [x] Permanent RC30 reference dataset rule added (CLAUDE.md, MASTER_PLAN.md Phase 3, `knowledge/dataset/README.md`,
+      D007).
+- [x] Google Flow research corrected: official daily image limits confirmed on Google's page (AI Pro: Nano Banana Pro
+      100/day; Nano Banana 2.1 + 2 Lite 1,000/day shared; 2K upscale 200/day; image generation/upscaling not using
+      monthly credits). Account-specific limits **unverified**. Flow Agent, custom Tools, Claude in Chrome and bridge
+      options researched → `research/integration-feasibility.md` rev 2; D003 rev 2.
+- [x] Dependencies: Python 3.13 compatibility verified by hash-pinned dry-run resolution; isolated venv script
+      prepared (`setup/`, D010). Nothing installed; cloud environment unchanged.
+- [x] Remotion licence checked: Free License for individuals / ≤ 3 people incl. commercial use (D008).
 
-Not done in Phase 1 (by instruction): no dependencies installed, no renders, no image generation, no API credits
-used, no agents created, no merge to `main`.
+## Phase 2 — deliverables
+- [x] 29 agent definitions: `.claude/agents/a01-…` to `a29-…` (generated from `tools/agentgen/agents_data.py`).
+- [x] Responsibility + ownership matrix: `knowledge/_system/OWNERSHIP.md`.
+- [x] Knowledge-base architecture: `knowledge/README.md`, `knowledge/_system/EVIDENCE.md`, `knowledge/dataset/README.md`,
+      `knowledge/contracts/README.md`.
+- [x] Orchestration protocol: `knowledge/_system/ORCHESTRATION.md`; evaluation rubric structure: `knowledge/_system/RUBRIC.md`.
+- [x] Templates (research report, experiment, technique, failed approach, hand-off, brief, contract) and JSON Schemas
+      (dataset manifest, measurement, computational coverage, visual coverage).
+- [x] Validation: `python3 tools/validate_agents.py` → PASS (29 agents, 29 unique names/IDs, valid models/tools,
+      16 required sections each, no ownership conflicts). Negative test with planted errors (duplicate, bad model,
+      forbidden tool, overlapping ownership) → all detected. Schemas checked against the JSON Schema 2020-12 meta-schema.
+- [x] Dry run: **blocker documented (D011).** Registered agents are not discoverable in this session
+      (`Agent type 'a27-frame-analysis-specialist' not found`, retried twice). A substitute read-only dry run used a
+      general-purpose subagent following the A27 definition verbatim. It produced a correct plan and found 5
+      document inconsistencies, all fixed (ownership-column wording, schema IDs for our renders, required checksum,
+      frame-count fields, shared-table storage path). This is **not** evidence that the registered agent can be invoked.
 
 ## Blockers
-1. **Google Flow has no official API;** the cloud container cannot use the AI Pro allowance directly. Needs user
-   decision on the hand-off path (D003).
-2. **ElevenLabs API key not configured** in the environment.
-3. **Reference footage for Phase 3:** acquisition method/authorisation not yet confirmed; `yt-dlp` and OpenCV absent.
-4. **No GPU:** software WebGL2 only; final-resolution rendering may need another machine.
-5. Remotion commercial licence terms and Flow commercial-use terms not yet confirmed.
+1. Registered agents need confirmation in a fresh session (D011).
+2. Phase 3 preconditions: an authorised footage acquisition/storage method for RC30; approval to run `setup/setup-analysis.sh`.
+3. Google Flow: ToS on automation/commercial use unread; Agent/Tools credit discrepancy; bridge byte transfer unverified;
+   Chrome integration not set up on the user's computer (D003 rev 2).
+4. ElevenLabs API key not configured.
+5. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. User reviews Phase 1 docs and decides on D003 (Flow path) and D005 (setup script).
-2. On Phase 2 approval: design the knowledge-base layout and file-ownership map, then write the 29 agent definitions
-   in `.claude/agents/` for review.
-3. Before Phase 3: user confirms reference footage source; install analysis dependencies via approved setup script.
+1. User reviews Phase 2 deliverables.
+2. In a new session: confirm `a27-frame-analysis-specialist` is listed and invoke it once read-only.
+3. On Phase 3 approval: user confirms the acquisition method; run the setup script; director freezes `MANIFEST.json`;
+   A27 runs first.
