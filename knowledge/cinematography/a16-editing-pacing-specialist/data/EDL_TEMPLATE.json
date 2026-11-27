@@ -1,0 +1,10 @@
+{
+ "_comment": "A16 EDL template (schema v0). Frames are 30 fps timeline frames; audio_frames = round(audio_seconds*30) must equal total_frames. Dev renders at 24 fps: convert with t=frame/fps, never re-derive frames.",
+ "production_id": "<prod-id>", "fps": 30, "total_frames": 1800, "audio_length_s": 60.0, "script_version": "<A18 version>",
+ "shots": [
+  {"id": "S01", "start": 0, "end": 92, "beat": "hook", "asset": "<ref>", "camera_move": "push+tilt-", "move_start": 0, "expression_events": [{"f": 14, "state": "ring-eyes"}],
+   "words": [{"w": "A", "t_on": 0.2}], "transition_out": {"type": "XF", "start": 89, "len": 6, "anchor": "pause_start", "anchor_word_idx": 12}},
+  {"id": "S02", "start": 92, "end": 180, "beat": "setup", "...": "..."}
+ ],
+ "qc": {"max_dead_s": 4.0, "target_shot_s": [1.8, 5.1]}
+}

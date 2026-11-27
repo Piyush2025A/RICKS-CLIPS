@@ -1,0 +1,87 @@
+{
+ "hook_0-3s": {
+  "n_shots": 19,
+  "shot_len_s_q25_50_75": [
+   1.84,
+   2.52,
+   3.67
+  ],
+  "cuts_per_video_med": 0.0,
+  "cuts_per10s_q25_50_75": [
+   0.0,
+   0.0,
+   3.33
+  ]
+ },
+ "setup_3s-25%": {
+  "n_shots": 81,
+  "shot_len_s_q25_50_75": [
+   1.93,
+   2.9,
+   5.12
+  ],
+  "cuts_per_video_med": 2.0,
+  "cuts_per10s_q25_50_75": [
+   1.58,
+   2.06,
+   3.48
+  ]
+ },
+ "escalation_25-55%": {
+  "n_shots": 87,
+  "shot_len_s_q25_50_75": [
+   1.82,
+   2.9,
+   4.76
+  ],
+  "cuts_per_video_med": 4.5,
+  "cuts_per10s_q25_50_75": [
+   2.21,
+   2.77,
+   3.3
+  ]
+ },
+ "reveal_55-85%": {
+  "n_shots": 86,
+  "shot_len_s_q25_50_75": [
+   1.86,
+   3.08,
+   5.09
+  ],
+  "cuts_per_video_med": 3.0,
+  "cuts_per10s_q25_50_75": [
+   1.67,
+   2.2,
+   2.95
+  ]
+ },
+ "punch_85-100%": {
+  "n_shots": 49,
+  "shot_len_s_q25_50_75": [
+   1.88,
+   3.12,
+   4.13
+  ],
+  "cuts_per_video_med": 1.0,
+  "cuts_per10s_q25_50_75": [
+   1.07,
+   1.82,
+   3.25
+  ]
+ },
+ "last_shot_s_q": [
+  1.81,
+  2.9,
+  5.06
+ ],
+ "transitions_per_act_med_A1_A2_A3": [
+  3.0,
+  5.0,
+  4.0
+ ],
+ "excluded_from_beats": [
+  "RC30-03",
+  "RC30-22"
+ ],
+ "n_videos": 22
+}
