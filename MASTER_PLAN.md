@@ -14,7 +14,8 @@ stories and narration. Priorities: quality → automation → scaling.
 | Visual asset generation | Google Flow (Nano Banana Pro / 2.1 / 2 Lite via user's Google AI Pro; published AI Pro limits 100 + 1,000 shared images/day, 200 2K upscales/day) | Primary by mandate; tiered integration D003 rev 2 (Phase 4) |
 | 3D / 2.5D scene | Three.js inside Remotion (`@remotion/three`) | Pattern proven upstream; not yet built or rendered here |
 | Compositing / timeline | Remotion (React) | Free licence applies to individuals / ≤ 3 people (D008); full terms before publishing |
-| Encode / analysis | FFmpeg 6.1.1, FFprobe, OpenCV (to install), NumPy | FFmpeg verified; OpenCV missing |
+| Encode / analysis | FFmpeg 6.1.1, FFprobe, `rcpipe` v0.2.0 (OpenCV, NumPy, SciPy, scikit-image, librosa) | Installed + verified (D016, D018); frozen until Phase 3 calibration |
+| Private media transfer | Google Drive connector, private folders | Verified byte-exact (D023): cloud → Drive ≤ ~3.1 MB, Drive → cloud ≤ 10 MB per file; larger files split into parts |
 | Narration | ElevenLabs API (TTS with timestamps) | Key not configured; untested |
 | SFX / music | Synthesized (NumPy/SciPy) and/or licensed libraries | To evaluate (Phase 8) |
 
@@ -43,8 +44,8 @@ Completion criteria:
   https://www.youtube.com/@RicksClips3000, by publication date (not popularity), frozen at phase start in
   `knowledge/dataset/MANIFEST.json` with video IDs, publication dates, durations and source metadata. No older
   Shorts; no substitution for unavailable videos; all specialists use the same frozen dataset.
-- Precondition: user confirms the authorised acquisition and private storage method (never committed), and approves
-  running `setup/setup-analysis.sh`.
+- Precondition: user confirms the authorised acquisition and private storage method (never committed).
+  Analysis environment: done (D016). Execution plan: `research/phase3-plan.md`.
 - Every frame at native fps (30 fps: every frame accounted for), timestamps (pts) preserved; FFprobe metadata per file.
 - Order and concurrency: `knowledge/_system/ORCHESTRATION.md` §4 (A27 shared tables first).
 - Measurements: camera motion, frame change, character motion, lighting, colour, outlines, textures, DOF,

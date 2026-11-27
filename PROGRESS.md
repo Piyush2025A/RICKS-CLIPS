@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** Phase 2.5 — Operational Validation (approved 2026-11-27). Phase 2 accepted. Phase 3 not started.
+**Current phase:** Phase 2.5 closing; **Phase 3 planned, awaiting approval** (`research/phase3-plan.md`). No footage acquired.
 **Last updated:** 2026-11-27
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
@@ -135,6 +135,11 @@
       UNVERIFIED: whether downloaded base64 reaches the cloud filesystem byte-exact (or only the conversation), the
       size limit of either direction, behaviour for MP4/WAV/ZIP. A third-party report (A23 rev 3) of failures at
       5–10 MB is unconfirmed.
+- [x] **Phase 2.5 decisions (D024):** Google Drive adopted as the private small-asset layer; cloud rendering stays
+      the development workflow; large final-render transfer deferred; no more general infrastructure work.
+- [x] **Phase 3 plan prepared (D024):** `research/phase3-plan.md` — RC30 rule review, metadata identification via
+      YouTube Data API + user Shorts-tab check, ranked acquisition options vs YouTube ToS, >10 MB ingestion by
+      ≤ 9 MB Drive parts with SHA-256, storage rules, specialist waves, coverage honesty, non-blocking leftovers.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)
@@ -156,8 +161,8 @@
 6. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. rcpipe v0.2.0 accepted and **frozen** until Phase 3 real-footage calibration (D019).
-2. Phase 2.5 T5: user exposes `~/ricks-clips-private/t5-transfer-test/` via the Claude desktop app; then attach + SHA-256 round trip.
-3. User decisions on Flow §1A.9.
-4. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
-   validated pipeline first.
+1. User: decide the authorised acquisition method (`research/phase3-plan.md` §3; recommended: creator-supplied files).
+2. User: create a YouTube Data API key (metadata only) and enter it through the secure credential form.
+3. User: approve Phase 3 start; director then runs P3.1 (identify + freeze `MANIFEST.json`) and stops for the
+   user's Shorts-tab confirmation before any footage step.
+4. Phase 3 per `research/phase3-plan.md` §6 (A27 first). Non-blocking Phase 2.5/4 items: plan §8.

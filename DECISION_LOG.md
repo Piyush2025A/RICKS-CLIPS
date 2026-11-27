@@ -217,3 +217,15 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   computer from git-committed source; chunked Drive transfer as an untested fallback. Paid storage, GitHub media and
   tunnels stay rejected.
 - Status: T5 accepted as complete; transfer-layer recommendation awaiting user approval.
+
+## D024 · 2026-11-27 · Phase 2.5 closed in scope; Phase 3 plan prepared
+- User decisions: Google Drive is the private small-asset transfer layer (limits D023); cloud rendering remains the
+  development workflow; large final-render transfer deferred until needed; no further general infrastructure work.
+  rcpipe v0.2.0 preserved (318/318) and frozen until real-footage calibration.
+- Phase 3 plan (`research/phase3-plan.md`): metadata via YouTube Data API v3 (official, key-only reads; no Shorts
+  field exists, so ≤ 180 s candidates are confirmed by the user against the channel's Shorts tab); acquisition
+  options ranked against the YouTube ToS (read 2026-11-27): creator-supplied files recommended; download tools without
+  permission conflict with the ToS and are not recommended; screen recording rejected (not native frames). Ingestion
+  of > 10 MB files by ≤ 9 MB parts via a private Drive folder with per-part and whole-file SHA-256. New rule proposed:
+  per-frame tables stay private (Drive), their checksums and all aggregates/findings are committed.
+- Status: proposed; awaiting user approval and acquisition decision. No footage acquired.
