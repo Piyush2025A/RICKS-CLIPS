@@ -105,3 +105,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   in this cloud session (`request_computer_folder`). Unresolved; to be tested in T5. If it works, cloud-side commands
   and file tools could reach the local inbox directly, without moving pixels into the cloud.
 - Status: proposed — awaiting user decisions (§1A.9).
+
+## D014 · 2026-11-27 · Cloud browser connectivity failed; Flow browser work moves to a local session
+- Test: the user opened Google Flow in their Chrome and asked this cloud session to read it. The `chrome-browser` skill
+  loaded, but no Claude in Chrome tools were exposed (ToolSearch: no match for `mcp__claude-in-chrome__*` or "chrome").
+  Nothing was read or operated in the browser; no retries.
+- Distinction: this is evidence about **cloud-session browser connectivity** only (result: not available). It says
+  nothing about **local Chrome integration** (local Claude Code + extension via `claude --chrome` /
+  `claude remote-control --chrome`), which remains untested (T0/T1 in `research/integration-feasibility.md` §1A.8).
+- Decision: the user will run a separate local Claude Code session on their computer, on the same repository, for
+  Google Flow work. The cloud session keeps planning, documentation and text-only hand-off via git.
+- Status: accepted (user instruction).

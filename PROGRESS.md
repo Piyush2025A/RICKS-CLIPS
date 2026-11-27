@@ -48,6 +48,13 @@
       conflicts with this cloud session's own tools (`list_computer_folders` / `request_computer_folder`, which attach a
       folder that the user's computer serves via Remote Control). Listing returned 0 folders (none served). To be
       tested in T5; not yet verified either way.
+- [x] **Cloud browser connectivity test — FAILED (D014), 2026-11-27.** From this cloud session (claude.ai/code), the
+      `chrome-browser` skill loaded, but no `mcp__claude-in-chrome__*` tools (nor `enable__mcp__claude-in-chrome`)
+      were available; ToolSearch for the exact names and for "chrome" returned no match. No tab was listed, read or
+      operated; no navigation, generation or settings change. Evidence that cloud sessions cannot reach the user's
+      Chrome (closes the cloud part of C3 against cloud support).
+      **Not tested:** local Chrome integration (local Claude Code + extension, `claude --chrome`). Still pending as T0/T1.
+- [ ] Next: separate **local** Claude Code session on the user's computer (same repo) for Google Flow T0/T1.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers
