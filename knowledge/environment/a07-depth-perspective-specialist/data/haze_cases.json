@@ -1,0 +1,110 @@
+[
+ {
+  "key": "RC30-04",
+  "frame": 209,
+  "horizon_y_frac": 0.404,
+  "dE_far_to_sky": 66.4,
+  "dE_mid_to_sky": 90.2,
+  "dE_near_to_sky": 108.0,
+  "chroma_far": 20.0,
+  "chroma_near": 19.3,
+  "lstd_far": 16.0,
+  "lstd_near": 24.2
+ },
+ {
+  "key": "RC30-04",
+  "frame": 179,
+  "horizon_y_frac": 0.409,
+  "dE_far_to_sky": 48.4,
+  "dE_mid_to_sky": 85.8,
+  "dE_near_to_sky": 120.3,
+  "chroma_far": 35.0,
+  "chroma_near": 15.5,
+  "lstd_far": 19.6,
+  "lstd_near": 24.2
+ },
+ {
+  "key": "RC30-08",
+  "frame": 1830,
+  "horizon_y_frac": 0.473,
+  "dE_far_to_sky": 16.3,
+  "dE_mid_to_sky": 17.6,
+  "dE_near_to_sky": 101.0,
+  "chroma_far": 8.0,
+  "chroma_near": 4.5,
+  "lstd_far": 34.7,
+  "lstd_near": 53.0
+ },
+ {
+  "key": "RC30-24",
+  "frame": 540,
+  "horizon_y_frac": 0.501,
+  "dE_far_to_sky": 28.8,
+  "dE_mid_to_sky": 31.9,
+  "dE_near_to_sky": 43.8,
+  "chroma_far": 19.2,
+  "chroma_near": 36.9,
+  "lstd_far": 39.7,
+  "lstd_near": 24.4
+ },
+ {
+  "key": "RC30-12",
+  "frame": 420,
+  "horizon_y_frac": 0.277,
+  "dE_far_to_sky": 27.9,
+  "dE_mid_to_sky": 69.1,
+  "dE_near_to_sky": 81.3,
+  "chroma_far": 2.2,
+  "chroma_near": 31.4,
+  "lstd_far": 39.4,
+  "lstd_near": 47.6
+ },
+ {
+  "key": "RC30-29",
+  "frame": 840,
+  "horizon_y_frac": 0.557,
+  "dE_far_to_sky": 19.9,
+  "dE_mid_to_sky": 27.4,
+  "dE_near_to_sky": 36.0,
+  "chroma_far": 19.0,
+  "chroma_near": 17.9,
+  "lstd_far": 46.5,
+  "lstd_near": 45.5
+ },
+ {
+  "key": "RC30-10",
+  "frame": 1560,
+  "horizon_y_frac": 0.373,
+  "dE_far_to_sky": 58.3,
+  "dE_mid_to_sky": 47.1,
+  "dE_near_to_sky": 86.3,
+  "chroma_far": 21.1,
+  "chroma_near": 23.8,
+  "lstd_far": 59.5,
+  "lstd_near": 35.6
+ },
+ {
+  "key": "RC30-06",
+  "frame": 89,
+  "horizon_y_frac": 0.333,
+  "dE_far_to_sky": 70.8,
+  "dE_mid_to_sky": 85.1,
+  "dE_near_to_sky": 87.2,
+  "chroma_far": 33.3,
+  "chroma_near": 52.8,
+  "lstd_far": 35.8,
+  "lstd_near": 25.7
+ },
+ {
+  "key": "RC30-24",
+  "frame": 450,
+  "horizon_y_frac": 0.456,
+  "dE_far_to_sky": 24.9,
+  "dE_mid_to_sky": 40.2,
+  "dE_near_to_sky": 54.4,
+  "chroma_far": 12.8,
+  "chroma_near": 44.9,
+  "lstd_far": 43.5,
+  "lstd_near": 22.1
+ }
+]
