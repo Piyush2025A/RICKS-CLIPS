@@ -1,0 +1,9 @@
+video,runtime_s,tiles_tokens_seen,sentence_end_tokens,clause_end_tokens_incl_commas,tokens_per_sentence,words_per_sentence_est,second_person_seen,quoted_character_lines,last_caption_type
+RC30-01,61.2,61,8,13,7.6,8.8,no,yes,concrete noun
+RC30-04,59.4,59,5,9,11.8,13.7,no,no,concrete noun
+RC30-09,65.2,65,14,23,4.6,5.4,no,yes,reversal word
+RC30-16,63.3,63,13,16,4.8,5.6,no,yes,concrete noun
+RC30-23,40.6,41,5,8,8.2,9.5,no,yes,pronoun phrase
+RC30-24,45.0,45,4,4,11.3,13.1,incidental,yes,mid-phrase (counter flip)
+RC30-27,30.9,31,5,7,6.2,7.2,incidental,yes,concrete noun
+RC30-30,39.1,39,5,6,7.8,9.1,sustained,no,concrete noun
