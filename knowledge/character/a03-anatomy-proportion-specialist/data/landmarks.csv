@@ -1,0 +1,23 @@
+frame_id,person,archetype,view,pose,headgear,head_l,head_r,head_top,chin,torso_bot,torso_l,torso_r,sole,notes
+RC30-04-f000899,cop,stout,front,stand,1,422,750,,1007,1281,459,712,1560,hat hides skull top
+RC30-07-f000839,yellow,slim,front,stand,0,343,551,740,915,1101,390,510,1338,hair on head; one hand on hip
+RC30-04-f000599,cap,slim,front,seated,1,698,922,,1127,1344,685,820,,seated in chair; cap
+RC30-07-f000209,green,slim,front,dynamic,0,256,512,730,970,1146,255,421,1389,running lean; arms out
+RC30-07-f000389,doctor,slim,front,stand,0,108,288,780,956,1104,158,277,,feet below crop
+RC30-07-f000389,yellow2,slim,front,stand,0,795,983,820,995,1154,835,965,,feet below crop
+RC30-11-f000749,captain,stout,front,stand,1,343,656,,896,1159,346,612,1556,close shot; large hat+plume
+RC30-11-f000749,sailor,slim,front,stand,1,835,1031,,883,1088,868,1024,1351,tricorn
+RC30-11-f000719,captain,stout,front,stand,1,314,493,,776,980,316,482,1248,wide shot of same captain
+RC30-11-f000719,sailor,slim,front,stand,1,676,826,,819,947,702,800,1143,wide shot of same sailor
+RC30-14-f000299,cowboy,tall,front,stand,1,275,778,,1011,1434,365,691,,legs leave frame; extreme close shot
+RC30-14-f000959,redcowboy,tall,front,stand,0,243,557,702,983,1227,262,499,1629,bareheaded; long legs
+RC30-14-f000959,sheriff,tall,front,stand,1,563,845,,983,1227,602,813,1575,hat
+RC30-21-f000119,official,robe,front,stand,0,151,557,787,1127,,,,,robe hides legs; hair bun excluded
+RC30-23-f001019,priest,robe,front,stand,0,143,519,647,986,1620,224,499,1773,long-robe pill; short legs
+RC30-23-f000449,priest,robe,front,stand,0,74,442,586,928,1524,122,397,1671,same priest closer
+RC30-23-f000029,priest,robe,front,stand,0,775,1000,832,1075,1447,820,986,1536,same priest wide
+RC30-14-f000179,redcowboy,tall,threequarter,stand,1,211,448,,896,1127,250,371,1402,head and body turned right; face on right edge
+RC30-26-f000749,orange,slim,front,stand,0,106,323,755,967,1146,143,284,1408,hair
+RC30-26-f000749,purple,slim,front,stand,0,666,890,717,954,1184,704,851,1460,hair
+RC30-26-f000659,orange,slim,front,stand,0,83,499,531,890,1306,160,429,,close shot; legs leave frame
+RC30-26-f000989,purple,slim,back,stand,0,224,442,762,1011,1261,275,448,,back view
