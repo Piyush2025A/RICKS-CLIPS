@@ -1,0 +1,17 @@
+{
+ "manifest_sha256": "fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06",
+ "motion_camera_moving": {
+  "RC30-15": {
+   "frames": 2333,
+   "moving_frac": 0.586,
+   "scale_change_frac": 0.515
+  },
+  "RC30-27": {
+   "frames": 927,
+   "moving_frac": 0.797,
+   "scale_change_frac": 0.748
+  }
+ },
+ "thresholds": "|t|>1 proxy px or |scale-1|>0.002",
+ "note": "proxy resolution; n=2"
+}
