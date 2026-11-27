@@ -174,11 +174,13 @@
 - Overview sheets (1 fps) for all 30: `~/ricks-clips-private/analysis-data/rc30/overview/` (56 PNG).
 - Specialist brief: `knowledge/_system/briefs/PHASE3-BRIEF.md`. Visual ledgers: `knowledge/dataset/coverage/visual/`.
 - Specialist status: see table below (filled as agents complete).
+- Open contradictions for A09/A28: character cast shadows (A01 F-a01-005 saw soft ground shadows in rendered sets; A06
+  F-A06-002 saw none); leg length (A01 ≈ 2–3× torso by eye vs A03 ≈ 1.4–1.5× measured); A03 height 2.97 HW vs H-UP 3.5.
 | Wave | Agents | Status |
 |---|---|---|
-| V1 (visual, overview-based; parallel to batch) | A01 ∥ A05 | pending |
-| V2 | A02 ∥ A03 | pending |
-| V3 | A04 ∥ A06 | pending |
+| V1 (visual, overview-based; parallel to batch) | A01 ∥ A05 | done (A01 12 findings, 20 videos viewed; A05 12 findings) |
+| V2 | A02 ∥ A03 | A03 done (partial: 7 videos measured, turn limit); A02 running |
+| V3 | A04 ∥ A06 | A06 done (8 findings, 30/30 flow); A04 running |
 | C1 (after batch) | A27 consolidation | pending |
 | C2 | A15 ∥ A20 | pending |
 | C3 | A13 ∥ A16 | pending |
