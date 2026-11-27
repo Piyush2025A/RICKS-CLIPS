@@ -104,3 +104,12 @@ def dist(values):
         return {}
     return {"median": float(np.median(a)), "p25": float(np.percentile(a, 25)),
             "p75": float(np.percentile(a, 75)), "min": float(a.min()), "max": float(a.max())}
+
+
+def canonical_json(obj):
+    return json.dumps(obj, sort_keys=True, separators=(",", ":"), ensure_ascii=True, allow_nan=False)
+
+
+def config_fingerprint(params):
+    """sha256 of the canonical JSON of all output-affecting parameters (floats NaN are not allowed)."""
+    return hashlib.sha256(canonical_json(params).encode()).hexdigest()

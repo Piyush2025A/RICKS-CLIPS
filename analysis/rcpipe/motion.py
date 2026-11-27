@@ -13,7 +13,8 @@ import cv2
 
 FIELDS = ["frame_index", "tx", "ty", "scale", "rot_deg", "n_feat", "n_inliers", "inlier_frac", "texture_lapvar",
           "tex_frac", "pc_dx", "pc_dy", "pc_response", "flow_mean_dx", "flow_mean_dy", "flow_mean_mag",
-          "res_mean_mag", "res_p95_mag", "res_active_frac", "res_cx", "res_cy", "confidence", "status"]
+          "res_mean_mag", "res_p95_mag", "res_active_frac", "res_cx", "res_cy", "tx2", "ty2", "n_inliers2", "confidence",
+          "status"]
 NAN = float("nan")
 
 
@@ -27,7 +28,7 @@ def _gray_proxy(img, max_w):
 
 
 def motion_pair(prev, cur, max_w=320, exclude_top=0.0, exclude_bottom=0.0, seed=0, flow=True,
-                active_thr=0.7, min_inliers=12):
+                active_thr=0.7, min_inliers=12, min_inliers2=8, second_motion_px=0.5):
     """prev,cur: BGR uint8 frames. exclude_*: fraction of height masked out (e.g. caption band)."""
     cv2.setRNGSeed(seed)
     g0, s = _gray_proxy(prev, max_w)
@@ -58,6 +59,17 @@ def motion_pair(prev, cur, max_w=320, exclude_top=0.0, exclude_bottom=0.0, seed=
                                                  maxIters=3000, confidence=0.995, refineIters=20)
             if M is not None:
                 ni = int(inl.sum())
+                # second coherent motion among the outliers (parallax layer, independent object): the primary
+                # estimate is then valid only for the dominant motion
+                rest = ~(inl.ravel() > 0)
+                if rest.sum() >= min_inliers2:
+                    M2, inl2 = cv2.estimateAffinePartial2D(p0[ok][rest], p1[ok][rest], method=cv2.RANSAC,
+                                                           ransacReprojThreshold=0.8, maxIters=1500, confidence=0.99,
+                                                           refineIters=10)
+                    if M2 is not None and int(inl2.sum()) >= min_inliers2:
+                        row["n_inliers2"] = int(inl2.sum())
+                        row["tx2"] = float((M2[0, 0] * w / 2 + M2[0, 1] * h / 2 + M2[0, 2]) - w / 2) * up
+                        row["ty2"] = float((M2[1, 0] * w / 2 + M2[1, 1] * h / 2 + M2[1, 2]) - h / 2) * up
                 row["n_inliers"] = ni
                 row["inlier_frac"] = ni / float(ok.sum())
                 cx, cy = w / 2.0, h / 2.0
@@ -100,6 +112,8 @@ def motion_pair(prev, cur, max_w=320, exclude_top=0.0, exclude_bottom=0.0, seed=
         row["confidence"], row["status"] = "low", "uncertain:low_texture_or_few_inliers"
     elif row["inlier_frac"] < 0.5:
         row["confidence"], row["status"] = "medium", "ok:low_inlier_frac"
+    elif row["n_inliers2"] == row["n_inliers2"] and math.hypot(row["tx2"] - row["tx"], row["ty2"] - row["ty"]) > second_motion_px:
+        row["confidence"], row["status"] = "medium", "ok:second_motion"
     else:
         row["confidence"], row["status"] = "high", "ok"
     return row
@@ -107,5 +121,5 @@ def motion_pair(prev, cur, max_w=320, exclude_top=0.0, exclude_bottom=0.0, seed=
 
 def first_row():
     r = {k: NAN for k in FIELDS}
-    r["confidence"], r["status"] = "none", "first_frame_no_previous"
+    r["confidence"], r["status"] = "none", "ok:reference_frame_no_previous_pair"
     return r

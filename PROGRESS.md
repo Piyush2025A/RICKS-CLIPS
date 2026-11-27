@@ -80,8 +80,18 @@
       **Limits:** thresholds tuned on synthetic noise textures only, untested on real flat-colour animation or YouTube
       compression; no audio coverage ledger record; rotation-tagged/HDR/10-bit untested. Computational measurements
       only, no semantic understanding. No real RC30 media used.
-- [ ] Schema changes proposed by A27 (not applied, director/user decision): SYN key pattern, `frames_uncertain`,
-      audio coverage variant, `input_sha256` + script version fields.
+- [x] **Schemas v2 + `rcpipe` v0.2.0 (D018), 2026-11-27 — synthetic validation only.** User approved A27's four
+      schema proposals. Director updated `coverage-computational` (v2), `measurement` (v2), new `coverage-audio` (v1) and
+      `EVIDENCE.md`; fixed 4 defects A27 then found. A27 updated the pipeline: `SYN-` keys with `dataset: "SYN"` (RC30
+      rules unchanged; RC30 without manifest checksum and SYN/OUR keys labelled RC30 are refused); ok / uncertain /
+      failed / missing counts overall and per stage; audio coverage records incl. no-audio clips; input SHA-256,
+      pipeline version, config fingerprint; native vs proxy resolution per stage; `analysis/get_frames.py` returns
+      bit-exact native frames by ID. **Suite 318/318** (A27 218 s; director's independent rerun 216 s), incl. 44
+      negative controls all rejected. Flat-colour / outline / parallax / compressed (CRF 14/35/45) style tests added.
+      **Known misses:** same-palette hard cut missed at all encodes (MAD 14.1–14.6 vs threshold 15); parallax gives a
+      blended far/middle-layer estimate (flagged, cannot be told apart from an independent object); outline width reads
+      1.5 px for both 1 and 2 px lines; CRF 45 breaks dissolve detection; motion/shot stages always run on proxies.
+      Synthetic clips compress better than real footage, so degradation is a lower bound.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)
@@ -102,7 +112,7 @@
 6. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. Phase 2.5: review A27 pipeline (D017) and proposed schema changes.
+1. Phase 2.5: user reviews rcpipe v0.2.0 (D018); recalibrate thresholds only on authorised real footage (Phase 3).
 2. User decisions on Flow §1A.9; T5 bridge test.
 3. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
    validated pipeline first.

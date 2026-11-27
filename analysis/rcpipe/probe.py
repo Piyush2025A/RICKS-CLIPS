@@ -67,7 +67,8 @@ def probe(path):
     }
     out["audio"] = None if a is None else {
         "codec": a.get("codec_name"), "sample_rate": _i(a.get("sample_rate")), "channels": a.get("channels"),
-        "start_time": _f(a.get("start_time")), "duration": _f(a.get("duration")), "time_base": a.get("time_base")}
+        "start_time": _f(a.get("start_time")), "duration": _f(a.get("duration")), "time_base": a.get("time_base"),
+        "index": a.get("index"), "channel_layout": a.get("channel_layout"), "nb_frames": _i(a.get("nb_frames"))}
     out["pts_time"] = pts
     out["pts_missing"] = n_missing
     out["timing"] = vfr_analysis(pts, v.get("time_base"))

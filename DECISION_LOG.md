@@ -148,3 +148,16 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   estimate with uncertainty flags; outputs are computational only.
 - Proposed schema changes deferred (see PROGRESS). Status: accepted as Phase 2.5 infrastructure; recalibration on
   real footage happens only after Phase 3 authorisation.
+
+## D018 · 2026-11-27 · Schemas v2 and rcpipe v0.2.0 (synthetic validation)
+- User approved A27's four schema proposals. Director-owned changes: `SYN-` keys and a required `dataset` field with
+  key rules (RC30 must carry `manifest_sha256`; `dataset-manifest` stays RC30-only); coverage status counts with the
+  invariant ok + uncertain + failed + missing = expected (validator-enforced); new `coverage-audio` schema incl.
+  `audio_present`; `pipeline_version`, `config_fingerprint`, 64-hex `input_sha256`; `analysis_resolution`
+  native/proxy (record = finest stage, per-stage values in `stages`); `per_video` null instead of coercion to 0.
+- A27 found 5 schema defects; 4 fixed by the director, 1 kept by design (new audio schema starts at version 1).
+- A27 implemented v0.2.0; 318/318 checks incl. 44 negative controls, reproduced independently. Native frames are
+  retrievable bit-exactly by frame ID; motion/shot measurements are proxy-resolution and labelled so.
+- Known limitations recorded (PROGRESS, A27 FAILED.md/TECHNIQUES.md labelled synthetic-validated). Thresholds are
+  not re-tuned on synthetic data; recalibration waits for authorised real footage.
+- Status: accepted by user for implementation; results awaiting user review.

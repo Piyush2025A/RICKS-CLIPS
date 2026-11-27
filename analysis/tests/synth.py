@@ -44,7 +44,8 @@ def read_barcode(img, bits=16, bs=16):
     return v
 
 
-def encode(frames, path, fps=30, vf=None, audio=None, crf=14, w=W, h=H, extra=()):
+def encode(frames, path, fps=30, vf=None, audio=None, crf=14, w=W, h=H, extra=(), pix_fmt="yuv420p", acodec=None,
+           shortest=True, afilter=None, preset="fast"):
     """frames: iterable of BGR uint8. audio: wav path (muxed; mp4 -> aac, mkv -> pcm_s16le). vf: ffmpeg -vf string."""
     os.makedirs(os.path.dirname(path), exist_ok=True)
     cmd = ["ffmpeg", "-nostdin", "-v", "error", "-y", "-f", "rawvideo", "-pix_fmt", "bgr24", "-s", f"{w}x{h}",
@@ -53,10 +54,13 @@ def encode(frames, path, fps=30, vf=None, audio=None, crf=14, w=W, h=H, extra=()
         cmd += ["-i", audio]
     if vf:
         cmd += ["-vf", vf]
-    cmd += ["-fps_mode", "passthrough", "-c:v", "libx264", "-preset", "fast", "-crf", str(crf), "-pix_fmt", "yuv420p"]
+    cmd += ["-fps_mode", "passthrough", "-c:v", "libx264", "-preset", preset, "-crf", str(crf), "-pix_fmt", pix_fmt]
     if audio:
-        cmd += ["-c:a", "aac", "-b:a", "192k"] if path.endswith(".mp4") else ["-c:a", "pcm_s16le"]
-        cmd += ["-shortest"]
+        if afilter:
+            cmd += ["-af", afilter]
+        ac = acodec or ("aac" if path.endswith(".mp4") else "pcm_s16le")
+        cmd += ["-c:a", ac] + (["-b:a", "192k"] if ac == "aac" else [])
+        cmd += ["-shortest"] if shortest else []
     cmd += list(extra) + [path]
     p = subprocess.Popen(cmd, stdin=subprocess.PIPE)
     n = 0
@@ -260,6 +264,35 @@ def make_all(d):
         encode(tiny(240), P(f"aud_{nm}.{ext}"), fps=30, audio=P(nm + ".wav"), w=64, h=112)
         reg(f"aud_{nm}", P(f"aud_{nm}.{ext}"), {"expected_lufs": lufs, "amp": amp,
                                                   "expected_tp_dbtp": 20 * np.log10(amp), "expected_rms_dbfs": 20 * np.log10(amp / 2 ** .5)})
+    # 10. audio coverage faults (video: tiny flat 64x112 at 30 fps)
+    # 10a audio shorter than video: 3.0 s of tones under 5.0 s of video
+    sf.write(P("short.wav"), seg[: int(3.0 * sr)], sr, subtype="FLOAT")
+    encode(tiny(150), P("aud_short.mkv"), fps=30, audio=P("short.wav"), w=64, h=112, shortest=False)
+    reg("aud_short", P("aud_short.mkv"), {"video_s": 5.0, "audio_s": 3.0, "missing": [[3.0, 5.0]]})
+    # 10b gap: tones with 1.0-1.6 s of audio frames DROPPED but timestamps kept (pts discontinuity)
+    encode(tiny(135), P("aud_gap.mkv"), fps=30, audio=P("tones.wav"), w=64, h=112,
+           afilter="aselect='not(between(t,1.0,1.6))'")
+    reg("aud_gap", P("aud_gap.mkv"), {"video_s": 4.5, "gap": [1.0, 1.6]})
+    # 10c video without any audio stream
+    encode(tiny(90), P("aud_none.mkv"), fps=30, w=64, h=112)
+    reg("aud_none", P("aud_none.mkv"), {})
+    # 10d corrupt audio: AAC-in-mkv whose packet payload bytes between 1.0 and 2.0 s (partial) or everywhere (full)
+    # are overwritten with seeded random bytes (container structure stays intact, video untouched)
+    encode(tiny(135), P("aud_aac_clean.mkv"), fps=30, audio=P("tones.wav"), w=64, h=112, acodec="aac")
+    pk = json.loads(subprocess.run(["ffprobe", "-v", "error", "-of", "json", "-select_streams", "a:0", "-show_entries",
+                                    "packet=pts_time,pos,size", P("aud_aac_clean.mkv")], capture_output=True, text=True).stdout)["packets"]
+    for nm, lo, hi in (("partial", 1.0, 2.0), ("full", -1.0, 99.0)):
+        b = bytearray(open(P("aud_aac_clean.mkv"), "rb").read())
+        r_ = np.random.default_rng(5)
+        n_hit = 0
+        for q in pk:
+            if lo <= float(q["pts_time"]) < hi:
+                a = int(q["pos"]) + 4  # skip matroska block header (track vint, 2 B timecode, flags)
+                z = a + int(q["size"])
+                b[a:z] = r_.integers(0, 256, z - a, dtype=np.uint8).tobytes()
+                n_hit += 1
+        open(P(f"aud_corrupt_{nm}.mkv"), "wb").write(bytes(b))
+        reg(f"aud_corrupt_{nm}", P(f"aud_corrupt_{nm}.mkv"), {"corrupt_packets": n_hit, "of": len(pk), "window": [lo, hi]})
     return out
 
 

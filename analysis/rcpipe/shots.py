@@ -48,7 +48,7 @@ def pair_features(prev, cur):
 def first_features(cur):
     g = cv2.cvtColor(_small(cur), cv2.COLOR_BGR2GRAY)
     return {"hist_luma": NAN, "hist_bgr": NAN, "hist_dist": NAN, "mad": NAN, "ssim_dist": NAN,
-            "edge_change": NAN, "luma_mean": float(g.mean())}
+            "edge_change": NAN, "luma_mean": float(g.mean()), "status": "ok:reference_frame_no_previous_pair"}
 
 
 def _rolling_median(x, win):

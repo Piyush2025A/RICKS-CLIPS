@@ -17,12 +17,18 @@ def main():
     ap.add_argument("--exclude-bottom", type=float, default=0.0, help="fraction of height excluded from motion (caption band)")
     ap.add_argument("--exclude-top", type=float, default=0.0)
     ap.add_argument("--no-flow", action="store_true")
+    ap.add_argument("--dataset", choices=["RC30", "OUR", "SYN"], default=None,
+                    help="optional; must agree with the key prefix. RC30 additionally needs knowledge/dataset/MANIFEST.json")
+    ap.add_argument("--manifest", default=None, help="path of the frozen dataset manifest (RC30 only)")
     ap.add_argument("--stop-after-chunks", type=int, default=None, help="TEST HOOK: simulate crash")
     a = ap.parse_args()
     mk = {"exclude_bottom": a.exclude_bottom, "exclude_top": a.exclude_top, "flow": not a.no_flow}
     try:
         r = pipeline.run(a.input, a.key, a.out, a.proxy_width, a.chunk, a.stages.split(","), a.sheets_every,
-                         a.stop_after_chunks, None, mk)
+                         a.stop_after_chunks, None, mk, dataset=a.dataset, manifest_path=a.manifest)
+    except ValueError as e:  # refusals (bad key, dataset/key mismatch, RC30 without manifest)
+        print("REFUSED:", e, file=sys.stderr, flush=True)
+        sys.exit(2)
     except pipeline.SimulatedInterrupt as e:
         print("INTERRUPTED:", e, flush=True)
         os._exit(75)

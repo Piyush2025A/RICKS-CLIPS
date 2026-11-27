@@ -28,20 +28,24 @@ def iter_frames(path, video, proxy_width=None):
     err = tempfile.TemporaryFile()
     p = subprocess.Popen(decode_cmd(path, w, h, scale), stdout=subprocess.PIPE, stderr=err, bufsize=n * 2)
     i = 0
+    finished = False
     try:
         while True:
             buf = p.stdout.read(n)
             if len(buf) == 0:
+                finished = True
                 break
             if len(buf) < n:
                 raise RuntimeError(f"truncated frame at index {i}: {len(buf)}/{n} bytes")
             yield i, np.frombuffer(buf, np.uint8).reshape(h, w, 3)
             i += 1
     finally:
+        if not finished:  # consumer stopped early (or error): do not wait for the whole stream
+            p.kill()
         p.stdout.close()
         rc = p.wait()
         err.seek(0)
         msg = err.read().decode(errors="replace").strip()
         err.close()
-        if rc != 0:
+        if finished and rc != 0:
             raise RuntimeError(f"ffmpeg exit {rc}: {msg[:500]}")
