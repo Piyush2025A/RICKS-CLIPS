@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** Phase 2.5 closing; **Phase 3 planned, awaiting approval** (`research/phase3-plan.md`). No footage acquired.
+**Current phase:** Phase 3 preparation — **RC30 dataset verification done (D025); manifest NOT frozen; analysis not started.**
 **Last updated:** 2026-11-27
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
@@ -142,11 +142,23 @@
       ≤ 9 MB Drive parts with SHA-256, storage rules, specialist waves, coverage honesty, non-blocking leftovers.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
+## Phase 3 preparation — RC30 dataset verification (D025), 2026-11-27, local session
+- [x] 30 files supplied by the user at `~/ricks-clips-private/reference-videos/RC30/` (`1.mp4`–`30.mp4`), outside the
+      repo; read-only probe, SHA-256 and full decode of every frame. Report: `research/rc30-dataset-verification.md`.
+- [x] All 30: H.264 High 1080×1920, CFR 30/1, AAC-LC 44.1 kHz stereo; 0 decode errors; decoded frames = packets =
+      duration × 30, consecutive pts, 0 gaps; 30 distinct SHA-256; 0 frames shared between files.
+- [x] Totals: **50,898 frames, 1,696.600 s video, 796,421,438 bytes.**
+- [x] Draft (unfrozen) manifest: `knowledge/dataset/MANIFEST.draft.json` (titles from container tags, media metadata).
+- [x] 29 agents listed in the local session; validator PASS (none invoked).
+- [ ] **Open:** video IDs, publication dates, URLs; "latest 30" check against the Shorts tab; acquisition
+      method/authorisation (files look like FFmpeg-merged YouTube streams — INFERRED); approval to install the venv
+      locally; manifest freeze.
+
 ## Blockers (corrected 2026-11-27)
 1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
 2. ~~Analysis environment not installed.~~ **Resolved (D016).** Re-run `setup/setup-analysis.sh --with-audio` each new
    cloud session (~15 s) unless the user approves saving it as the environment setup script.
-3. **Phase 3 not authorised.** Preconditions: user approval and an authorised RC30 footage acquisition/storage method.
+3. **Phase 3 analysis not authorised.** Footage is on the user's computer (D025); still needed: acquisition authorisation confirmed, IDs/dates, manifest freeze, venv install approval.
 4. Google Flow (D013–D015):
    - ~~Chrome integration not set up~~ — local Claude in Chrome generation works (D015, reported by local session).
    - Cloud session has no browser access (D014); Flow work runs only in the local session.

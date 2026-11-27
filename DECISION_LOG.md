@@ -229,3 +229,13 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   of > 10 MB files by ≤ 9 MB parts via a private Drive folder with per-part and whole-file SHA-256. New rule proposed:
   per-frame tables stay private (Drive), their checksums and all aggregates/findings are committed.
 - Status: proposed; awaiting user approval and acquisition decision. No footage acquired.
+
+## D025 · 2026-11-27 · RC30 files verified locally; manifest drafted, not frozen
+- User placed 30 files outside the repo (`~/ricks-clips-private/reference-videos/RC30/`). Verified read-only in the
+  local session: all readable and fully decodable, uniform 1080×1920 H.264 CFR 30 fps + AAC 44.1 kHz, exact frame
+  accounting (50,898 frames, 1,696.600 s), no duplicates, no corruption. Evidence: `research/rc30-dataset-verification.md`.
+- Not verified: video IDs, publication dates, that these are the latest 30 Shorts (files hold titles only).
+- Provenance: container metadata suggests FFmpeg-merged YouTube streams (INFERRED); acquisition method and
+  authorisation must be confirmed by the user before freeze (plan §3).
+- Recommended (proposed): run rcpipe locally on this computer (no 796 MB transfer); per-frame data stays private.
+- Status: awaiting user inputs (IDs/dates, authorisation) and approvals (freeze, venv install, analysis start).
