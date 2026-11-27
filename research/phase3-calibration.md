@@ -77,7 +77,39 @@ an upper bound for outline coverage, not an outline measurement.
   holographic blue wireframe "x-ray" cutaway (f000778 onward).
 
 ## 2. Holdout RC30-15 (`15.mp4`, 2,334 frames, 77.8 s)
-HOLDOUT_PENDING
+### 2.1 Run (MEASURED)
+exit 0; wall 931.9 s (15 min 33 s) = 2.50 frames/s (shared CPU with the overview-sheet job); peak RSS 451 MiB.
+reconcile packets = read frames = pts = decoded = **2,334**; vs D025 `framemd5`: 2,334 = 2,334, max |Δpts| 3.3 × 10⁻⁷ s.
+Stages: color/edges/sharpness/decode 2,334 ok native; shots 2,334 ok proxy; motion 1,931 ok + 403 uncertain proxy.
+Candidates: 35 (31 gradual, 4 flash, 0 cut).
+
+### 2.2 Shot-boundary check (OBSERVED; sampled, not exhaustive)
+Method: the 1-fps overview sheets (2 images, 79 tiles at 180 × 320) were compared tile-to-tile; every scene change
+between adjacent seconds was matched to a candidate; unmatched changes and the opening candidates were inspected on
+the every-frame contact sheets (4 sheets, 192 frames). Ledger: `coverage/visual/director.jsonl`.
+- ~26 scene changes found on the overview; 25 have a candidate.
+- **Miss:** f001074–f001087, a slow (~14-frame, 0.47 s) crossfade between two dark-blue scenes (street → hospital) —
+  no candidate. This is the known weakness class (same palette, low per-frame difference; D018 same-palette miss).
+- f002208–f002255: continuous pull-back, correctly no candidate.
+- Opening f000026–f000031: camera flies past the character's head into a desk close-up (foreground "wipe" during a
+  continuous move) → flash candidate 27–29 marks a real transition of type *fly-through/foreground wipe*; gradual
+  candidates 45–54 and 57–62 are continuous camera moves → false positives.
+- Not every candidate was checked; precision on this video is not measured (several gradual candidates fall on camera
+  moves, as in RC30-27).
+- Two transition types now observed: short crossfades (~6 frames), slow crossfades (~14 frames), fly-through wipe.
 
 ## 3. Calibration decision
-DECISION_PENDING
+**Calibration accepted; rcpipe v0.2.0 kept unchanged (no material defect requiring a code change).**
+| Measurement | Status after calibration | Use |
+|---|---|---|
+| Frame accounting, pts | exact on both videos vs an independent decode (and OpenCV sequential read for all 30 overview sheets) | reliable |
+| Colour, luma, hue, saturation, sharpness, edge density | native, complete; descriptive statistics of compressed frames | reliable as statistics; "ink" fraction is an upper bound |
+| Camera motion (global) | direction agreed with observation 7/7 shots; proxy 2-D similarity model | reliable for direction/relative speed; magnitudes are estimates; dolly vs zoom and parallax not separable |
+| Residual (object/character) motion | proxy; not ground-truthed | estimate |
+| Shot boundaries | high-recall candidate generator: 6/6 (RC30-27), 25/26 scene changes (RC30-15); misses slow same-palette dissolves; false positives on fast camera moves and in-shot animation | **candidates only** — transitions must be confirmed visually (A15) on the every-frame sheets |
+| Loudness (native) | EBU R128 via ffmpeg | reliable |
+| Envelope / spectrum / onsets (48 kHz mono) | per D027; stereo side signal −29 dB below channels on RC30-27 | reliable for timing and broad balance; stereo measured separately |
+Follow-ups that do **not** change rcpipe: A27 adds a post-pass over `shot_features.csv` for slow dissolves (windowed
+cumulative difference), labelled as a separate analysis; A15 builds the transition catalogue visually.
+Throughput for the batch: ≈ 0.37–0.40 s/frame per worker → 47,636 remaining frames ≈ 5 h single worker; run with 2
+workers (≈ 3–3.5 h estimated, to be measured).
