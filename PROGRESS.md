@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** Phase 3 preparation — **RC30 dataset verification done (D025); manifest NOT frozen; analysis not started.**
+**Current phase:** **Phase 3 — RC30 research IN PROGRESS (overnight run started 2026-11-28 01:20 IST).** Resume from the checkpoint section below.
 **Last updated:** 2026-11-27
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
@@ -163,6 +163,33 @@
       documented). Evidence: `research/phase3-local-execution.md` §6–7.
 - [ ] **Still blocking RC30 research:** video IDs/URLs + publication dates, latest-30 confirmation, acquisition
       authorisation, manifest freeze.
+
+## Phase 3 overnight run — CHECKPOINT (update after every video batch / specialist)
+- Manifest frozen (D028) `fc6f147a…278e06`. Calibration accepted: `research/phase3-calibration.md`.
+- Computational batch: rcpipe v0.2.0, 2 workers, script `batch.sh` (session scratchpad; logic: shortest-first,
+  skip videos whose coverage.jsonl is complete with matching SHA). Log: `~/ricks-clips-private/analysis-data/rc30/batch-logs/batch.log`.
+  Outputs: `~/ricks-clips-private/analysis-data/rc30/v0.2.0/RC30-nn/`. Done before batch: RC30-27, RC30-15.
+  **Resume:** re-run `run_pipeline.py` per incomplete key (same flags as `research/phase3-calibration.md` §1) — rcpipe chunk
+  checkpoints resume inside a video.
+- Overview sheets (1 fps) for all 30: `~/ricks-clips-private/analysis-data/rc30/overview/` (56 PNG).
+- Specialist brief: `knowledge/_system/briefs/PHASE3-BRIEF.md`. Visual ledgers: `knowledge/dataset/coverage/visual/`.
+- Specialist status: see table below (filled as agents complete).
+| Wave | Agents | Status |
+|---|---|---|
+| V1 (visual, overview-based; parallel to batch) | A01 ∥ A05 | pending |
+| V2 | A02 ∥ A03 | pending |
+| V3 | A04 ∥ A06 | pending |
+| C1 (after batch) | A27 consolidation | pending |
+| C2 | A15 ∥ A20 | pending |
+| C3 | A13 ∥ A16 | pending |
+| C4 | A09 ∥ A11 | pending |
+| C5 | A10 ∥ A08 | pending |
+| C6 | A07 ∥ A14 | pending |
+| C7 | A12 ∥ A21 | pending |
+| C8 | A22 ∥ A19 | pending |
+| C9 | A17 ∥ A18 | pending |
+| Q | A28 audit | pending |
+| K | director bibles + STYLE_BIBLE | pending |
 
 ## Blockers (corrected 2026-11-27)
 1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
