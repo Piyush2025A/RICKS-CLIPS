@@ -239,3 +239,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   authorisation must be confirmed by the user before freeze (plan §3).
 - Recommended (proposed): run rcpipe locally on this computer (no 796 MB transfer); per-frame data stays private.
 - Status: awaiting user inputs (IDs/dates, authorisation) and approvals (freeze, venv install, analysis start).
+
+## D026 · 2026-11-28 · Local install, calibration and batch plan prepared (proposed)
+- Audio-tier lock required (rcpipe's audio stage imports librosa). Install proposed as the existing script with an
+  explicit interpreter: `PYTHON=~/miniconda3/bin/python3.13 bash setup/setup-analysis.sh --with-audio` → only
+  `.venv-analysis/`; system Python, miniconda base and `~/.venv` untouched.
+- Calibration on the shortest video (`27.mp4`, 928 frames) after the manifest freeze, with director ground-truth
+  labels from full visual review; optional long holdout (`15.mp4`). Open user decision: rcpipe's temporary 48 kHz mono
+  audio extraction vs native 44.1 kHz stereo analysis.
+- Resume rule: a video/stage is done only if its coverage record matches manifest, input SHA-256, config fingerprint
+  and the manifest frame count. Details: `research/phase3-local-execution.md`.
+- Status: proposed; blocked on identity/date inputs and acquisition authorisation.

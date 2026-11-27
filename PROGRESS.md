@@ -153,6 +153,9 @@
 - [ ] **Open:** video IDs, publication dates, URLs; "latest 30" check against the Shorts tab; acquisition
       method/authorisation (files look like FFmpeg-merged YouTube streams — INFERRED); approval to install the venv
       locally; manifest freeze.
+- [x] 2026-11-28: GitHub sync verified (local = origin = `00ce614`). Dependencies, isolated install method,
+      one-video calibration and resumable 30-video/specialist plan prepared: `research/phase3-local-execution.md`
+      (D026). Nothing installed or run.
 
 ## Blockers (corrected 2026-11-27)
 1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
@@ -172,7 +175,8 @@
    generation without approval.
 6. No GPU (software WebGL2 only).
 
-## Next actions (pending approval)
+## Next actions (pending approval) — current list: `research/phase3-local-execution.md` §4–5
+## Earlier next actions
 1. User: decide the authorised acquisition method (`research/phase3-plan.md` §3; recommended: creator-supplied files).
 2. User: create a YouTube Data API key (metadata only) and enter it through the secure credential form.
 3. User: approve Phase 3 start; director then runs P3.1 (identify + freeze `MANIFEST.json`) and stops for the
