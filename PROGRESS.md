@@ -111,6 +111,8 @@
       the same way. `folders` is empty, so no folder can be requested; none was requested. The path is not hidden or
       under ~/Library, so the remaining documented cause is the app version on that computer; whether the Linux beta
       can serve folders at all is UNVERIFIED.
+      **Attempt 2 (2026-11-27): BLOCKED, unchanged** after the user updated and restarted Claude Desktop: same
+      `not_available` result for both folders, `folders` empty, nothing requested.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)

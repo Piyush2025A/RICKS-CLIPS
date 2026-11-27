@@ -179,4 +179,7 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Cause not certain. Excluded: hidden/~/Library paths. Remaining candidate per the tool: the Claude app version on
   that computer (Linux beta). Next: user checks for a Claude Desktop update; if none helps, T5 via attached folder is
   not available on Linux and the fallback is the local session (D014) with text-only hand-off.
-- Status: blocked, awaiting user.
+- Attempt 2 after a Claude Desktop update and restart: identical result. The update did not help; cause still not
+  given by the computer. Cloud-attached folder transfer is treated as unavailable from this Linux computer for now;
+  Flow work continues in the local session with text-only hand-off (D014).
+- Status: blocked (retry only if a later app release or the user reports a change).
