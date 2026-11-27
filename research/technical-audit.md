@@ -17,7 +17,7 @@ Evidence levels: **Verified** = observed by a command in this session · **Infer
 | Capability | Status | Evidence |
 |---|---|---|
 | Read our repo over git | Verified | `git ls-remote origin` returned `main` |
-| Push to our dev branch | Verified at end of Phase 1 if the push in `PROGRESS.md` succeeded; `git push --dry-run` passed earlier (a dry run does not prove auth) | `git push` |
+| Push to our dev branch | **Verified** — commit `3c4c6f9` pushed to `origin/claude/beautiful-fermat-fs0iqn` | `git push -u origin ...` |
 | Clone public third-party repo | Verified | clone of `mromidev/claude-animated-shorts` |
 | GitHub MCP tools (issues/PRs) | Untested | scope: `piyush2025a/ricks-clips` only |
 | Push to `main` / merge | Not attempted (forbidden without approval) | — |
