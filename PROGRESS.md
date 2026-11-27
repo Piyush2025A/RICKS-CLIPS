@@ -105,6 +105,12 @@
       limits. **Bidirectional binary transfer: UNVERIFIED.** Inferred mechanism (to be tested): tool calls run on one
       machine at a time, so bytes cross only through the conversation (e.g. base64 text), which bounds file size.
       Test folder planned: `~/ricks-clips-private/t5-transfer-test/` only.
+      **Attempt 1 (2026-11-27): BLOCKED.** User enabled Remote Control hosting in Claude Desktop (Ubuntu, computer
+      `Latitude-5289`) and added the test folder. `list_computer_folders` now lists it under `cannot_be_used`, reason
+      `not_available` ("that computer does not offer it to cloud sessions and did not say why"); `RICKS-CLIPS` is listed
+      the same way. `folders` is empty, so no folder can be requested; none was requested. The path is not hidden or
+      under ~/Library, so the remaining documented cause is the app version on that computer; whether the Linux beta
+      can serve folders at all is UNVERIFIED.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)

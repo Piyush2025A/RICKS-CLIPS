@@ -172,3 +172,11 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   folder serving, and whether binary bytes survive a round trip in either direction. Public docs read do not describe
   this feature; the in-session tool definitions are the only source (recorded as such).
 - Status: accepted (user instruction); test pending user action on their computer.
+
+## D020 · 2026-11-27 · T5 attempt 1 blocked: Linux computer does not offer folders to cloud sessions
+- Evidence: `list_computer_folders` → `folders: []`; `cannot_be_used`: `t5-transfer-test` and `RICKS-CLIPS` on
+  `Latitude-5289`, reason `not_available`, no cause given by the computer. No access was requested.
+- Cause not certain. Excluded: hidden/~/Library paths. Remaining candidate per the tool: the Claude app version on
+  that computer (Linux beta). Next: user checks for a Claude Desktop update; if none helps, T5 via attached folder is
+  not available on Linux and the fallback is the local session (D014) with text-only hand-off.
+- Status: blocked, awaiting user.
