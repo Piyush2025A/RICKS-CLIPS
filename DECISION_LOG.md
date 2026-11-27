@@ -116,3 +116,22 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Decision: the user will run a separate local Claude Code session on their computer, on the same repository, for
   Google Flow work. The cloud session keeps planning, documentation and text-only hand-off via git.
 - Status: accepted (user instruction).
+
+## D015 · 2026-11-27 · Local Claude in Chrome → Flow generation works (reported by local session)
+- Reported by the user's local Claude Code session (not re-verified from the cloud): one Nano Banana 2 Lite image
+  generated and downloaded via official Claude in Chrome; PNG 768 × 1376; ~15–27 s; Flow balance 1,050 → 1,050;
+  zero monthly credits; private local storage + provenance records; visible watermark and content credentials
+  preserved; the download needed a manual confirmation.
+- Implications: local Chrome integration (Option 2, §1A.6) is functional for a single generation; the image path
+  did not move the credit balance (consistent with §1.2, informs C2 for the direct path only). The download
+  confirmation is a fixed manual step. Cloud ↔ local binary transfer (T5) remains unverified, so pixels stay local.
+- Status: accepted as a reported result; "working" status for the full integration still requires T5 and a batch test.
+
+## D016 · 2026-11-27 · Analysis environment (D010) installed and verified
+- User approved installing the full analysis tier with audio. Lock files checked first (40 + 22 packages, every package
+  sha256-pinned, core ⊂ audio, script runs no network/system commands beyond pip). Install: 15 s, 715 MB, clean
+  `pip check`, installed set equals the lock, 40/40 imports, idempotent re-run. Smoke tests on synthetic data only,
+  including FFmpeg/FFprobe encode/probe/decode for video and audio (results: `setup/VERIFICATION.md`).
+- Restoration: ephemeral container → re-run the script in each new session (~15 s). Saving it as the stored cloud
+  environment setup script is recommended but **not applied** (needs separate approval).
+- Status: D010 accepted (verified).

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Reproducible, idempotent setup of the reference-analysis Python environment.
-# PROPOSED FOR REVIEW (Phase 2). Not yet run; not saved as the cloud environment's setup script.
+# Approved and verified 2026-11-27 (see setup/VERIFICATION.md). Not saved as the cloud environment's setup script.
 #
 # Usage: bash setup/setup-analysis.sh [--with-audio]
 #   Creates .venv-analysis/ at the repo root (git-ignored) from hash-pinned lock files.

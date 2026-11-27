@@ -1,6 +1,6 @@
-# Environment setup (proposed — awaiting user approval)
+# Environment setup
 
-Nothing here has been run or saved as the cloud environment's setup script. Applying it is a separate decision.
+Analysis tiers approved and verified 2026-11-27 (`VERIFICATION.md`). Not saved as the cloud environment's setup script; that is a separate decision.
 
 ## Tiers
 | Tier | File | For | Status |

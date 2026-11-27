@@ -54,13 +54,26 @@
       operated; no navigation, generation or settings change. Evidence that cloud sessions cannot reach the user's
       Chrome (closes the cloud part of C3 against cloud support).
       **Not tested:** local Chrome integration (local Claude Code + extension, `claude --chrome`). Still pending as T0/T1.
-- [ ] Next: separate **local** Claude Code session on the user's computer (same repo) for Google Flow T0/T1.
+- [x] Separate **local** Claude Code session on the user's computer established (same repo) for Google Flow.
+- [x] **Local Flow generation — REPORTED BY THE LOCAL SESSION (D015), 2026-11-27; not independently verified by
+      the cloud session.** One image generated with Nano Banana 2 Lite and downloaded through the official Claude in
+      Chrome integration:
+      PNG, 768 × 1376 px; generation ~15–27 s; Flow balance 1,050 credits before and after; monthly credits consumed
+      0; private local storage and provenance records established; visible watermark and embedded content credentials
+      preserved; download required manual confirmation.
+      Still **unverified:** cloud-to-local (and local-to-cloud) binary asset transfer (T5).
+- [x] **Analysis environment installed and verified (D016), 2026-11-27** — `bash setup/setup-analysis.sh --with-audio`
+      (user-approved): exit 0, 15 s, venv 715 MB; `pip check` clean; installed set identical to the 40-package lock;
+      40/40 imports incl. librosa 1.0.1; idempotent re-run (0 s); synthetic image/video/audio smoke tests and
+      FFmpeg/FFprobe 6.1.1 round trips pass. Two first-attempt test-design failures (flat-texture optical flow, coarse
+      Welch bins) re-run correctly. Evidence: `setup/VERIFICATION.md`. Environment is ephemeral: re-run the script each
+      session (cloud setup script not changed).
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers
 1. ~~Registered agents need confirmation in a fresh session (D011).~~ **Resolved (D012)**: all 29 registered; A27
    invoked and verified. Remaining agents to be verified on first use.
-2. Phase 3 preconditions: an authorised footage acquisition/storage method for RC30; approval to run `setup/setup-analysis.sh`.
+2. Phase 3 preconditions: an authorised footage acquisition/storage method for RC30. (Analysis setup: done, D016.)
 3. Google Flow: ToS on automation/commercial use unread; Agent/Tools credit discrepancy; bridge byte transfer unverified;
    Chrome integration not set up on the user's computer (D003 rev 2).
 4. ElevenLabs API key not configured.
