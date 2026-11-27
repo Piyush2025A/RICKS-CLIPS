@@ -207,3 +207,13 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   cloud; larger renders cannot leave the cloud this way. The Drive → cloud direction for larger files (e.g. Flow
   downloads uploaded by the user) is untested.
 - Status: partial pass; awaiting the user's local verification and a decision on testing larger user-uploaded files.
+
+## D023 · 2026-11-27 · T5 complete: Google Drive is the private small-asset transfer layer
+- Verified end to end: cloud → Drive → cloud (16/16), Drive → user's computer (8/8, user-verified), user's computer →
+  Drive → cloud (5 MB 1/1); 25/25 completed transfers byte-exact; no base64 in the conversation.
+- Verified limits per file: upload from the cloud ~3.1 MB (4.2 MB per connector call); download into the cloud 10 MB
+  (Google's connector limit; the 20 MB test file was refused). No extra cost; folder private; no sharing changes.
+- Decision (proposed): use Drive for stills, audio, packs and small previews; render large final videos on the user's
+  computer from git-committed source; chunked Drive transfer as an untested fallback. Paid storage, GitHub media and
+  tunnels stay rejected.
+- Status: T5 accepted as complete; transfer-layer recommendation awaiting user approval.

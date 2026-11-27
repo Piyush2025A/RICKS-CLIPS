@@ -119,8 +119,11 @@
       `ricks-clips-t5` created (no sharing change). Synthetic PNG/WAV/MP4/ZIP at ~1–10 KB and ~1 MB: uploaded without
       conversion and downloaded back into the cloud filesystem, **16/16 SHA-256 matches**, no base64 in the
       conversation (PNG previews excepted). **~5 MB uploads refused: 4.2 MB per connector call (~3.1 MB of file
-      content)**; nothing sent; 20 MB not attempted. Download limit above 1 MB unverified. Local verification by the
-      user pending; test files kept until then.
+      content)**; nothing sent; 20 MB not attempted.
+      **Final (2026-11-27): COMPLETE.** User verified Drive → computer: 8/8 SHA-256 match. Computer → Drive → cloud:
+      5 MB file byte-exact (~1.6 s); 20 MB refused by Google's **10 MB connector download limit**. 25/25 completed
+      transfers byte-exact. Drive = private small-asset layer (≤ ~3.1 MB out of cloud, ≤ 10 MB into cloud); large renders
+      need local rendering or chunking (proposal in the report). Test files kept in Drive (no deletion yet).
 - [x] T5 alternative: Google Drive connector (D021) — capability review (superseded by the test above).
       VERIFIED: the official Google Drive connector is attached to this cloud session and authenticated (a scoped
       `search_files` for a folder titled `ricks-clips-t5` returned an empty result without error; no other Drive
@@ -142,7 +145,8 @@
 4. Google Flow (D013–D015):
    - ~~Chrome integration not set up~~ — local Claude in Chrome generation works (D015, reported by local session).
    - Cloud session has no browser access (D014); Flow work runs only in the local session.
-   - Cloud ↔ local binary transfer unverified (T5); pixels stay local until it passes.
+   - Cloud ↔ local binary transfer: T5 done via Google Drive (D023): byte-exact, ≤ ~3.1 MB out of the cloud,
+     ≤ 10 MB into the cloud per file. Native computer-folder sharing blocked on the user's Linux system (D020/D021).
    - Labs.google / Flow ToS on automation and commercial use not read.
    - Agent/Tools credit discrepancy (C2) untested (T4); direct-generation path used 0 monthly credits (D015).
    - User decisions in `research/integration-feasibility.md` §1A.9 pending. (Its §4 blocker table predates D014–D015;
