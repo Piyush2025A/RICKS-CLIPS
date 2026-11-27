@@ -131,3 +131,300 @@ RC30-08,1052,1056,XF,short,1053,5
 RC30-08,1087,1098,XF,with camera pan,1084,14
 RC30-08,1235,1246,XF,,1233,15
 RC30-08,1325,1333,XF,,1327,6
+RC30-08,1350,1358,FP,in-shot car flip dust,,
+RC30-08,1378,1390,XF,car->rollercoaster; frames ~1382-1387,1376,16
+RC30-08,1833,1837,FP,in-shot explosion,,
+RC30-12,98,109,XF,f100-104 horse -> betting hall,97,11
+RC30-12,373,395,ZT,push into monocle lens then dissolve to track (f391-395),,
+RC30-12,459,465,XF,f459-465 street -> farmer,456,10
+RC30-12,549,549,ZT,scope iris-in on circle,,
+RC30-12,570,570,ZT,scope iris-out,,
+RC30-12,593,593,ZT,scope iris-in,,
+RC30-12,608,608,ZT,scope iris-out,,
+RC30-12,657,668,XF,f659-663,658,14
+RC30-12,815,825,XF,f817-823,816,12
+RC30-12,1045,1057,XF,f1048-1054,1047,13
+RC30-12,1102,1106,XF,low confidence ghosted characters f1105-1108 with pan,1099,11
+RC30-12,1174,1180,FP,face change,,
+RC30-12,1289,1302,XF,f1293-1300,1288,18
+RC30-12,1393,1405,XF,f1398-1402,1392,15
+RC30-12,1414,1426,FP,continuous camera fly to judges stand,,
+RC30-12,1442,1446,XF,f1443-1446 judges -> street,1440,6
+RC30-12,1449,1453,FP,camera forward move,,
+RC30-12,1464,1473,FT,continuous camera move through doorway sky->interior,,
+RC30-12,1524,1529,FP,camera pan,,
+RC30-12,1532,1540,FP,camera move chars enter,,
+RC30-12,1577,1586,XF,f1580-1586 board -> pink sky,1576,9
+RC30-12,1622,1636,ZT,push into scope lens f1620-1628 to new scene,,
+RC30-12,1659,1678,FP,camera follow race,,
+RC30-12,1736,1748,XF,f1739-1745,1735,15
+RC30-14,19,26,XF,f20-24 gunman -> gun barrel,17,11
+RC30-14,31,37,FP,bullet in-shot,,
+RC30-14,82,87,FP,camera zoom on sheriff,,
+RC30-14,250,259,XF,f252-256,252,5
+RC30-14,407,414,XF,f408-412,408,10
+RC30-14,417,421,FP,flame VFX,,
+RC30-14,429,435,FP,flame VFX,,
+RC30-14,450,454,FP,VFX camera,,
+RC30-14,624,637,XF,f629-633,624,15
+RC30-14,766,776,XF,f768-774 -> new location,768,9
+RC30-14,931,939,XF,f933-937,932,7
+RC30-14,1097,1109,XF,f1100-1104,1098,9
+RC30-14,1213,1217,FP,camera pan,,
+RC30-14,1318,1328,ZT,push into eye/pupil (part 1),,
+RC30-14,1331,1342,ZT,"pupil fills frame, opens to scope view f1338-1344 (part 2)",,
+RC30-14,1528,1538,XF,f1530-1536 slow,1529,12
+RC30-14,1621,1630,ZT,scope iris expands to full frame f1625-1629,,
+RC30-15,27,35,FP,continuous camera push to ticket,,
+RC30-15,45,54,FP,camera pull,,
+RC30-15,57,62,FP,camera move,,
+RC30-15,147,164,XF,f151-159 office->shop alley,149,17
+RC30-15,193,205,XF,f196-200,193,13
+RC30-15,255,268,XF,f257-264,256,11
+RC30-15,466,483,XF,f469-477 night -> pool (bright flare in blend),470,11
+RC30-15,554,565,XF,f558-564,555,13
+RC30-15,604,608,FP,camera move,,
+RC30-15,681,694,XF,f685-692,681,13
+RC30-15,703,728,XF,f706-718 water -> blue scene with vertical streaks,704,24
+RC30-15,822,834,XF,f824-831,824,13
+RC30-15,942,956,XF,f946-952,945,11
+RC30-15,1074,1087,XF,"MISSED by rcpipe (director ground truth, slow crossfade)",1074,14
+RC30-15,1165,1172,FP,polaroid push-in in-shot,,
+RC30-15,1177,1188,FP,text-overlay fade / face morph,,
+RC30-15,1264,1283,XF,f1266-1272,1268,19
+RC30-15,1323,1335,XF,f1326-1333,1323,11
+RC30-15,1408,1424,XF,f1411-1418,1412,11
+RC30-15,1435,1448,FP,camera zoom-out,,
+RC30-15,1493,1506,XF,f1496-1503,1495,11
+RC30-15,1606,1612,FP,glow,,
+RC30-15,1624,1645,XF,f1634-1641,1627,17
+RC30-15,1677,1683,XF,f1677-1681,1678,9
+RC30-15,1688,1692,FP,camera move,,
+RC30-15,1735,1749,XF,f1738-1745,1737,10
+RC30-15,1923,1932,ZT,camera pull into dark (part 1),,
+RC30-15,1947,1989,VB,glow expands to whiteout f1953-1972 then dissolves to bedroom f1973-1987,,
+RC30-15,2134,2143,XF,f2136-2141,2135,7
+RC30-16,150,170,XF,f154-164 slow ticket -> number grid,152,15
+RC30-16,191,202,XF,f193-200,192,13
+RC30-16,255,266,XF,f257-263,257,12
+RC30-16,324,338,XF,f328-334,324,15
+RC30-16,408,418,XF,f410-416,408,9
+RC30-16,529,541,FP,ticket small motion,,
+RC30-16,673,684,XF,f676-682,671,14
+RC30-16,832,846,XF,f836-842,832,12
+RC30-16,890,898,XF,f892-897,888,11
+RC30-16,949,957,XF,f951-958,950,10
+RC30-16,1272,1282,XF,f1275-1280,1271,11
+RC30-16,1344,1356,XF,f1347-1352,1344,15
+RC30-16,1446,1458,XF,f1449-1455,1449,7
+RC30-16,1494,1515,ZT,push into phone keypad f1492-1504 + dissolve f1507-1511 to new shot,,
+RC30-16,1537,1539,FP,"flash cand, floor stripe shift",,
+RC30-16,1798,1811,XF,f1800-1807,1800,13
+RC30-17,23,29,FP,camera pull-back coffin,,
+RC30-17,297,308,XF,f299-306,298,10
+RC30-17,392,403,XF,f396-402,393,12
+RC30-17,514,524,XF,f516-522,511,17
+RC30-17,563,573,XF,f565-571,563,12
+RC30-17,653,665,XF,f656-662,654,12
+RC30-17,708,719,XF,f710-717,710,10
+RC30-17,813,824,XF,f815-822,814,11
+RC30-17,868,877,XF,f870-878 slow,865,15
+RC30-17,1116,1127,XF,f1118-1126 with camera move,1117,13
+RC30-17,1171,1182,XF,f1172-1177 papers -> garden through window,1168,18
+RC30-17,1203,1208,XF,f1204-1208,1200,12
+RC30-17,1235,1244,XF,f1236-1241,1232,16
+RC30-17,1383,1396,XF,f1387-1392,1384,11
+RC30-17,1434,1441,XF,f1435-1440,1435,6
+RC30-17,1467,1473,XF,f1468-1471,1468,5
+RC30-17,1559,1571,FP,in-shot lighting colour shift (sunrise),,
+RC30-17,1576,1586,XF,f1578-1583,1577,7
+RC30-18,37,49,FP,camera zoom,,
+RC30-18,70,80,FP,camera tilt,,
+RC30-18,175,186,XF,f179-184,176,9
+RC30-18,308,323,XF,f316-320,310,12
+RC30-18,367,375,XF,f369-374 into vignette,366,8
+RC30-18,424,434,XF,f426-431,422,11
+RC30-18,481,491,FP,camera move,,
+RC30-18,508,519,XF,f510-516 cashier -> moonlit boat,510,9
+RC30-18,561,566,FP,in-shot boat,,
+RC30-18,648,660,ZT,scene shrinks into fishbowl object f650-656,,
+RC30-18,684,716,XF,slow glow bloom dissolve f688-710 bed -> car,686,30
+RC30-18,728,734,FP,,,
+RC30-18,763,777,XF,f765-771,764,11
+RC30-18,972,985,XF,f974-981,974,10
+RC30-18,1307,1311,ZT,scene frames into poster f1309-1313 (low confidence),,
+RC30-18,1422,1426,FP,camera pan,,
+RC30-18,1533,1546,XF,f1535-1541,1535,9
+RC30-18,1578,1583,FP,doors open in-shot,,
+RC30-18,1612,1616,FP,,,
+RC30-18,1624,1648,VB,hat fills frame f1629-1631 then reveals new shot f1634,,
+RC30-18,1668,1680,XF,f1671-1676,1671,9
+RC30-18,1717,1723,FP,,,
+RC30-19,0,6,FP,in-shot,,
+RC30-19,35,39,FP,in-shot hammer,,
+RC30-19,63,77,XF,f69-76 slow,63,13
+RC30-19,135,144,XF,f137-143,136,10
+RC30-19,232,239,XF,f233-238,231,12
+RC30-19,280,287,XF,f281-286,280,8
+RC30-19,409,416,XF,f411-415,410,6
+RC30-19,481,487,XF,f483-487,480,11
+RC30-19,521,527,XF,f523-526,522,6
+RC30-19,574,579,XF,f575-577 short,575,6
+RC30-19,599,606,XF,f600-605,601,6
+RC30-19,639,649,XF,f641-646,640,8
+RC30-19,755,757,FP,"flash cand, camera pull",,
+RC30-19,767,773,XF,f767-772 white -> office,766,10
+RC30-19,857,867,XF,f858-864,859,6
+RC30-19,871,876,FP,calendar page flips in-shot,,
+RC30-19,880,886,FP,calendar page flip,,
+RC30-19,996,1006,XF,f999-1004,996,12
+RC30-19,1090,1097,XF,f1092-1096,1090,9
+RC30-19,1182,1192,XF,f1184-1190,1183,9
+RC30-19,1273,1282,XF,f1275-1280,1274,8
+RC30-19,1355,1362,XF,f1356-1359,1355,9
+RC30-19,1423,1432,XF,f1424-1429,1425,10
+RC30-19,1482,1494,FP,lighting shift,,
+RC30-20,49,56,XF,f52-56,48,10
+RC30-20,79,87,XF,f80-85,78,9
+RC30-20,123,128,FP,camera zoom,,
+RC30-20,136,142,FP,camera move,,
+RC30-20,164,176,XF,f166-171,166,10
+RC30-20,263,276,XF,f267-272,265,12
+RC30-20,457,468,XF,f460-466,456,12
+RC30-20,651,665,XF,f655-660 dissolve into circular lens view,650,12
+RC30-20,693,707,XF,f697-703,696,10
+RC30-20,751,756,FP,in-shot lighting shift,,
+RC30-20,763,774,XF,f766-770,766,7
+RC30-20,808,817,FP,light sweep overlay,,
+RC30-20,855,864,FP,light sweep overlay,,
+RC30-20,915,928,XF,f918-926,912,14
+RC30-20,1014,1063,FT,continuous fast camera pan floor->cat->dad across scenes,,
+RC30-20,1170,1182,FP,in-shot bat raise,,
+RC30-20,1290,1304,FP,camera tilt,,
+RC30-20,1441,1450,XF,f1443-1448,1440,11
+RC30-20,1569,1569,FP,flash cand polaroid camera move,,
+RC30-20,1633,1644,XF,f1636-1641,1632,13
+RC30-22,45,54,FP,cannon VFX/camera,,
+RC30-22,65,65,HC,ship exterior -> hull closeup at f65|66,,
+RC30-22,66,75,FP,crack VFX,,
+RC30-22,119,139,FP,fast camera rotation in-shot,,
+RC30-22,145,150,FP,camera,,
+RC30-22,193,203,FP,VFX,,
+RC30-22,541,547,VB,"smoke puff fills frame f541-545, reveals sea f546",,
+RC30-22,572,577,FP,camera pan,,
+RC30-22,690,694,FP,,,
+RC30-22,723,728,FP,,,
+RC30-22,799,827,FT,camera dives down cannon barrel f797-813 and emerges in powder-keg scene f816,,
+RC30-22,837,841,FP,glow VFX,,
+RC30-22,850,857,FP,,,
+RC30-22,900,919,XF,f906-912 bloom dissolve powder bag -> hull,899,18
+RC30-22,923,928,FP,VFX,,
+RC30-22,949,971,FP,VFX/camera follow,,
+RC30-22,1112,1119,XF,f1113-1117,1113,7
+RC30-22,1470,1478,XF,f1473-1477,1471,7
+RC30-22,1525,1530,FP,iron plate in-shot,,
+RC30-22,1605,1613,XF,f1606-1610,1607,8
+RC30-22,1793,1801,VB,"smoke puff fills f1792-1795, circular reveal wipe f1796-1799",,
+RC30-22,1823,1828,FP,explosion VFX,,
+RC30-23,98,102,FP,in-shot,,
+RC30-23,111,115,XF,f112-114 fast ~3,111,4
+RC30-23,148,153,VB,"foreground tree wipe f146-155 (object wipe, new scene behind)",,
+RC30-23,223,231,XF,f224-228,225,7
+RC30-23,366,371,XF,f367-370,367,4
+RC30-23,488,494,XF,f490-493,489,7
+RC30-23,567,578,XF,f570-575 with zoom on parchment,567,9
+RC30-23,623,632,XF,f624-627,624,8
+RC30-23,655,664,XF,f656-660,656,8
+RC30-23,730,735,XF,f731-734,728,10
+RC30-23,739,743,FP,camera pull,,
+RC30-23,804,805,FT,camera pushes through foliage from town to forest chest f800-807 (reclassified from FP after overview check),,
+RC30-23,916,920,FP,camera,,
+RC30-23,940,940,XF,1-2 frame dissolve f940,939,2
+RC30-23,995,999,XF,f996-998,995,4
+RC30-23,1003,1007,FP,colour change in-shot,,
+RC30-24,264,268,FP,camera pan,,
+RC30-24,272,282,FP,camera pan,,
+RC30-24,354,362,XF,f356-359,355,7
+RC30-24,379,387,FP,camera descent,,
+RC30-24,567,580,FP,in-shot day-to-night lighting shift,,
+RC30-24,601,608,FP,lighting shift,,
+RC30-24,712,721,XF,f714-719,714,6
+RC30-24,765,778,XF,f768-776 curtain room -> house exterior,763,16
+RC30-24,840,840,HC,f839|840 house -> interior,,
+RC30-24,990,997,XF,f991-996,991,6
+RC30-24,1126,1133,FP,camera move,,
+RC30-24,1138,1146,FP,char enters,,
+RC30-24,1176,1185,FP,VFX,,
+RC30-24,1219,1228,XF,f1221-1225,1221,6
+RC30-24,1297,1307,XF,f1300-1304,1296,11
+RC30-25,118,125,XF,f120-124 with zoom into body/pill tunnel,119,9
+RC30-25,236,242,XF,f238-242,233,9
+RC30-25,260,274,XF,glow bloom f264-271,259,18
+RC30-25,302,309,XF,f303-308,302,9
+RC30-25,337,343,XF,f338-343,336,8
+RC30-25,971,977,FP,doors open in-shot,,
+RC30-25,1015,1023,XF,f1015-1021,1016,9
+RC30-26,57,63,XF,f59-62,58,5
+RC30-26,135,151,XF,f138-143 city -> casino,137,16
+RC30-26,238,245,XF,f240-243,240,7
+RC30-26,309,318,XF,f313-317,311,7
+RC30-26,346,351,FP,walk,,
+RC30-26,412,419,XF,f414-417,413,7
+RC30-26,490,498,XF,f493-496,489,10
+RC30-26,563,570,XF,f565-568,560,9
+RC30-26,718,726,XF,f720-724,720,6
+RC30-26,766,770,FP,door in-shot,,
+RC30-26,803,812,XF,f808-812,805,7
+RC30-26,1110,1117,XF,f1112-1115,1111,6
+RC30-26,1222,1227,XF,f1223-1226,1223,3
+RC30-26,1304,1311,XF,f1306-1310,1306,5
+RC30-28,205,214,ZT,push into eye/pupil f203-216 (part 1),,
+RC30-28,223,224,ZT,pupil -> brain-in-circle expands into room f221-226 (part 2),,
+RC30-28,328,335,XF,f329-333 porthole->overhead room,329,9
+RC30-28,393,401,FP,fast camera in-shot,,
+RC30-28,436,445,XF,f438-442,437,10
+RC30-28,613,624,XF,f615-619,615,10
+RC30-28,711,711,HC,f710|711 blueprint -> tower,,
+RC30-28,853,863,XF,f857-862,854,9
+RC30-28,962,972,ZT,push through opening visor/door into brain room f962-970,,
+RC30-28,980,985,FP,colour shift,,
+RC30-28,988,999,FP,,,
+RC30-28,1002,1026,FP,papers pile in-shot,,
+RC30-28,1029,1068,FP,papers stack in-shot,,
+RC30-28,1077,1077,HC,f1076|1077 desk -> character close-up,,
+RC30-28,1164,1168,FP,camera,,
+RC30-29,3,16,FP,camera pull-out from check,,
+RC30-29,103,112,XF,f107-110 short,105,6
+RC30-29,283,303,XF,f295-302 with colour wash,281,21
+RC30-29,338,348,XF,f341-346,336,12
+RC30-29,733,741,XF,f735-739,731,13
+RC30-29,867,875,XF,f868-872,864,12
+RC30-29,949,957,XF,f951-956,951,9
+RC30-29,1039,1044,FP,pencil in-shot,,
+RC30-29,1057,1065,XF,f1059-1064,1056,8
+RC30-29,1285,1293,XF,f1287-1291,1287,9
+RC30-30,114,122,XF,f116-120,116,5
+RC30-30,314,325,XF,f316-322 into ring bg,316,7
+RC30-30,368,375,XF,f369-373,370,8
+RC30-30,556,561,FP,scan-line VFX,,
+RC30-30,615,622,XF,f616-620,616,8
+RC30-30,714,722,XF,f715-720,715,6
+RC30-30,856,856,ZT,push into iris f854-861 (part 1) then reveals corkboard f862,,
+RC30-30,861,861,ZT,iris fills frame (part 2),,
+RC30-30,864,870,FP,pinboard camera move,,
+RC30-30,940,948,XF,f943-947,942,6
+RC30-30,985,990,FP,lighting,,
+RC30-30,1039,1047,FP,lighting,,
+RC30-30,1050,1054,FP,lighting,,
+RC30-30,1088,1095,XF,f1089-1093,1088,8
+RC30-23,173,187,VB,"MISSED by rcpipe: foreground market-sign pillars sweep across frame f173-187 revealing snowy scene (object wipe), found via gap check",,
+RC30-23,1099,1101,HC,MISSED by rcpipe: scroll match-cut to pardon document between f1098 and f1101 (frame not isolated at step 3),,
+RC30-23,1156,1163,XF,MISSED by rcpipe: slow crossfade pardon document -> sunset road f1156-1163,1156,9
+RC30-27,248,248,XF,"director ground truth (phase3-calibration), not re-inspected",,
+RC30-27,338,338,XF,director ground truth,,
+RC30-27,421,421,XF,director ground truth,,
+RC30-27,494,494,XF,director ground truth,,
+RC30-27,540,540,XF,director ground truth,,
+RC30-27,778,778,XF,director ground truth,,
+RC30-27,550,555,FP,director ground truth false positive,,
+RC30-27,768,774,FP,director ground truth false positive,,
