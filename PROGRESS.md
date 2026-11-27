@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** **Phase 3 — RC30 research IN PROGRESS (overnight run started 2026-11-28 01:20 IST).** Resume from the checkpoint section below.
+**Current phase:** **Phase 3 — research run COMPLETE (2026-11-28 ≈ 05:40 IST); awaiting user review of the gate.** Report: `research/phase3-overnight-report.md`.
 **Last updated:** 2026-11-27
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
@@ -221,16 +221,9 @@
 
 - Harness note: several specialists' Write calls for FINDINGS/TECHNIQUES/FAILED were refused ("subagents should return findings as text"); the director wrote those files verbatim from the hand-offs (noted in each file header).
 
-## INTERRUPTED 2026-11-28 ≈ 03:00 IST — Claude usage limit reached. EXACT RESUME STEPS
-1. Batch (runs without Claude, may have finished overnight): check `~/ricks-clips-private/analysis-data/rc30/batch-logs/batch.log`
-   for `WORKER 0 DONE` / `WORKER 1 DONE`; any video without END rc=0 → re-run the batch script logic (it skips complete
-   videos). 10/30 were complete at interruption (27, 15, 25, 30, 28, 23, 24, 26, 29, 02). Script was in the session
-   scratchpad (may be gone): its logic is in this file's checkpoint section; re-create if needed.
-2. A11: resume by a new A11 brief: run its `analyze.py`/`trans.py` in `~/ricks-clips-private/analysis-data/rc30/agents/a11-color-grading-specialist/`
-   on `pass_NN.csv`/`pass2_NN.csv`, write FINDINGS/TECHNIQUES/FAILED (data JSON already in its knowledge folder).
-3. A21: re-brief to write deliverables from its private work folder.
-4. A20: check whether files exist in `knowledge/audio/a20-voiceover-specialist/`; if a hand-off text exists only in the
-   transcript, re-run.
-5. Then: A27 consolidation (coverage ledgers into `knowledge/dataset/coverage/computational/`, table SHA-256s, slow-dissolve
-   post-pass) → A15 ∥ A13 → A16 ∥ A22 → A17 ∥ A18 → A28 audit → director bibles + STYLE_BIBLE.md.
-6. Commit any uncommitted visual-ledger lines (`git status`).
+## Interruption 2026-11-28 ≈ 03:00 (usage limit) — RESOLVED after reset; all resume steps completed.
+
+## Phase 3 completion (2026-11-28)
+- Computational 50,898/50,898 frames (100 %); 60 coverage ledgers committed; visual ledgers 537 records (22 agents + director).
+- 22 department specialists + A25 + A27 + A28 delivered; bibles + STYLE_BIBLE v0.2 committed.
+- Next: user review; decisions listed in `research/phase3-overnight-report.md` §"Exact next steps". No Phase 4 work started.

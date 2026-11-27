@@ -273,3 +273,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   30 SHA-256 equal to the files, 50,898 frames. The repo's lightweight validator cannot enforce minItems/maxItems
   (pre-existing limitation), so the 30-item count was asserted separately.
 - Status: done.
+
+## D029 · 2026-11-28 · Phase 3 calibration accepted; rcpipe v0.2.0 kept unchanged
+- Pilot RC30-27 + holdout RC30-15: exact frame accounting, camera direction 7/7, shots = high-recall noisy candidates
+  (miss class: slow same-palette dissolves). No material defect → no pipeline change; transitions confirmed visually (A15).
+- Evidence: `research/phase3-calibration.md`. Status: done.
+
+## D030 · 2026-11-28 · Phase 3 research run complete; bibles drafted
+- 50,898/50,898 frames computationally processed; 25 agent runs; A28 audit applied; 9 bibles + STYLE_BIBLE v0.2.
+- Operational decisions taken autonomously (user-authorised): per-agent wrap-up on turn limits; director wrote refused
+  deliverables verbatim; moved A15 CSV into its owned folder; parallel visual-first waves during the batch.
+- Status: awaiting user review of the Phase 3 gate. Report: `research/phase3-overnight-report.md`.
