@@ -70,16 +70,25 @@
       session (cloud setup script not changed).
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
-## Blockers
-1. ~~Registered agents need confirmation in a fresh session (D011).~~ **Resolved (D012)**: all 29 registered; A27
-   invoked and verified. Remaining agents to be verified on first use.
-2. Phase 3 preconditions: an authorised footage acquisition/storage method for RC30. (Analysis setup: done, D016.)
-3. Google Flow: ToS on automation/commercial use unread; Agent/Tools credit discrepancy; bridge byte transfer unverified;
-   Chrome integration not set up on the user's computer (D003 rev 2).
-4. ElevenLabs API key not configured.
-5. No GPU (software WebGL2 only).
+## Blockers (corrected 2026-11-27)
+1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
+2. ~~Analysis environment not installed.~~ **Resolved (D016).** Re-run `setup/setup-analysis.sh --with-audio` each new
+   cloud session (~15 s) unless the user approves saving it as the environment setup script.
+3. **Phase 3 not authorised.** Preconditions: user approval and an authorised RC30 footage acquisition/storage method.
+4. Google Flow (D013–D015):
+   - ~~Chrome integration not set up~~ — local Claude in Chrome generation works (D015, reported by local session).
+   - Cloud session has no browser access (D014); Flow work runs only in the local session.
+   - Cloud ↔ local binary transfer unverified (T5); pixels stay local until it passes.
+   - Labs.google / Flow ToS on automation and commercial use not read.
+   - Agent/Tools credit discrepancy (C2) untested (T4); direct-generation path used 0 monthly credits (D015).
+   - User decisions in `research/integration-feasibility.md` §1A.9 pending. (Its §4 blocker table predates D014–D015;
+     A23 to refresh on next task.)
+5. ElevenLabs: no API key in the environment; an ElevenLabs connector is attached to sessions but untested. No
+   generation without approval.
+6. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. Phase 2.5: user reviews `research/integration-feasibility.md` §1A and decides §1A.9; then T0–T2 (zero-credit) tests.
-2. On Phase 3 approval: user confirms the acquisition method; run the setup script; director freezes `MANIFEST.json`;
-   A27 runs first.
+1. Phase 2.5: A27 analysis pipeline, synthetic validation only (in progress).
+2. User decisions on Flow §1A.9; T5 bridge test.
+3. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
+   validated pipeline first.
