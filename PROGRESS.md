@@ -182,12 +182,12 @@
 | V2 | A02 ∥ A03 | done (A02 10 findings; A03 partial: 7 videos measured) |
 | V3 | A04 ∥ A06 | done (A04 7 findings; A06 8 findings) |
 | C1 (after batch) | A27 consolidation | pending |
-| C2 | A15 ∥ A20 | A20 running; A15 pending (needs every-frame sheets) |
+| C2 | A15 ∥ A20 | **A20 status unknown at interruption** (check knowledge/audio/a20-voiceover-specialist/); A15 pending |
 | C3 | A13 ∥ A16 | pending |
-| C4 | A09 ∥ A11 | A09 done (12 findings; shadow contradiction resolved); A11 pending |
-| C5 | A10 ∥ A08 | A08 done (10 findings); A10 running |
+| C4 | A09 ∥ A11 | A09 done; **A11 INCOMPLETE** (1 fps colour passes ran in background; no FINDINGS yet) |
+| C5 | A10 ∥ A08 | done (A08 10 findings; A10 11 findings) |
 | C6 | A07 ∥ A14 | done (A07 8 findings partial; A14 7 findings) |
-| C7 | A12 ∥ A21 | A12 done (12 findings + E01–E18 library); A21 pending |
+| C7 | A12 ∥ A21 | A12 done; **A21 INCOMPLETE** (turn limit, no report) |
 | C8 | A22 ∥ A19 | A19 done (12 findings, 30/30 videos); A22 pending |
 | C9 | A17 ∥ A18 | pending |
 | Q | A28 audit | pending |
@@ -220,3 +220,17 @@
 4. Phase 3 per `research/phase3-plan.md` §6 (A27 first). Non-blocking Phase 2.5/4 items: plan §8.
 
 - Harness note: several specialists' Write calls for FINDINGS/TECHNIQUES/FAILED were refused ("subagents should return findings as text"); the director wrote those files verbatim from the hand-offs (noted in each file header).
+
+## INTERRUPTED 2026-11-28 ≈ 03:00 IST — Claude usage limit reached. EXACT RESUME STEPS
+1. Batch (runs without Claude, may have finished overnight): check `~/ricks-clips-private/analysis-data/rc30/batch-logs/batch.log`
+   for `WORKER 0 DONE` / `WORKER 1 DONE`; any video without END rc=0 → re-run the batch script logic (it skips complete
+   videos). 10/30 were complete at interruption (27, 15, 25, 30, 28, 23, 24, 26, 29, 02). Script was in the session
+   scratchpad (may be gone): its logic is in this file's checkpoint section; re-create if needed.
+2. A11: resume by a new A11 brief: run its `analyze.py`/`trans.py` in `~/ricks-clips-private/analysis-data/rc30/agents/a11-color-grading-specialist/`
+   on `pass_NN.csv`/`pass2_NN.csv`, write FINDINGS/TECHNIQUES/FAILED (data JSON already in its knowledge folder).
+3. A21: re-brief to write deliverables from its private work folder.
+4. A20: check whether files exist in `knowledge/audio/a20-voiceover-specialist/`; if a hand-off text exists only in the
+   transcript, re-run.
+5. Then: A27 consolidation (coverage ledgers into `knowledge/dataset/coverage/computational/`, table SHA-256s, slow-dissolve
+   post-pass) → A15 ∥ A13 → A16 ∥ A22 → A17 ∥ A18 → A28 audit → director bibles + STYLE_BIBLE.md.
+6. Commit any uncommitted visual-ledger lines (`git status`).
