@@ -250,3 +250,13 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Resume rule: a video/stage is done only if its coverage record matches manifest, input SHA-256, config fingerprint
   and the manifest frame count. Details: `research/phase3-local-execution.md`.
 - Status: proposed; blocked on identity/date inputs and acquisition authorisation.
+
+## D027 · 2026-11-28 · Local analysis environment verified; audio policy
+- User approved and the director ran `PYTHON=~/miniconda3/bin/python3.13 bash setup/setup-analysis.sh --with-audio` on
+  the user's computer: exit 0, 40/40 packages identical to the lock, `pip check` clean, synthetic suite 318/318
+  (868.6 s; ≈ 4× the cloud's 216 s), peak RSS 408 MiB, venv 828 MB. System Python, miniconda base, reference videos
+  (re-hashed) and rcpipe v0.2.0 unchanged.
+- Audio decision (user): originals' 44.1 kHz stereo preserved; rcpipe's temporary 48 kHz mono path kept for
+  envelope/spectral/onset measures with documented limitations; loudness already runs on the native stream; stereo
+  measures will use native stereo via a separate versioned tool (A20–A22), not by changing rcpipe.
+- Status: done. RC30 research still blocked on identities/dates, authorisation and manifest freeze.

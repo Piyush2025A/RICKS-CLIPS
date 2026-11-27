@@ -156,10 +156,17 @@
 - [x] 2026-11-28: GitHub sync verified (local = origin = `00ce614`). Dependencies, isolated install method,
       one-video calibration and resumable 30-video/specialist plan prepared: `research/phase3-local-execution.md`
       (D026). Nothing installed or run.
+- [x] **Local analysis environment installed and verified (D027), 2026-11-28 (user-approved).** Install exit 0 in
+      2 min 30 s; 40/40 packages = lock; `pip check` clean; **synthetic suite 318/318** in 14 min 32 s (≈ 4× slower
+      than the cloud), peak RSS 408 MiB; venv 828 MB; originals re-hashed 30/30 unchanged; miniconda base untouched;
+      29 agents listed, validator PASS. Audio policy recorded (native stereo preserved; 48 kHz mono path limits
+      documented). Evidence: `research/phase3-local-execution.md` §6–7.
+- [ ] **Still blocking RC30 research:** video IDs/URLs + publication dates, latest-30 confirmation, acquisition
+      authorisation, manifest freeze.
 
 ## Blockers (corrected 2026-11-27)
 1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
-2. ~~Analysis environment not installed.~~ **Resolved (D016).** Re-run `setup/setup-analysis.sh --with-audio` each new
+2. ~~Analysis environment not installed.~~ **Resolved (D016 cloud; D027 local computer, `.venv-analysis/`).** Re-run `setup/setup-analysis.sh --with-audio` each new
    cloud session (~15 s) unless the user approves saving it as the environment setup script.
 3. **Phase 3 analysis not authorised.** Footage is on the user's computer (D025); still needed: acquisition authorisation confirmed, IDs/dates, manifest freeze, venv install approval.
 4. Google Flow (D013–D015):
