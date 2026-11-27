@@ -92,6 +92,19 @@
       blended far/middle-layer estimate (flagged, cannot be told apart from an independent object); outline width reads
       1.5 px for both 1 and 2 px lines; CRF 45 breaks dissolve detection; motion/shot stages always run on proxies.
       Synthetic clips compress better than real footage, so degradation is a lower bound.
+- [ ] **T5 private binary transfer — preparation (D019), 2026-11-27. Not yet run; needs the user's computer.**
+      VERIFIED in this cloud session: `list_computer_folders` and `request_computer_folder` are available;
+      `list_computer_folders` returned `{"folders":[],"cannot_be_used":[]}` (no computer folder served, none attached).
+      VERIFIED from tool definitions: folders are chosen in the Claude desktop app (Settings → Claude Code → Remote
+      Control; the page may not offer adding folders); allowed folders exclude the home directory, hidden directories
+      directly under it and ~/Library; the computer must be online; each attach needs the user's approval on the computer;
+      a session stays tied to the first computer it attaches to; once attached, this session's shell and file tools can
+      run on that folder. VERIFIED from docs (code.claude.com remote-control, desktop-linux): Remote Control is
+      outbound-HTTPS only (no inbound ports/tunnel); Claude Desktop for Linux is a beta for Ubuntu 22.04+ (apt).
+      NOT documented in the public pages read: attaching a local folder to a cloud session; binary file handling or size
+      limits. **Bidirectional binary transfer: UNVERIFIED.** Inferred mechanism (to be tested): tool calls run on one
+      machine at a time, so bytes cross only through the conversation (e.g. base64 text), which bounds file size.
+      Test folder planned: `~/ricks-clips-private/t5-transfer-test/` only.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)
@@ -112,7 +125,8 @@
 6. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. Phase 2.5: user reviews rcpipe v0.2.0 (D018); recalibrate thresholds only on authorised real footage (Phase 3).
-2. User decisions on Flow §1A.9; T5 bridge test.
-3. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
+1. rcpipe v0.2.0 accepted and **frozen** until Phase 3 real-footage calibration (D019).
+2. Phase 2.5 T5: user exposes `~/ricks-clips-private/t5-transfer-test/` via the Claude desktop app; then attach + SHA-256 round trip.
+3. User decisions on Flow §1A.9.
+4. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
    validated pipeline first.

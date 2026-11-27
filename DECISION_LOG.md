@@ -161,3 +161,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Known limitations recorded (PROGRESS, A27 FAILED.md/TECHNIQUES.md labelled synthetic-validated). Thresholds are
   not re-tuned on synthetic data; recalibration waits for authorised real footage.
 - Status: accepted by user for implementation; results awaiting user review.
+
+## D019 · 2026-11-27 · rcpipe frozen; T5 transfer via attached computer folder (preparation)
+- User accepted rcpipe v0.2.0 with its documented limitations and froze the analysis implementation until Phase 3
+  real-footage calibration. No further synthetic infrastructure work.
+- T5 path chosen: the official computer-folder attach for cloud sessions (`list_computer_folders` /
+  `request_computer_folder`), scoped to `~/ricks-clips-private/t5-transfer-test/` only. Rejected: third-party
+  connectors, public tunnels, GitHub as media transport.
+- Verified now: tools present; no folder served (empty listing). Not verified: whether the Linux desktop app offers
+  folder serving, and whether binary bytes survive a round trip in either direction. Public docs read do not describe
+  this feature; the in-session tool definitions are the only source (recorded as such).
+- Status: accepted (user instruction); test pending user action on their computer.
