@@ -197,3 +197,13 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Proposed test (awaiting approval): private folder `ricks-clips-t5` (not shared), synthetic files only
   (PNG, WAV, MP4, ZIP at ~10 KB, ~1 MB, ~5 MB, ~20 MB), SHA-256 compared in both directions, then trashed.
 - Status: proposed.
+
+## D022 · 2026-11-27 · T5 Drive transfer: byte-exact up to ~1 MB, upload capped at ~3.1 MB per file
+- Verified: 16/16 byte-exact round trips (cloud → Drive → cloud) for PNG, WAV, MP4, ZIP at ~1–10 KB and ~1 MB; downloads
+  land as files on the cloud filesystem, not as base64 in the conversation.
+- Verified limit: each connector call from a cloud session is capped at 4.2 MB (~3.1 MB of file content), so cloud →
+  Drive uploads of ~5 MB fail before sending. Stopped there per the test rules; no workaround attempted.
+- Implication (INFERRED, to confirm): Drive works as a private channel for stills, short audio and small packs from the
+  cloud; larger renders cannot leave the cloud this way. The Drive → cloud direction for larger files (e.g. Flow
+  downloads uploaded by the user) is untested.
+- Status: partial pass; awaiting the user's local verification and a decision on testing larger user-uploaded files.

@@ -115,7 +115,13 @@
       `not_available` result for both folders, `folders` empty, nothing requested.
       **Closed as BLOCKED on this system (user decision):** Linux Mint, official apt repo, Claude Desktop installed
       6.28899.6 = candidate 6.28899.6 (no update). No further troubleshooting of this route.
-- [ ] **T5 alternative: Google Drive connector (D021) — capability review done, test not run.**
+- [x] **T5 Google Drive transfer, cloud side (D022), 2026-11-27 — `research/t5-drive-transfer.md`.** Private folder
+      `ricks-clips-t5` created (no sharing change). Synthetic PNG/WAV/MP4/ZIP at ~1–10 KB and ~1 MB: uploaded without
+      conversion and downloaded back into the cloud filesystem, **16/16 SHA-256 matches**, no base64 in the
+      conversation (PNG previews excepted). **~5 MB uploads refused: 4.2 MB per connector call (~3.1 MB of file
+      content)**; nothing sent; 20 MB not attempted. Download limit above 1 MB unverified. Local verification by the
+      user pending; test files kept until then.
+- [x] T5 alternative: Google Drive connector (D021) — capability review (superseded by the test above).
       VERIFIED: the official Google Drive connector is attached to this cloud session and authenticated (a scoped
       `search_files` for a folder titled `ricks-clips-t5` returned an empty result without error; no other Drive
       content read). VERIFIED from its tool definitions: upload = `create_file` with `base64Content`, which accepts a
