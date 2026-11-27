@@ -80,3 +80,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   restart. The dry run therefore used a general-purpose subagent instructed to follow the A27 definition verbatim.
   It is evidence that the definition and protocols are usable, **not** that the registered agent was invoked.
   A real invocation must be confirmed in a fresh session. Status: accepted (documented limitation).
+
+## D012 · 2026-11-27 · Agent discovery blocker resolved; Phase 2.5 introduced
+- In a fresh session at `492ee79`, all 29 custom agents are listed as registered agent types. `a27-frame-analysis-specialist`
+  was invoked explicitly (not via a general-purpose substitute; agent ID `afa524f2cc3a468c8`) for a read-only test and
+  returned answers consistent with the repository (identity, ownership, RC30 rule, MANIFEST absent, HEAD commit).
+- Probable cause of D011 (INFERRED, not re-verified against docs): agents are loaded at session start, and the
+  directory was created mid-session.
+- Limitation: only A27 has been individually invoked; the other 28 are registered but unverified by invocation.
+- User approved Phase 2 and introduced Phase 2.5 — Operational Validation, prioritising Google Flow integration
+  before Phase 3 reference analysis.
+- Status: accepted (user approved).

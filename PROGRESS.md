@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** Phase 2 — complete, **awaiting user review and approval**. Phase 3 not started.
+**Current phase:** Phase 2.5 — Operational Validation (approved 2026-11-27). Phase 2 accepted. Phase 3 not started.
 **Last updated:** 2026-11-27
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
@@ -31,8 +31,19 @@
       document inconsistencies, all fixed (ownership-column wording, schema IDs for our renders, required checksum,
       frame-count fields, shared-table storage path). This is **not** evidence that the registered agent can be invoked.
 
+## Phase 2 — agent discovery verification (D012) ✅
+- Fresh session, HEAD `492ee79`: all 29 agent types `a01-…`–`a29-…` appear in the session's registered agent list.
+- `a27-frame-analysis-specialist` invoked explicitly by `subagent_type` (agent ID `afa524f2cc3a468c8`, 3 tool calls,
+  ~6 s), read-only. It reported its A27 identity, its owned paths per `OWNERSHIP.md`, the RC30 frame-coverage rule,
+  that `MANIFEST.json` does not exist, and `git log -1` = `492ee79` — all matching the repository. No files written.
+- **Scope of evidence:** all 29 are *registered*; only A27 has been individually invoked and verified.
+
+## Phase 2.5 — Operational Validation (in progress)
+- [ ] A23 Google Flow integration feasibility investigation → `research/integration-feasibility.md`.
+
 ## Blockers
-1. Registered agents need confirmation in a fresh session (D011).
+1. ~~Registered agents need confirmation in a fresh session (D011).~~ **Resolved (D012)**: all 29 registered; A27
+   invoked and verified. Remaining agents to be verified on first use.
 2. Phase 3 preconditions: an authorised footage acquisition/storage method for RC30; approval to run `setup/setup-analysis.sh`.
 3. Google Flow: ToS on automation/commercial use unread; Agent/Tools credit discrepancy; bridge byte transfer unverified;
    Chrome integration not set up on the user's computer (D003 rev 2).
@@ -40,7 +51,6 @@
 5. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. User reviews Phase 2 deliverables.
-2. In a new session: confirm `a27-frame-analysis-specialist` is listed and invoke it once read-only.
-3. On Phase 3 approval: user confirms the acquisition method; run the setup script; director freezes `MANIFEST.json`;
+1. Phase 2.5: A23 Google Flow feasibility investigation; user reviews the recommended architecture.
+2. On Phase 3 approval: user confirms the acquisition method; run the setup script; director freezes `MANIFEST.json`;
    A27 runs first.
