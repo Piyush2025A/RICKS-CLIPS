@@ -194,13 +194,94 @@
           "dataset": {
             "const": "RC30"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "required": [
           "manifest_sha256",
           "input_sha256"
         ]
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "dataset"
+        ],
+        "properties": {
+          "dataset": {
+            "const": "RC30"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "per_video": {
+            "propertyNames": {
+              "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
+            }
+          },
+          "input_sha256": {
+            "propertyNames": {
+              "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "dataset"
+        ],
+        "properties": {
+          "dataset": {
+            "const": "OUR"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "per_video": {
+            "propertyNames": {
+              "pattern": "^OUR-"
+            }
+          },
+          "input_sha256": {
+            "propertyNames": {
+              "pattern": "^OUR-"
+            }
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "dataset"
+        ],
+        "properties": {
+          "dataset": {
+            "const": "SYN"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "per_video": {
+            "propertyNames": {
+              "pattern": "^SYN-"
+            }
+          },
+          "input_sha256": {
+            "propertyNames": {
+              "pattern": "^SYN-"
+            }
+          }
+        }
       }
     }
   ]

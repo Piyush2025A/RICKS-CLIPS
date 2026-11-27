@@ -111,6 +111,44 @@
           "missing": {
             "type": "integer",
             "minimum": 0
+          },
+          "analysis_resolution": {
+            "type": "object",
+            "required": [
+              "mode",
+              "width",
+              "height",
+              "native_width",
+              "native_height"
+            ],
+            "description": "Resolution the pixels were measured at. 'native' = decoded source frames, no scaling. 'proxy' = downscaled copy for speed; proxy results must not be reported as native pixel measurements. Native frames stay retrievable by frame ID for specialist inspection. Record-level value = the finest resolution used by any stage; stages that differ state their own analysis_resolution in stages[*].",
+            "properties": {
+              "mode": {
+                "enum": [
+                  "native",
+                  "proxy"
+                ]
+              },
+              "width": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "height": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "native_width": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "native_height": {
+                "type": "integer",
+                "minimum": 1
+              },
+              "scaler": {
+                "type": "string"
+              }
+            }
           }
         }
       }
@@ -177,7 +215,7 @@
         "native_width",
         "native_height"
       ],
-      "description": "Resolution the pixels were measured at. 'native' = decoded source frames, no scaling. 'proxy' = downscaled copy for speed; proxy results must not be reported as native pixel measurements. Native frames stay retrievable by frame ID for specialist inspection.",
+      "description": "Resolution the pixels were measured at. 'native' = decoded source frames, no scaling. 'proxy' = downscaled copy for speed; proxy results must not be reported as native pixel measurements. Native frames stay retrievable by frame ID for specialist inspection. Record-level value = the finest resolution used by any stage; stages that differ state their own analysis_resolution in stages[*].",
       "properties": {
         "mode": {
           "enum": [
@@ -221,7 +259,10 @@
           "dataset": {
             "const": "RC30"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {
@@ -240,7 +281,10 @@
           "dataset": {
             "const": "OUR"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {
@@ -256,7 +300,10 @@
           "dataset": {
             "const": "SYN"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {

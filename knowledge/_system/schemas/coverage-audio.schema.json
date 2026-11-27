@@ -19,7 +19,8 @@
     "config_fingerprint",
     "commit",
     "input_sha256",
-    "run_at"
+    "run_at",
+    "audio_present"
   ],
   "properties": {
     "schema_version": {
@@ -40,39 +41,46 @@
       "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)$"
     },
     "stream": {
-      "type": "object",
-      "required": [
-        "index",
-        "codec_name",
-        "sample_rate",
-        "channels"
-      ],
-      "description": "identity of the analysed stream as reported by ffprobe",
-      "properties": {
-        "index": {
-          "type": "integer"
+      "oneOf": [
+        {
+          "type": "null"
         },
-        "codec_name": {
-          "type": "string"
-        },
-        "sample_rate": {
-          "type": "integer"
-        },
-        "channels": {
-          "type": "integer"
-        },
-        "channel_layout": {
-          "type": "string"
-        },
-        "start_time_s": {
-          "type": "number"
-        },
-        "stream_sha256": {
-          "type": "string",
-          "pattern": "^[0-9a-f]{64}$",
-          "description": "sha256 of decoded PCM as analysed (optional)"
+        {
+          "type": "object",
+          "required": [
+            "index",
+            "codec_name",
+            "sample_rate",
+            "channels"
+          ],
+          "description": "identity of the analysed stream as reported by ffprobe",
+          "properties": {
+            "index": {
+              "type": "integer"
+            },
+            "codec_name": {
+              "type": "string"
+            },
+            "sample_rate": {
+              "type": "integer"
+            },
+            "channels": {
+              "type": "integer"
+            },
+            "channel_layout": {
+              "type": "string"
+            },
+            "start_time_s": {
+              "type": "number"
+            },
+            "stream_sha256": {
+              "type": "string",
+              "pattern": "^[0-9a-f]{64}$",
+              "description": "sha256 of decoded PCM as analysed (optional)"
+            }
+          }
         }
-      }
+      ]
     },
     "analysis_sample_rate": {
       "type": "integer",
@@ -183,6 +191,10 @@
     },
     "notes": {
       "type": "string"
+    },
+    "audio_present": {
+      "type": "boolean",
+      "description": "false = the container has no audio stream; then stream is null, analyzed_s is 0 and missing_intervals covers the whole duration with reason 'no audio stream'"
     }
   },
   "allOf": [
@@ -192,7 +204,10 @@
           "dataset": {
             "const": "RC30"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {
@@ -211,7 +226,10 @@
           "dataset": {
             "const": "OUR"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {
@@ -227,12 +245,56 @@
           "dataset": {
             "const": "SYN"
           }
-        }
+        },
+        "required": [
+          "dataset"
+        ]
       },
       "then": {
         "properties": {
           "video_key": {
             "pattern": "^SYN-"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "audio_present"
+        ],
+        "properties": {
+          "audio_present": {
+            "const": false
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "stream": {
+            "type": "null"
+          },
+          "analyzed_s": {
+            "const": 0
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "required": [
+          "audio_present"
+        ],
+        "properties": {
+          "audio_present": {
+            "const": true
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "stream": {
+            "type": "object"
           }
         }
       }
