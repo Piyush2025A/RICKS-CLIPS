@@ -23,4 +23,8 @@ Owner: director. Approved by the user on 2026-11-27 (Phase 1 review).
 native frame rate; every record also stores ffprobe `pts_time`. See `../_system/EVIDENCE.md`.
 
 ## Status
-Not yet frozen. `MANIFEST.json` is created at the start of Phase 3, after user approval.
+**Frozen 2026-11-28 (D028).** Core manifest `MANIFEST.json` (manifest_version 2) — SHA-256
+`fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06`, quoted by every finding. Keys `RC30-01` (=`1.mp4`,
+newest) … `RC30-30` (=`30.mp4`) follow the **user's attested order**; publication dates are not independently verified.
+Video IDs, URLs and dates are **deferred** to `IDENTITY.json`; filling it never changes the core file or its SHA-256.
+Acquisition: user statement recorded in `acquisition_method`.

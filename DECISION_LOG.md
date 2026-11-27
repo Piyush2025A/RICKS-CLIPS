@@ -260,3 +260,16 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   envelope/spectral/onset measures with documented limitations; loudness already runs on the native stream; stereo
   measures will use native stereo via a separate versioned tool (A20–A22), not by changing rcpipe.
 - Status: done. RC30 research still blocked on identities/dates, authorisation and manifest freeze.
+
+## D028 · 2026-11-28 · RC30 core manifest frozen; identity metadata deferred
+- User decisions: (1) acquisition — the user downloaded the 30 files from YouTube themselves and takes responsibility
+  for private, non-redistributed style research under their own legal assessment (ToS conflict noted, plan §3);
+  (2) frames, contact sheets and short audio excerpts may be sent to Claude (Anthropic) for inspection only — no other
+  service, no Drive, no GitHub; (3) order: `1.mp4` newest … `30.mp4` oldest (user attestation, not independently
+  verified); (4) schema change approved: video IDs/dates/URLs become deferred metadata in `IDENTITY.json`.
+- Web search could not resolve IDs (titles and channel handle not indexed; 3 queries, then stopped). YouTube pages and
+  third-party channel tools stay excluded; no API key available. Nothing fabricated: all IDs/dates are null/deferred.
+- Frozen: `knowledge/dataset/MANIFEST.json` (schema `dataset-manifest` core v2), SHA-256 `fc6f147a…278e06`; 30 keys,
+  30 SHA-256 equal to the files, 50,898 frames. The repo's lightweight validator cannot enforce minItems/maxItems
+  (pre-existing limitation), so the 30-item count was asserted separately.
+- Status: done.

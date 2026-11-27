@@ -1,13 +1,16 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "RC30 frozen dataset manifest",
+  "title": "RC30 frozen dataset manifest (core, v2 - D028)",
   "type": "object",
   "required": [
     "dataset_id",
+    "manifest_version",
     "channel_url",
     "selection_rule",
+    "order_basis",
     "frozen_at",
     "frozen_by",
+    "acquisition_method",
     "videos"
   ],
   "properties": {
@@ -40,12 +43,11 @@
         "type": "object",
         "required": [
           "key",
-          "video_id",
+          "local_filename",
           "title",
-          "published_at",
-          "duration_s",
-          "source_url",
-          "availability"
+          "availability",
+          "identity_status",
+          "media"
         ],
         "properties": {
           "key": {
@@ -53,20 +55,29 @@
             "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
           },
           "video_id": {
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "title": {
             "type": "string"
           },
           "published_at": {
-            "type": "string",
+            "type": [
+              "string",
+              "null"
+            ],
             "format": "date-time"
           },
           "duration_s": {
             "type": "number"
           },
           "source_url": {
-            "type": "string"
+            "type": [
+              "string",
+              "null"
+            ]
           },
           "availability": {
             "enum": [
@@ -108,10 +119,38 @@
               "audio_sample_rate": {
                 "type": "integer"
               }
-            }
+            },
+            "required": [
+              "sha256",
+              "width",
+              "height",
+              "r_frame_rate",
+              "avg_frame_rate",
+              "nb_frames"
+            ]
+          },
+          "local_filename": {
+            "type": "string"
+          },
+          "identity_status": {
+            "enum": [
+              "deferred",
+              "verified"
+            ]
           }
         }
       }
+    },
+    "manifest_version": {
+      "const": 2
+    },
+    "order_basis": {
+      "type": "string",
+      "description": "how newest-to-oldest order was established (user attestation and/or verified publication dates)"
+    },
+    "identity_file": {
+      "type": "string",
+      "description": "deferred metadata (video IDs, publication dates, URLs) lives here; filling it never changes this core file"
     }
   }
 }
