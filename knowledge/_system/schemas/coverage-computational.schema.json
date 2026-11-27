@@ -1,46 +1,141 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Computational coverage record (one JSON line per video per analysis)",
+  "$id": "coverage-computational.schema.json",
+  "title": "Computational coverage record (one JSON line per video per analysis), schema v2",
+  "description": "Computational coverage only: a frame counted here was processed by code. It says nothing about visual (human/agent) inspection, which is recorded separately in coverage-visual. Invariant (checked by the validator, not expressible in JSON Schema): frames_ok + frames_uncertain + frames_failed + frames_missing == frames_expected, overall and per stage.",
   "type": "object",
   "required": [
+    "schema_version",
+    "dataset",
     "analysis_id",
     "video_key",
     "frames_container",
     "frames_decoded",
     "frames_expected",
     "frames_processed",
+    "frames_ok",
+    "frames_uncertain",
+    "frames_failed",
+    "frames_missing",
     "missing",
     "script",
+    "pipeline_version",
+    "config_fingerprint",
     "commit",
     "input_sha256",
+    "analysis_resolution",
     "run_at"
   ],
   "properties": {
+    "schema_version": {
+      "const": "2"
+    },
+    "dataset": {
+      "enum": [
+        "RC30",
+        "OUR",
+        "SYN"
+      ],
+      "description": "RC30 = frozen reference dataset (MANIFEST); OUR = our renders; SYN = synthetic test media, never part of RC30 and never cited as reference evidence"
+    },
     "analysis_id": {
       "type": "string"
     },
     "video_key": {
       "type": "string",
-      "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+)$"
+      "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)$"
     },
     "native_fps": {
       "type": "string"
+    },
+    "frames_container": {
+      "type": "integer",
+      "description": "ffprobe stream nb_frames (or nb_read_packets if nb_frames absent; say which in notes)"
+    },
+    "frames_decoded": {
+      "type": "integer",
+      "description": "ffprobe -count_frames nb_read_frames / our decoder count"
     },
     "frames_expected": {
       "type": "integer",
       "description": "= frames_decoded once frame accounting is reconciled; any difference from frames_container is explained in notes"
     },
     "frames_processed": {
-      "type": "integer"
+      "type": "integer",
+      "description": "frames_ok + frames_uncertain (a measurement exists)"
+    },
+    "frames_ok": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "measured with normal confidence in every stage"
+    },
+    "frames_uncertain": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "measured, but at least one stage labelled the value uncertain (e.g. low texture, at a cut)"
+    },
+    "frames_failed": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "decoded, but at least one stage raised an error; no value"
+    },
+    "frames_missing": {
+      "type": "integer",
+      "minimum": 0,
+      "description": "expected but never decoded or never reached by a stage"
+    },
+    "stages": {
+      "type": "object",
+      "description": "per-stage counts",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "ok",
+          "uncertain",
+          "failed",
+          "missing"
+        ],
+        "properties": {
+          "ok": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "uncertain": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "failed": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "missing": {
+            "type": "integer",
+            "minimum": 0
+          }
+        }
+      }
     },
     "missing": {
       "type": "array",
       "items": {
         "type": "object",
+        "required": [
+          "frame",
+          "reason"
+        ],
         "properties": {
           "frame": {
             "type": "string",
-            "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+)-f[0-9]{6}$"
+            "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)-f[0-9]{6}$"
+          },
+          "stage": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "failed",
+              "missing"
+            ]
           },
           "reason": {
             "type": "string"
@@ -54,23 +149,122 @@
     "commit": {
       "type": "string"
     },
+    "pipeline_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "config_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of the canonical JSON of all parameters that affect outputs"
+    },
     "input_sha256": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of the exact input media file bytes"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of knowledge/dataset/MANIFEST.json; required for RC30"
+    },
+    "analysis_resolution": {
+      "type": "object",
+      "required": [
+        "mode",
+        "width",
+        "height",
+        "native_width",
+        "native_height"
+      ],
+      "description": "Resolution the pixels were measured at. 'native' = decoded source frames, no scaling. 'proxy' = downscaled copy for speed; proxy results must not be reported as native pixel measurements. Native frames stay retrievable by frame ID for specialist inspection.",
+      "properties": {
+        "mode": {
+          "enum": [
+            "native",
+            "proxy"
+          ]
+        },
+        "width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "native_width": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "native_height": {
+          "type": "integer",
+          "minimum": 1
+        },
+        "scaler": {
+          "type": "string"
+        }
+      }
     },
     "run_at": {
       "type": "string",
       "format": "date-time"
     },
-    "frames_container": {
-      "type": "integer",
-      "description": "ffprobe stream nb_frames (or nb_read_packets if nb_frames absent; say which in notes)"
-    },
-    "frames_decoded": {
-      "type": "integer",
-      "description": "ffprobe -count_frames nb_read_frames / our decoder count"
-    },
     "notes": {
       "type": "string"
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "RC30"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
+          }
+        },
+        "required": [
+          "manifest_sha256"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "OUR"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^OUR-"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "SYN"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^SYN-"
+          }
+        }
+      }
+    }
+  ]
 }

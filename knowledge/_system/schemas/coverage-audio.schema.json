@@ -1,0 +1,241 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "coverage-audio.schema.json",
+  "title": "Audio computational coverage record (one JSON line per audio stream per analysis)",
+  "description": "Computational audio coverage only; listening/inspection is recorded separately. Invariant (validator): analyzed_s + sum(missing interval lengths) == duration_s within one hop.",
+  "type": "object",
+  "required": [
+    "schema_version",
+    "dataset",
+    "analysis_id",
+    "video_key",
+    "stream",
+    "duration_s",
+    "analyzed_s",
+    "missing_intervals",
+    "errors",
+    "script",
+    "pipeline_version",
+    "config_fingerprint",
+    "commit",
+    "input_sha256",
+    "run_at"
+  ],
+  "properties": {
+    "schema_version": {
+      "const": "1"
+    },
+    "dataset": {
+      "enum": [
+        "RC30",
+        "OUR",
+        "SYN"
+      ]
+    },
+    "analysis_id": {
+      "type": "string"
+    },
+    "video_key": {
+      "type": "string",
+      "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)$"
+    },
+    "stream": {
+      "type": "object",
+      "required": [
+        "index",
+        "codec_name",
+        "sample_rate",
+        "channels"
+      ],
+      "description": "identity of the analysed stream as reported by ffprobe",
+      "properties": {
+        "index": {
+          "type": "integer"
+        },
+        "codec_name": {
+          "type": "string"
+        },
+        "sample_rate": {
+          "type": "integer"
+        },
+        "channels": {
+          "type": "integer"
+        },
+        "channel_layout": {
+          "type": "string"
+        },
+        "start_time_s": {
+          "type": "number"
+        },
+        "stream_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "sha256 of decoded PCM as analysed (optional)"
+        }
+      }
+    },
+    "analysis_sample_rate": {
+      "type": "integer",
+      "description": "rate used for analysis if resampled (state the resampler in notes)"
+    },
+    "duration_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "analyzed_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "hop_s": {
+      "type": "number",
+      "minimum": 0
+    },
+    "missing_intervals": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "start_s",
+          "end_s",
+          "reason"
+        ],
+        "properties": {
+          "start_s": {
+            "type": "number"
+          },
+          "end_s": {
+            "type": "number"
+          },
+          "reason": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "stages": {
+      "type": "object",
+      "additionalProperties": {
+        "type": "object",
+        "required": [
+          "status"
+        ],
+        "properties": {
+          "status": {
+            "enum": [
+              "ok",
+              "uncertain",
+              "failed",
+              "missing"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "errors": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "stage",
+          "message"
+        ],
+        "properties": {
+          "stage": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "script": {
+      "type": "string"
+    },
+    "commit": {
+      "type": "string"
+    },
+    "pipeline_version": {
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "config_fingerprint": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of the canonical JSON of all parameters that affect outputs"
+    },
+    "input_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of the exact input media file bytes"
+    },
+    "manifest_sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of knowledge/dataset/MANIFEST.json; required for RC30"
+    },
+    "run_at": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "notes": {
+      "type": "string"
+    }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "RC30"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^RC30-(0[1-9]|[12][0-9]|30)$"
+          }
+        },
+        "required": [
+          "manifest_sha256"
+        ]
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "OUR"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^OUR-"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "SYN"
+          }
+        }
+      },
+      "then": {
+        "properties": {
+          "video_key": {
+            "pattern": "^SYN-"
+          }
+        }
+      }
+    }
+  ]
+}

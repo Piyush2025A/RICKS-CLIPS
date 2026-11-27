@@ -21,12 +21,22 @@ method partly validated), `low` (few samples, method unvalidated, or contested).
 - Range: `RC30-07-f000120..f000180` (inclusive).
 - Audio time: `RC30-07-t12.340` (seconds from stream start).
 - Our renders: `OUR-<production>-<render-id>-f<NNNNNN>`.
+- Synthetic test media: `SYN-<clip-id>-f<NNNNNN>` (`dataset: "SYN"`). Synthetic media only validates tools: it is never
+  part of RC30, never listed in `MANIFEST.json` (whose schema accepts only `RC30-01..30`), and never cited as reference
+  evidence. RC30 records must carry `manifest_sha256`; a `SYN-`/`OUR-` key with `dataset: "RC30"` is invalid.
+- Resolution: every pixel measurement states `analysis_resolution.mode` = `native` (decoded source frames, unscaled) or
+  `proxy` (downscaled for speed). Proxy values are never reported as native measurements; native frames stay
+  retrievable by frame ID for specialist inspection.
 - Experiment: `EXP-<agent-id>-<YYYYMMDD>-<nn>`; finding: `F-<agent-id>-<nnn>`.
 
 ## Coverage honesty
 - **Computational coverage** (`coverage/computational/<analysis-id>.jsonl`): one record per video per analysis:
-  frames expected, frames processed, missing frame IDs, script version. 30 fps footage must reach 100% or list every
-  missing frame with the reason.
+  frames expected/processed, and counts of `ok` / `uncertain` / `failed` / `missing` frames (sum = expected, overall and
+  per stage), missing/failed frame IDs with reasons, pipeline version, config fingerprint, input SHA-256 (schema v2).
+  30 fps footage must reach 100% processed or list every missing frame with the reason. "Uncertain" is still
+  computational coverage; it is not visual inspection.
+- **Audio computational coverage** (`coverage/computational/<analysis-id>.audio.jsonl`, `coverage-audio.schema.json`):
+  stream identity, duration vs analysed seconds, missing intervals, per-stage status and processing errors.
 - **Visual inspection coverage** (`coverage/visual/<agent-id>.jsonl`): one record per image actually opened (frame,
   sheet or strip) with the frame IDs it shows, the agent, the date and the purpose. A contact sheet covering 60
   frames counts those 60 frames as viewed *at sheet resolution* — record the resolution.

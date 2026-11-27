@@ -1,16 +1,18 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "Measurement record",
+  "title": "Measurement record, schema v2",
   "type": "object",
   "required": [
-    "metric",
     "agent",
-    "label",
-    "value",
-    "unit",
-    "n",
+    "dataset",
     "evidence",
-    "method"
+    "label",
+    "method",
+    "metric",
+    "n",
+    "schema_version",
+    "unit",
+    "value"
   ],
   "properties": {
     "metric": {
@@ -65,9 +67,16 @@
     },
     "per_video": {
       "type": "object",
+      "propertyNames": {
+        "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)$"
+      },
       "additionalProperties": {
-        "type": "number"
-      }
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "description": "null = no value (failed/missing/non-numeric); never coerce to 0"
     },
     "evidence": {
       "type": "array",
@@ -79,7 +88,9 @@
     "method": {
       "type": "object",
       "required": [
-        "script"
+        "script",
+        "pipeline_version",
+        "config_fingerprint"
       ],
       "properties": {
         "script": {
@@ -96,14 +107,101 @@
           "items": {
             "type": "string"
           }
+        },
+        "pipeline_version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+        },
+        "config_fingerprint": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$",
+          "description": "sha256 of the canonical JSON of all parameters that affect outputs"
+        },
+        "analysis_resolution": {
+          "type": "object",
+          "required": [
+            "mode",
+            "width",
+            "height",
+            "native_width",
+            "native_height"
+          ],
+          "description": "Resolution the pixels were measured at. 'native' = decoded source frames, no scaling. 'proxy' = downscaled copy for speed; proxy results must not be reported as native pixel measurements. Native frames stay retrievable by frame ID for specialist inspection.",
+          "properties": {
+            "mode": {
+              "enum": [
+                "native",
+                "proxy"
+              ]
+            },
+            "width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "height": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "native_width": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "native_height": {
+              "type": "integer",
+              "minimum": 1
+            },
+            "scaler": {
+              "type": "string"
+            }
+          }
         }
       }
     },
     "manifest_sha256": {
-      "type": "string"
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$",
+      "description": "sha256 of knowledge/dataset/MANIFEST.json; required for RC30"
     },
     "limitations": {
       "type": "string"
+    },
+    "schema_version": {
+      "const": "2"
+    },
+    "dataset": {
+      "enum": [
+        "RC30",
+        "OUR",
+        "SYN"
+      ],
+      "description": "SYN measurements validate tools only and are never reference evidence"
+    },
+    "input_sha256": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^(RC30-(0[1-9]|[12][0-9]|30)|OUR-[A-Za-z0-9_-]+-[A-Za-z0-9_-]+|SYN-[A-Za-z0-9_-]+)$"
+      },
+      "additionalProperties": {
+        "type": "string",
+        "pattern": "^[0-9a-f]{64}$"
+      }
     }
-  }
+  },
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "dataset": {
+            "const": "RC30"
+          }
+        }
+      },
+      "then": {
+        "required": [
+          "manifest_sha256",
+          "input_sha256"
+        ]
+      }
+    }
+  ]
 }
