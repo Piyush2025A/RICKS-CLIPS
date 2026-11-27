@@ -113,6 +113,19 @@
       can serve folders at all is UNVERIFIED.
       **Attempt 2 (2026-11-27): BLOCKED, unchanged** after the user updated and restarted Claude Desktop: same
       `not_available` result for both folders, `folders` empty, nothing requested.
+      **Closed as BLOCKED on this system (user decision):** Linux Mint, official apt repo, Claude Desktop installed
+      6.28899.6 = candidate 6.28899.6 (no update). No further troubleshooting of this route.
+- [ ] **T5 alternative: Google Drive connector (D021) — capability review done, test not run.**
+      VERIFIED: the official Google Drive connector is attached to this cloud session and authenticated (a scoped
+      `search_files` for a folder titled `ricks-clips-t5` returned an empty result without error; no other Drive
+      content read). VERIFIED from its tool definitions: upload = `create_file` with `base64Content`, which accepts a
+      file reference `sha256:<hex>:<absolute path>` so the app streams a cloud file's bytes (no base64 in the
+      conversation), `disableConversionToGoogleType` keeps the original MIME type, `parentId` targets a folder,
+      folders can be created; download = `download_file_content` returns the file as a base64 string (non-Google
+      files, optional revision); also metadata, search, copy, update, trash, share (sharing will not be used).
+      UNVERIFIED: whether downloaded base64 reaches the cloud filesystem byte-exact (or only the conversation), the
+      size limit of either direction, behaviour for MP4/WAV/ZIP. A third-party report (A23 rev 3) of failures at
+      5–10 MB is unconfirmed.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)

@@ -183,3 +183,17 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   given by the computer. Cloud-attached folder transfer is treated as unavailable from this Linux computer for now;
   Flow work continues in the local session with text-only hand-off (D014).
 - Status: blocked (retry only if a later app release or the user reports a change).
+
+## D021 · 2026-11-27 · Native folder sharing blocked; Google Drive connector chosen as T5 candidate
+- D020 closed: native computer-folder sharing is blocked on the user's Linux Mint system (Claude Desktop 6.28899.6,
+  no update available). Not pursued further.
+- Candidate: the official Google Drive connector (already attached; no third-party connector, no public links). Upload
+  of cloud files by byte reference and download as base64 are documented in its tool definitions; byte-exactness into
+  the cloud filesystem and size limits are not, so they are the subject of the test.
+- Local side: Linux has no official Google Drive desktop client (INFERRED, not checked); the user uploads/downloads
+  through drive.google.com in the browser.
+- Cost: no additional subscription or paid API needed for the connector (INFERRED from it being a claude.ai connector
+  already attached); Drive storage comes with the user's Google account/AI Pro plan (storage size UNVERIFIED).
+- Proposed test (awaiting approval): private folder `ricks-clips-t5` (not shared), synthetic files only
+  (PNG, WAV, MP4, ZIP at ~10 KB, ~1 MB, ~5 MB, ~20 MB), SHA-256 compared in both directions, then trashed.
+- Status: proposed.
