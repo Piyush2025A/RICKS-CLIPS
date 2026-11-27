@@ -39,7 +39,16 @@
 - **Scope of evidence:** all 29 are *registered*; only A27 has been individually invoked and verified.
 
 ## Phase 2.5 — Operational Validation (in progress)
-- [ ] A23 Google Flow integration feasibility investigation → `research/integration-feasibility.md`.
+- [x] A23 (`a23-google-flow-integration-engineer`, invoked as a registered agent) Google Flow feasibility
+      investigation → `research/integration-feasibility.md` §1A (rev 3): ranked options, recommended architecture,
+      test plan T0–T7, open questions. Research only: nothing executed, installed, authenticated or generated. Three
+      external Flow MCP repos read as source only (FlowPilot `e0dce06`, google-flow-mcp `e6a7137`, flow-studio
+      `ed709b0`), cloned outside the repo; none recommended for installation. A23 is now the second agent verified by invocation.
+- [ ] **Director review flag (D013):** A23's correction C1 ("a cloud session cannot attach a Remote Control folder")
+      conflicts with this cloud session's own tools (`list_computer_folders` / `request_computer_folder`, which attach a
+      folder that the user's computer serves via Remote Control). Listing returned 0 folders (none served). To be
+      tested in T5; not yet verified either way.
+- [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers
 1. ~~Registered agents need confirmation in a fresh session (D011).~~ **Resolved (D012)**: all 29 registered; A27
@@ -51,6 +60,6 @@
 5. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. Phase 2.5: A23 Google Flow feasibility investigation; user reviews the recommended architecture.
+1. Phase 2.5: user reviews `research/integration-feasibility.md` §1A and decides §1A.9; then T0–T2 (zero-credit) tests.
 2. On Phase 3 approval: user confirms the acquisition method; run the setup script; director freezes `MANIFEST.json`;
    A27 runs first.

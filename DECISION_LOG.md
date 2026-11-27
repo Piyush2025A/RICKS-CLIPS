@@ -91,3 +91,17 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - User approved Phase 2 and introduced Phase 2.5 — Operational Validation, prioritising Google Flow integration
   before Phase 3 reference analysis.
 - Status: accepted (user approved).
+
+## D013 · 2026-11-27 · Google Flow integration architecture rev 3 (proposed)
+- A23 recommends (`research/integration-feasibility.md` §1A.7): Flow runs only in the user's own visible browser on
+  their computer, via Tier 1 (Flow Agent/Tools + project Download) and Tier 2 (local Claude Code + official Claude in
+  Chrome, user present, paced, stop on any CAPTCHA/login/safety prompt). Downloads go to a private inbox outside the
+  repo; an intake script writes text manifests (SHA-256, dimensions, model, quota count). Only text crosses to the
+  cloud. Supersedes D003 rev 2 where different.
+- Rejected for installation: FlowPilot (automation-masking flag, off-screen window), Flow Studio (watermark removal,
+  credit-exhaustion account switching, plaintext keys), google-flow-mcp (closest to our rules, but still unreviewed
+  third-party code driving a logged-in session); custom tunnelled remote connector and hosted Flow services (high risk).
+- Director note: A23's C1 (withdrawing the cloud-attached Remote Control folder bridge) conflicts with tools present
+  in this cloud session (`request_computer_folder`). Unresolved; to be tested in T5. If it works, cloud-side commands
+  and file tools could reach the local inbox directly, without moving pixels into the cloud.
+- Status: proposed — awaiting user decisions (§1A.9).

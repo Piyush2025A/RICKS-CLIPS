@@ -1,8 +1,10 @@
 # Integration feasibility — Google Flow and ElevenLabs
 
-Revision 2 (2026-11-27, Phase 1 corrections requested by the user). Owner from Phase 2 on: A23; this revision was
-written by the director. Desk research only: nothing was authenticated, installed or generated.
-Labels: **PUBLISHED** = stated on an official page (quoted, fetched 2026-11-27) · **VERIFIED** = observed in our own
+Revision 3 (2026-11-27, Phase 2.5 Operational Validation, written by A23) adds section 1A and corrects §1.5/§1.7.
+Revision 2 (2026-11-27, Phase 1 corrections requested by the user) was written by the director. Desk research only:
+nothing was authenticated, installed, executed or generated in either revision.
+Rev 3 labels: **VERIFIED** = official page read in full or the repo source read (access date 2026-11-27) · **INFERRED**
+· **UNVERIFIED**. Rev 2 labels: **PUBLISHED** = stated on an official page (quoted, fetched 2026-11-27) · **VERIFIED** = observed in our own
 account/test · **THIRD-PARTY** = non-official source · **UNVERIFIED** = not tested.
 
 ## 1. Google Flow
@@ -75,6 +77,8 @@ How they reduce manual work (INFERRED, to be tested):
 - Requirements: Chrome/Edge/Chromium, extension ≥ 1.0.36, Claude Code signed in with a direct Anthropic plan (Pro
   is listed). Not supported in WSL, with third-party API providers, or in ZDR organisations.
 - Per-site permission prompts. Recordings capture everything visible, so review them before sharing.
+- (Rev 3 update, §1A.1: `claude remote-control --chrome` is documented, so the *local* session can be steered from
+  claude.ai/code; the browser still runs on the user's machine.)
 - **Cloud/remote sessions: not documented as supported.** The page does not say browser control works from a cloud
   session. Treat it as **local Claude Code on the user's computer only** (UNVERIFIED for cloud).
 - **File downloads: not documented.** Uploads are (≤ 10 MB, credential paths refused). Whether Flow's download
@@ -91,7 +95,7 @@ only how outputs reach the pipeline.
 ### 1.7 Local-to-cloud asset bridge options
 | Bridge | How | Status / risk |
 |---|---|---|
-| **B1 Remote Control folder** | The user shares a local folder (e.g. `~/RicksClips/flow-inbox`) via the Claude desktop app → Remote Control; the cloud session attaches it and reads files there | Supported platform feature. **Byte-exact transfer into the cloud filesystem is UNVERIFIED**: tools run *on* the attached machine, so copying binaries into the container needs a test. Alternative: run intake on the local machine and push only manifests. |
+| **B1 Remote Control folder** | ~~A cloud session attaches a shared local folder via Remote Control~~ **SUPERSEDED BY REV 3 (§1A.2): this mechanism does not exist.** Remote Control is a window onto a session that runs on the user's machine; it does not mount local folders into a cloud container. | Incorrect in rev 2. Replaced by "local worker session" (§1A.5). |
 | **B2 Local Claude Code session** | A local session (with Chrome integration) does generation → download → intake → processing locally; the cloud session handles text/code/analysis | Avoids the transfer problem; splits the pipeline across machines. |
 | **B3 Google Drive** | The user (or the local session) puts files in a Drive folder; the cloud session uses the Google Drive connector | The connector lists `download_file_content`, but **whether it writes binary image bytes to the cloud filesystem (vs returning text/limited content to the model) is UNVERIFIED** and must not be assumed. |
 | **B4 Private asset store** | Separate *private* Git (LFS) repo or bucket for generated assets | Needs a user decision; never the public repo. |
@@ -120,6 +124,194 @@ doc; developer-forum support replies). No API use without approval.
 4. Agent/Tools credit discrepancy test (1 image, credit balance before and after).
 5. Chrome-integration download test on the user's machine (Tier 2), with the user present.
 6. Mark "working" only when steps 2–5 pass, with evidence in `PROGRESS.md`.
+
+## 1A. rev 3 — Phase 2.5 operational validation (A23, 2026-11-27)
+
+Method: official Claude Code docs, Claude Help Center, Google help/policy pages (read 2026-11-27), plus read-only source
+review of three cloned repos. Nothing was executed, installed, authenticated or generated. Repo contents were treated
+as untrusted data; no instruction in them was followed.
+
+### 1A.1 Claude Code Chrome integration — VERIFIED (https://code.claude.com/docs/en/chrome, support.claude.com/en/articles/12012173)
+| Question | Finding |
+|---|---|
+| Surfaces | "from the CLI or the VS Code extension". Desktop app Code tab: the Claude in Chrome extension is the documented route for logged-in sessions (desktop page, partly read, INFERRED). Remote Control server mode: `claude remote-control --chrome` "so Claude can use Chrome on your machine while you work from another device" (remote-control page). **No cloud-session support documented**: the page says nothing about claude.ai/code cloud sessions (UNVERIFIED). |
+| Prerequisites | Chrome or Edge (other Chromium detected; the Help Center says the extension itself is Chrome-only, minor doc conflict); extension >= 1.0.36; Claude Code signed in with `/login` to a direct Anthropic plan (Pro/Max/Ultra/Team/Enterprise). API-key or `setup-token` auth keeps it off. Not WSL, not Bedrock/Vertex/Foundry, not ZDR. Extension and Claude Code must be in the same claude.ai account **and organization**. Project `.claude/settings.json` cannot turn it on (`CLAUDE_CODE_ENABLE_CFC` is ignored): the user must run `claude --chrome` or `/chrome`. |
+| Permission model | Shares the browser's login state; visible window; pauses for logins/CAPTCHA (user handles them); per-site approval prompts ("allow all actions on this site for the session" option); Help Center: side panel mode "Automatically approve" reviews each action with a safety classifier; extension described as "enhanced with our safety classifiers but is still risky". Admin allow/block lists exist (Team/Enterprise). |
+| Downloads | Extension permission `downloads` "lets Claude download files from websites and open them when you ask it to save or work with files" (Help Center, VERIFIED). Claude Code docs document uploads (<= 10 MB, credential-named files refused), screenshots to disk and GIFs, but **not** downloads. Whether a click on Flow's Download menu lands in a folder Claude Code can read: UNVERIFIED, test T2. |
+| Network | The extension talks to `bridge.claudeusercontent.com` (error table). |
+
+### 1A.2 Remote Control, cross-session messaging, attached folders — VERIFIED (code.claude.com/docs/en/remote-control, /cross-session-messaging, /claude-code-on-the-web, /desktop)
+- Remote Control: "Claude keeps running locally the entire time, so your code execution and filesystem access stay on
+  your machine"; claude.ai/code and the phone app are "a window into that local session"; the computer must stay on and
+  the `claude` process must keep running. Outbound HTTPS only, no inbound ports, short-lived scoped credentials, TLS
+  via the Anthropic API; the transcript (incl. tool activity) is stored on Anthropic servers. Pro/Max/Ultra/Team/
+  Enterprise only; not with API keys or a custom `ANTHROPIC_BASE_URL`. Files attached from the phone/browser are
+  downloaded **to the local machine**.
+- **Correction to rev 2 (contradiction C1):** rev 2 B1 assumed a cloud session could attach a local folder through
+  Remote Control. The docs say the opposite direction: a remote *client* views a *local* session. The desktop page says
+  folders can be added only to local/SSH sessions and cloud sessions take repositories instead. B1 is withdrawn.
+- Cross-session messaging (CLI >= 2.1.224): plain text only between your own sessions, including a cloud session and a
+  session on another machine, routed through Anthropic servers, needs Remote Control connected on the sender. A
+  cloud session cannot reply by `SendMessage` to another machine (its answer is visible in the transcript only).
+  Messages never carry files; they cannot approve permissions or change configuration. Optional
+  `isolatePeerMachines` forces user approval for cross-machine sends.
+- Cloud sessions: Anthropic-hosted VM, GitHub-based; "Limited" network allowlist by default; MCP connector traffic goes
+  through Anthropic servers, so connector hosts need no allowlist entry; environment network secrets are attached by an
+  Anthropic proxy outside the VM. Cloud sessions cannot read the user's computer.
+
+### 1A.3 Remote MCP connectors — VERIFIED (code.claude.com/docs/en/mcp, cloud-environments)
+- Custom connectors are added at claude.ai/customize/connectors (admins only on Team/Enterprise) and are fetched
+  automatically by Claude Code when signed in with a claude.ai login; in cloud sessions the host delivers them and its
+  proxy authenticates with the authorization granted in claude.ai. They persist at account level, so they survive new
+  cloud sessions. Remote servers use HTTP (SSE deprecated) with OAuth 2.0 or static headers.
+- **A custom connector requires a publicly reachable HTTPS MCP endpoint** (INFERRED from "traffic travels through
+  Anthropic's servers"). A Flow driver would live on the user's computer, so connecting it needs a tunnel or public
+  host in front of a process that controls a logged-in Google session. That is rejected (§1A.4 option H).
+- Binary data: MCP image results (PNG/JPEG/GIF/WebP) are shown inline (may be downscaled) **and the original bytes are
+  saved to the session's `tool-results` directory with the path given to Claude** (Claude Code >= 2.1.283, only when
+  session persistence is on). Image results remain subject to `MAX_MCP_OUTPUT_TOKENS`. Other binary types and
+  size-limit behaviour for large images: UNVERIFIED.
+- Google Drive connector (listed in this session): official docs say Claude extracts text only from Drive files and a
+  support article says embedded images are not processed; a THIRD-PARTY bug report (claudeissues.com #77099) reports
+  `download_file_content` failing at about 5-10 MB. Binary-fidelity to the cloud filesystem: UNVERIFIED, test T5.
+
+### 1A.4 Google Flow official surfaces and terms
+VERIFIED (support.google.com/flow):
+- **No official Flow API, MCP or extension is documented.** Help Center topic list has no API/MCP page; the 2026-05-19
+  Flow update post (blog.google .../flow-updates) mentions Agent, Tools, mobile apps and no API/MCP/export/Drive
+  feature; a web search found none. (Absence of evidence: an unannounced API cannot be excluded.) Google's managed MCP
+  announcement does not list Flow (search snippet, UNVERIFIED in full).
+- Asset download (answer 16935308): hover asset > More > Download > choose file type; a collection (hover > Download);
+  whole project (More > Download project); Scenebuilder sequences as one file. Image format (PNG/JPG) and
+  resolution are not stated there; upscale tiers appear in the download menu per third-party source code (flowpilot).
+- Account-wide export (answer 17571126): Google Takeout, Flow only; images `.jpg`, video `.mp4`, audio `.wav`, each with a
+  paired `_metadata.json`; `.zip`/`.tgz`; "Add to Drive" destination (counts against storage); links expire after 7 days;
+  takes minutes to hours. This is the only documented path to Drive and it is a manual, account-level export.
+- Agent: "Batch generate" and rename/organise (rev 2 §1.4); Agent available to all Flow users globally since 2026-05-19;
+  Tools creatable by Google AI subscribers. Credit-vs-allowance discrepancy remains open (§1.3).
+- Terms. Flow help footer links the general Google ToS (google.com/accounts/TOS). policies.google.com/terms/
+  service-specific lists "Labs.google" under Terms of Service + Generative AI Prohibited Use Policy; Flow itself is
+  not listed. I did **not** find or read a Flow-specific page on automated access (UNVERIFIED that none exists).
+  General ToS quotes: "using automated means to access content from any of our services in violation of the machine-
+  readable instructions"; "spamming, hacking, or bypassing our systems or protective measures"; "reverse engineering
+  our services or underlying technology". Prohibited Use Policy 2.3: "Circumvention of abuse protections or safety
+  filters"; 2.2 interference with Google services. Flow help (rev 2, 16729550): extra short-term limits for "suspicious
+  activity or very rapid generations".
+- **ToS assessment (INFERRED, medium confidence, not legal advice):** driving Flow's own web UI at human pace in the
+  user's own visible, logged-in browser with the user present is not an explicit violation of the quoted clauses and
+  does not bypass a protection. It is also not an endorsed or documented integration, so an account-level restriction
+  risk to the Google account that holds the AI Pro subscription cannot be excluded. Anything that masks automation,
+  rotates accounts to dodge credit limits, scrapes private endpoints, or removes watermarks leaves this envelope.
+- Official programmatic alternative: Gemini API models (Nano Banana Pro `gemini-3-pro-image`, Nano Banana 2 / 2.1 /
+  2 Lite, per aistudio.google.com/docs/image-generation; "All generated images include a SynthID watermark"). Billed
+  separately from AI Pro (rev 2 §1.9); per-image price and free-tier limits not read (UNVERIFIED). It is not Flow: no
+  Flow project, Agent, Tools or in-Flow limits.
+
+### 1A.5 Open-source Flow MCP implementations — source read only, nothing executed
+All three: Node >= 22, Playwright (`playwright-core`) driving a Chromium on the user's machine through the Flow web UI;
+local stdio MCP (nothing a cloud session can reach); MIT; each repo is a **single commit** (no history, no releases, no
+independent review); no use of private Google endpoints found, no cookie/token extraction code found (greps for
+cookie, storageState, Authorization, access_token, route/response interception: none beyond the items below).
+
+| | FlowPilot (Rocco3D, e0dce06, 2026-10-23, ~3.8k LOC TS) | google-flow-browser-mcp (hitjcl, e6a7137, 2026-08-02, ~1.6k LOC TS) | Flow Studio (bakhtiarrifai, ed709b0, 2026-11-23, ~5.6k LOC JS) |
+|---|---|---|---|
+| Architecture | CLI + localhost HTTP API (bearer token file, mode 0600, Host/Origin check) + stdio MCP; serial job queue; DOM selectors file with self-test | Stdio MCP, 22 tools, SQLite state, explicit confirm before credit-consuming submit | Stdio MCP + local control panel (127.0.0.1:8791) + FFmpeg/TTS/caption toolchain; derived from GTAI-1/flow-mcp |
+| Flow auth | User signs in manually in a **plain Chrome window (no debug port)**; then own profile reopened with `--remote-debugging-port=0` and attached via CDP | User signs in inside a Playwright `launchPersistentContext` headed window; code blocks password/2FA fields. Google may refuse sign-in in an automation-launched browser (INFERRED) | Own Chromium profile launched with fixed `--remote-debugging-port=9344` on 127.0.0.1, attached via CDP; user logs in manually |
+| Endpoints | Only flow.google.com UI (+ `raw.githubusercontent.com` update check) | Only labs.google/fx/tools/flow UI | flow.google.com UI; plus generativelanguage.googleapis.com (Gemini key), api.kie.ai (paid, key), huggingface.co model downloads |
+| Credential handling | Profile dir + token file local; no Google creds read | Profile + SQLite under `~/.google-flow-creator`; no secrets read | Plain-file Gemini and kie keys and token in `~/.flow-studio`; profile local |
+| Red flags | Launch flag `--disable-blink-features=AutomationControlled` (masks automation detection; purpose INFERRED, source VERIFIED) and window parked off-screen at (-32000,-32000) by default (user not watching) and `--remote-allow-origins=*`: conflicts with "visible, user present" and rule 13 | README suggests `npx -y` (runs unreviewed registry code); 1 commit; otherwise closest to our rules (visible window, user-assisted login, no masking flags, 3 pinned deps) | `flow_assemble` **watermark removal**; "switch account when credits run out" workflow (limit evasion); fixed CDP port reachable by any local process; heavy deps (`@huggingface/transformers`, `kokoro-js`) with runtime downloads. Paces generations 25-70 s (positive) |
+| Install scripts | none (`prepublishOnly` only) | none | none found in package.json (lockfile transitive scripts not audited: UNVERIFIED) |
+| ToS risk | Medium-high (masking flag) | Medium (UI automation) | High (watermark removal, account rotation) |
+| Cloud-compatible | No | No | No (its own README: chat sites "cannot run programs on your machine") |
+Third-party claims in these READMEs (e.g. "Nano Banana 0 credits on AI Pro", "download/upscale costs no credits",
+"Agent batch up to 50 images in parallel") are THIRD-PARTY and agree with, or are unconfirmed by, Google's pages.
+**Verdict:** none should be installed. Their only advantage over Claude in Chrome is deterministic scripting, bought
+with third-party code controlling a logged-in Google session. If scripting is ever needed, hitjcl's design is the only
+candidate, and only after a line-by-line review, a pinned commit, a sandbox/separate OS user and explicit user
+approval (new decision, D-number).
+
+### 1A.6 Ranked options
+Scale: security risk and ToS status for the **user's Google account**; "cloud" = usable by a claude.ai/code cloud session.
+| # | Option | Exact prerequisites | Security risk | ToS / permission | Cloud compat. | Manual steps | Automation level |
+|---|---|---|---|---|---|---|---|
+| 1 | **Flow-native + manual download + local intake** (Agent batch generate from pasted prompt pack, house-style Tools, project/collection Download, optional Takeout) | AI Pro account (have); user at browser | None added | Fully permitted (official UI) | Flow no; manifests/prompts via git yes | ~5 per batch: paste pack, approve, rename check, Download project, move zip to inbox | Low-medium; batch scale |
+| 2 | **Local worker session: Claude Code + official Claude in Chrome (+ `remote-control --chrome`)**, visible Chrome, user present | Chrome + extension >= 1.0.36; Claude Code on user's computer >= 2.1.283, `/login` to claude.ai Pro (not API key/Bedrock); `claude --chrome`; Remote Control optional | Low-medium: extension shares login; prompt-injection exposure from page content; recordings capture screens | Anthropic side official; Flow side unendorsed, not explicitly prohibited at human pace (INFERRED) | Browser part no (local only); steered from claude.ai/code/phone via Remote Control; cloud session can send text prompt packs via git or cross-session message | ~2 per batch (start session, approve site/generation) | Medium-high; pacing needed |
+| 3 | Gemini API image generation with network secret | Google API key billed per use (not covered by AI Pro), user budget approval | Low (secret stays outside VM) | Official and permitted | Yes (Limited env + allowed domain `generativelanguage.googleapis.com` + network secret) | 0 | High, **but not Flow**; costs money |
+| 4 | hitjcl google-flow-browser-mcp, local | Node 22.13, pnpm, Chrome, FFprobe; code review | Medium (3rd-party code, sign-in inside automated browser) | Gray (UI automation, no masking) | No | Login + per-generation confirm | High |
+| 5 | FlowPilot | as above, Node 22.12 | Medium-high | Gray, masking flag | No | Login | High |
+| 6 | Flow Studio | Node 22, FFmpeg, keys | High | Gray-to-violating features | No | Login | High |
+| 7 | Custom remote MCP connector (claude.ai) fronting a local driver via tunnel/public host | Public HTTPS endpoint, OAuth, tunnel | **High** (remote entry to a logged-in Google session) | Gray | Yes in principle | Setup | High |
+| 8 | useapi.net hosted Flow MCP/REST (third-party service) | Paid third-party; needs the user's Google session handed over | **Very high** (credentials/session to third party) | Violates rules 9/13 | Yes | 0 | High |
+| X | Cookie/token extraction, headless/stealth drivers, cloud-side Google login | n/a | n/a | Prohibited by CLAUDE.md rules 9/13 and quoted ToS | n/a | n/a | n/a |
+
+### 1A.7 Recommended architecture (supersedes §1.8 where different)
+Principle: Flow only ever runs in the user's own visible browser on the user's own computer; the cloud never holds a
+Google session; binaries never enter the public repo; only text crosses to the cloud.
+```
+ claude.ai/code (cloud session: planning, prompts, A24/A26 analysis, Three.js/Remotion code)
+      |  git (public repo): prompts/<pack>.json, manifests (text, hashes, dims) ; no pixels
+      |  optional: cross-session text message (Remote Control must be connected on sender)
+      v
+ USER'S COMPUTER  ("local worker", online only while the user is present)
+   Claude Code local session  (claude remote-control --chrome  -> steerable from phone/claude.ai)
+      |-- Tier 1: user pastes pack into Flow Agent (batch generate) ........ official, zero-risk
+      |-- Tier 2: Claude in Chrome operates Flow, visible window, per-site approval, paced
+      |            (>= 25 s between generations; stop on any CAPTCHA/login/safety prompt)
+      v
+   Flow web UI --Download--> ~/RicksClips/flow-inbox/   (private, outside the repo, git-ignored)
+      |
+   pipeline/flow intake (A23, local script): SHA-256, dimensions, model, quota count -> manifest.json (text)
+      |
+      +--> manifest + provenance log committed (text only)  -->  cloud / A24 / A29
+      +--> pixels stay local (private/ or private store); render/composite steps that need pixels run on the local worker
+```
+- Why this shape: the only documented binary-safe path is local (Chrome downloads, local files, MCP image result files);
+  the cloud-to-local binary path is unverified (T5), and a connector would need a public endpoint.
+- Quota/credit discipline: log every generation (model, count, time) in the manifest; stay far below limits; treat any
+  throttle notice as a stop signal.
+- Prompt packs and house-style Tools contain no secrets (shared Tool links expose code, so keep them non-private only
+  by design).
+- Fallbacks: Tier 0/1 always works; if Chrome integration fails T2, remain on Tier 1 with batch downloads.
+- Private store for pixels needed by the cloud (decision pending): private repo (LFS) or private bucket via network
+  secret. Not the public repo, not Drive until T5 passes.
+
+### 1A.8 End-to-end test plan (no generation before explicit user approval)
+Each test: record date, versions (`claude --version`, extension version), commands, SHA-256 of inputs/outputs,
+counts, screenshots only if the user agrees, and manual-step count. Create an EXP-* record from the template before running.
+| Test | Steps | Pass criteria | Cost |
+|---|---|---|---|
+| T0 environment (no Flow use) | User: confirm local Claude Code version >= 2.1.283, `/status` shows claude.ai login and org, install extension, `/chrome` shows Connected, `/mcp` shows claude-in-chrome tools. Ask Claude to open code.claude.com/docs and read the title | Connected; per-site prompt appears; no credential files touched | 0 |
+| T1 read-only Flow (no generation) | User logs in to Flow in own Chrome. Claude in Chrome opens an existing project and reads the visible usage/limit indicator | Indicator values recorded as account-specific limits (closes the "UNVERIFIED account limits" item); no generation | 0 |
+| T2 download behaviour (no generation) | Claude clicks Download on an **existing** asset; user confirms file location | File lands in a folder Claude Code can read; SHA-256 recorded; image format and dimensions recorded; manual steps counted | 0 |
+| T3 one image, **needs approval** | User approves 1 image on Nano Banana 2 Lite (shared 1,000/day pool), prompt from the pack, generated by the user in the Flow UI (Tier 0). Record counters and credit balance before/after | Intake manifest valid; checksum match source vs local; limit counter moves by 1; credit balance unchanged (answers §1.3 direct path) | 1 image from daily allowance |
+| T4 Agent/Tools credit discrepancy, **needs approval** | Same 1-image prompt through the Agent; balance before/after | Documented whether credits move; contradiction C2 closed or escalated | 1 image, possible credits |
+| T5 bridge test | (a) Commit manifest from local to branch, cloud session reads it. (b) Copy the T3 image into Drive; cloud session downloads via the Drive connector and SHA-256s it. (c) Cross-session message with Remote Control connected | (a) manifest hash identical. (b) byte-identical or failure mode recorded (expected risk: size cap/text-only). (c) message delivered, files not carried | 0 |
+| T6 Claude-in-Chrome generation, **needs approval** | Claude (user watching) submits 1 prompt, waits, downloads, intake | End-to-end <= 3 manual steps; pass = T3 criteria; log pacing and any throttle | 1 image |
+| T7 batch | 4-image Agent batch, project Download, Takeout `_metadata.json` compared with manifest | All 4 ingested idempotently (re-run creates no duplicates); provenance fields complete | 4 images |
+Mark "working" only after T3 + T5 + (T6 or T7) pass, with evidence in `PROGRESS.md`. Stop rules: any CAPTCHA, re-login,
+unknown dialog, rate-limit or safety message halts automation and returns control to the user.
+
+### 1A.9 Open questions and items needing the user
+1. **Decision:** accept Option 2 (unendorsed UI automation of Flow by Claude in Chrome, user present) given residual
+   account-restriction risk to the Google account? Or stay on Tier 1 only?
+2. User actions: install the extension, run local Claude Code (>= 2.1.283, claude.ai login), keep computer on; confirm
+   Flow region/limits (T1); approve each generation (T3, T4, T6, T7).
+3. Where may pixels live for cloud steps: local only, private repo (LFS) or private bucket (budget)?
+4. Gemini API route: is a billed API acceptable for non-Flow bulk stills? (needs budget cap)
+5. Read the Labs.google Terms of Service page and any Flow-specific terms (not fetched) before T6/T7.
+6. Does Claude Code's Chrome tool set expose file download and a "wait for element" primitive? (`/mcp` > claude-in-chrome > View tools, T0)
+
+### 1A.10 Contradictions and unverified claims (rev 3)
+- C1: rev 2 B1 (cloud attaches a Remote Control folder) vs Remote Control docs (local session, remote client). Resolved
+  against rev 2; B1 withdrawn.
+- C2 (carried over): Agent/Tools "uses Google Flow credits" vs images "does not use monthly credits". Unresolved; T4.
+- C3: Claude Code Chrome docs list "Chrome or Edge (+ Chromium detection)" while the Help Center says Chrome only; the
+  Help Center says some tasks need "the Claude Desktop app open and connected, even though your session runs in the
+  cloud" (context unclear, may refer to another product). Cloud-session Chrome support stays UNVERIFIED.
+- UNVERIFIED: cloud-session Chrome support; Chrome-tool download behaviour into a Claude-readable folder; Drive
+  connector binary fidelity and size cap; Flow image download format and resolution; Labs.google/Flow ToS automation
+  clauses (page not read); account-specific limits; Gemini image API price/free tier; whether an unannounced Flow API
+  exists; transitive npm install scripts of the three repos; full text of desktop-app page beyond the first 100k characters.
 
 ## 2. ElevenLabs (unchanged from revision 1)
 - `POST /v1/text-to-speech/{voice_id}/with-timestamps` returns audio plus character-level alignment, usable for word
@@ -158,3 +350,12 @@ publication, and re-check if the team grows beyond 3 people or a company entity 
 - Google AI plans vs API billing: https://ai.google.dev/gemini-api/docs/google-ai-plans (rev 1)
 - ElevenLabs TTS with timestamps: https://elevenlabs.io/docs/api-reference/text-to-speech/convert-with-timestamps (rev 1)
 - THIRD-PARTY, rev 1 (superseded for images): https://costgoat.com/pricing/google-flow, https://www.wireflow.ai/blog/google-flow-api
+- Rev 3 sources (fetched 2026-11-27): https://code.claude.com/docs/en/remote-control · /cross-session-messaging ·
+  /claude-code-on-the-web · /cloud-environments · /mcp · /desktop (first 100k chars) ·
+  https://support.claude.com/en/articles/12012173-getting-started-with-claude-in-chrome ·
+  https://support.google.com/flow/answer/16935308 · https://support.google.com/flow (topic index) ·
+  https://blog.google/innovation-and-ai/models-and-research/google-labs/flow-updates ·
+  https://policies.google.com/terms · https://policies.google.com/terms/generative-ai/use-policy ·
+  https://policies.google.com/terms/service-specific · https://aistudio.google.com/docs/image-generation (first 100k chars)
+- THIRD-PARTY (rev 3): claudeissues.com issue 77099 (Drive connector size cap); web-search listings of useapi.net and
+  other Flow MCPs (not fetched); repo READMEs of the three cloned projects (read-only, local clones).
