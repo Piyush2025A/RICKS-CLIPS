@@ -57,3 +57,10 @@ Return a ≤ 250-word hand-off: files written, top findings, coverage numbers, o
 Original-work goal: describe techniques to reproduce the *craft*, never to copy characters, designs, stories or
 artwork. No credentials, no media in git, no paid services, no generations, no web uploads. Stay inside your owned
 paths (plus your visual ledger). If something fails, record it in `FAILED.md` and continue with what you can do.
+
+## Operational notes (added during the run)
+- CPU is shared with the 2-worker rcpipe batch. `get_frames.py` decodes from the start of the video (≈ 1 min/call under
+  load): request **all frames you need from one video in a single call**; prefer contact/overview sheets first.
+- Never run broad `pkill`/`killall` patterns (one agent killed its own shell; the batch must not be touched).
+- If the Write tool refuses your deliverable files, do not work around it: return the complete FINDINGS/TECHNIQUES/
+  FAILED text in your hand-off and the director will write it verbatim.
