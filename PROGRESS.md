@@ -175,20 +175,20 @@
 - Specialist brief: `knowledge/_system/briefs/PHASE3-BRIEF.md`. Visual ledgers: `knowledge/dataset/coverage/visual/`.
 - Specialist status: see table below (filled as agents complete).
 - Open contradictions for A09/A28: character cast shadows (A01 F-a01-005 saw soft ground shadows in rendered sets; A06
-  F-A06-002 saw none); leg length (A01 ≈ 2–3× torso by eye vs A03 ≈ 1.4–1.5× measured); A03 height 2.97 HW vs H-UP 3.5.
+  F-A06-002 saw none) — RESOLVED by A09 F-A09-001 (hard shadows only under strong key); leg length (A01 ≈ 2–3× torso by eye vs A03 ≈ 1.4–1.5× measured); A03 height 2.97 HW vs H-UP 3.5.
 | Wave | Agents | Status |
 |---|---|---|
 | V1 (visual, overview-based; parallel to batch) | A01 ∥ A05 | done (A01 12 findings, 20 videos viewed; A05 12 findings) |
-| V2 | A02 ∥ A03 | A03 done (partial: 7 videos measured, turn limit); A02 running |
-| V3 | A04 ∥ A06 | A06 done (8 findings, 30/30 flow); A04 running |
+| V2 | A02 ∥ A03 | done (A02 10 findings; A03 partial: 7 videos measured) |
+| V3 | A04 ∥ A06 | done (A04 7 findings; A06 8 findings) |
 | C1 (after batch) | A27 consolidation | pending |
-| C2 | A15 ∥ A20 | pending |
+| C2 | A15 ∥ A20 | A20 running; A15 pending (needs every-frame sheets) |
 | C3 | A13 ∥ A16 | pending |
-| C4 | A09 ∥ A11 | pending |
-| C5 | A10 ∥ A08 | pending |
-| C6 | A07 ∥ A14 | pending |
-| C7 | A12 ∥ A21 | pending |
-| C8 | A22 ∥ A19 | pending |
+| C4 | A09 ∥ A11 | A09 done (12 findings; shadow contradiction resolved); A11 pending |
+| C5 | A10 ∥ A08 | A08 done (10 findings); A10 running |
+| C6 | A07 ∥ A14 | done (A07 8 findings partial; A14 7 findings) |
+| C7 | A12 ∥ A21 | A12 done (12 findings + E01–E18 library); A21 pending |
+| C8 | A22 ∥ A19 | A19 done (12 findings, 30/30 videos); A22 pending |
 | C9 | A17 ∥ A18 | pending |
 | Q | A28 audit | pending |
 | K | director bibles + STYLE_BIBLE | pending |
@@ -218,3 +218,5 @@
 3. User: approve Phase 3 start; director then runs P3.1 (identify + freeze `MANIFEST.json`) and stops for the
    user's Shorts-tab confirmation before any footage step.
 4. Phase 3 per `research/phase3-plan.md` §6 (A27 first). Non-blocking Phase 2.5/4 items: plan §8.
+
+- Harness note: several specialists' Write calls for FINDINGS/TECHNIQUES/FAILED were refused ("subagents should return findings as text"); the director wrote those files verbatim from the hand-offs (noted in each file header).
