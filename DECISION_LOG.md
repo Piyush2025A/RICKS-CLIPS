@@ -135,3 +135,16 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Restoration: ephemeral container → re-run the script in each new session (~15 s). Saving it as the stored cloud
   environment setup script is recommended but **not applied** (needs separate approval).
 - Status: D010 accepted (verified).
+
+## D017 · 2026-11-27 · Reference-analysis pipeline built and validated on synthetic data
+- A27 built `rcpipe` v0.1.0 in `analysis/` (owned path). Native-frame decode uses an ffmpeg rawvideo pipe with
+  passthrough timing; frame IDs are zero-based decode indices with ffprobe pts; a negative control confirmed that
+  `-fps_mode cfr` would alter VFR frame counts, so passthrough is mandatory.
+- Validation used synthetic media only (scratchpad / git-ignored `out/`); nothing generated was committed. 159/159
+  checks pass, reproduced independently by the director. Failures found and fixed are logged (A27 `FAILED.md`); four test
+  expectations were amended with stated reasons (codec ramp bias, Canny on ≤ 2 px lines, run-key in frame IDs,
+  ebur128 verbosity).
+- Limitations: thresholds not yet calibrated on real animation/compression; camera vs character separation is an
+  estimate with uncertainty flags; outputs are computational only.
+- Proposed schema changes deferred (see PROGRESS). Status: accepted as Phase 2.5 infrastructure; recalibration on
+  real footage happens only after Phase 3 authorisation.

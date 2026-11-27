@@ -68,6 +68,20 @@
       FFmpeg/FFprobe 6.1.1 round trips pass. Two first-attempt test-design failures (flat-texture optical flow, coarse
       Welch bins) re-run correctly. Evidence: `setup/VERIFICATION.md`. Environment is ephemeral: re-run the script each
       session (cloud setup script not changed).
+- [x] **A27 computational analysis pipeline `rcpipe` v0.1.0 — synthetic validation only (D017), 2026-11-27.**
+      Built by the registered `a27-frame-analysis-specialist`: `analysis/rcpipe/` (probe, native decode, reconcile,
+      motion, shots, stats, audio, sheets, pipeline/checkpoints, schema), CLI `analysis/run_pipeline.py`, tests
+      `analysis/tests/`, docs `analysis/README.md`. Suite **159/159 pass** (A27 run, 128 s; director's independent
+      rerun, 126 s; first A27 run was 152/158, failures logged in
+      `knowledge/quality/a27-frame-analysis-specialist/FAILED.md`). Highlights: CFR 30 fps and VFR 24/30/60 frame
+      counts reconcile exactly with a burned-in per-frame barcode (no drop/dup/reorder); camera tx/ty error ≤ 0.016 px;
+      camera vs object separation on a panning background; cut/dissolve/flash candidates with 0 false positives;
+      loudness exact to −23/−16 LUFS; resume and rerun byte-identical; peak RSS flat (~105 MB) from 90 to 600 frames.
+      **Limits:** thresholds tuned on synthetic noise textures only, untested on real flat-colour animation or YouTube
+      compression; no audio coverage ledger record; rotation-tagged/HDR/10-bit untested. Computational measurements
+      only, no semantic understanding. No real RC30 media used.
+- [ ] Schema changes proposed by A27 (not applied, director/user decision): SYN key pattern, `frames_uncertain`,
+      audio coverage variant, `input_sha256` + script version fields.
 - [ ] User decisions on §1A.9 (Chrome automation risk, pixel storage, Gemini API, approvals for T3/T4/T6/T7).
 
 ## Blockers (corrected 2026-11-27)
@@ -88,7 +102,7 @@
 6. No GPU (software WebGL2 only).
 
 ## Next actions (pending approval)
-1. Phase 2.5: A27 analysis pipeline, synthetic validation only (in progress).
+1. Phase 2.5: review A27 pipeline (D017) and proposed schema changes.
 2. User decisions on Flow §1A.9; T5 bridge test.
 3. On Phase 3 approval: user confirms the acquisition method; director freezes `MANIFEST.json`; A27 runs the
    validated pipeline first.
