@@ -1,7 +1,7 @@
-# STYLE_BIBLE — consolidated production style (draft v0.1, 2026-11-28)
+# STYLE_BIBLE — consolidated production style (draft v0.2, 2026-11-28)
 Derived from the RC30 Phase 3 research (manifest `fc6f147a…278e06`); department detail and evidence in
 `knowledge/bibles/*.md` → specialist FINDINGS. **Goal: comparable craft with ORIGINAL, independently publishable
-characters, worlds, stories and assets.** Status: draft pending the A28 audit and user review. Confidence H/M/L per rule.
+characters, worlds, stories and assets.** Status: draft v0.2 with A28 audit corrections; pending user review. Confidence H/M/L per rule.
 
 ## 1. The look in one paragraph
 Flat 2D cut-out characters with baked near-black ink (≈ 3.6 % of head width) live inside real perspective 3D worlds that
@@ -23,13 +23,13 @@ punch word.
 | Bed | under voice by ≈ 14–20 dB in the speech band, not ducked, looped 6–10 s | M | AUDIO A5–A6 |
 | Captions | 1 token (≈ 1.16 words) at a time, band y 0.689–0.724, 2 frames before the word | H/M | CAMERA K10, AUDIO A4 |
 | Shots | median ≈ 3 s, ≈ 14 per 60 s, flat pacing | M | EDITING T6–T7 |
-| Transitions | crossfade 6 f @30 / 5 f @24 default (75 %); hard cuts ≤ 10 %; placed in narration pauses | H/M | EDITING T1–T3, T8 |
+| Transitions | crossfade 6 f @30 / 5 f @24 default (75 %); hard cuts ≤ 10 %; placed in narration pauses | M | EDITING T1–T3, T8 |
 | Camera | moving ≥ 60 % of frames; push +22 % over ≈ 35 f, smoothstep; no shake | M | CAMERA K1–K5 |
 | Change rate | visible change every ≤ 3.5 s | L–M | EDITING T12 |
 | Character ink | baked, ≈ 3.6 % head width, L* < 10 | M | CHARACTER C8 |
 | Expressions | hold-and-snap swaps, bursts of 3–5 then holds; no lip-sync for narration | M | EXPRESSION E3–E5 |
 | Lighting | ambient ≈ 0.14 of key; shadow hue = sky; faces L* ≥ 85 | M | LIGHTING L1–L3 |
-| Grade | no true black, p99 ≈ 0.94, no grain, no CA | M | LIGHTING L8, L10 |
+| Grade | black floor ≈ 0.04–0.10 (no true black), p99 ≈ 0.94, no grain, no CA | M | LIGHTING L8, L10 |
 | Story | mechanism visual at 50–75 %; irony ≈ every 12 s; last word = punch | M/L | STORY S5–S8 |
 
 ## 3. Implementation map (our tools)

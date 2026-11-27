@@ -1,6 +1,7 @@
 # Production bibles (Phase 3 consolidation, director)
-Status: **DRAFT v0.1, 2026-11-28** — consolidated from specialist FINDINGS (RC30, manifest `fc6f147a…278e06`) and
-subject to the A28 independent audit (`evaluations/phase3-audit/AUDIT.md`). Every rule cites finding IDs; confidence is the
+Status: **DRAFT v0.2, 2026-11-28** — consolidated from specialist FINDINGS (RC30, manifest `fc6f147a…278e06`) and
+A28 independent audit applied (v0.2, `evaluations/phase3-audit/AUDIT.md`: 20 claims graded — 10 VERIFIED, 5 PARTLY,
+0 NOT SUPPORTED, 5 UNCHECKABLE; corrections folded in). Every rule cites finding IDs; confidence is the
 lowest of its sources unless corroborated. Rules describe **craft to reproduce with ORIGINAL characters, worlds and
 stories** — never copy the reference's characters, designs, stories, scripts or artwork.
 | Bible | File |
