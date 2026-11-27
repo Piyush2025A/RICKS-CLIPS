@@ -1,0 +1,86 @@
+{
+ "RC30-09-f000299": {
+  "n": 40,
+  "median": 27.5,
+  "iqr": [
+   17.0,
+   33.25
+  ],
+  "face_w": 453,
+  "face_h": 409,
+  "face_w_over_h": 1.11,
+  "outline_over_face_w": 0.061
+ },
+ "RC30-12-f000269": {
+  "n": 40,
+  "median": 25.0,
+  "iqr": [
+   12.75,
+   37.0
+  ],
+  "face_w": 477,
+  "face_h": 416,
+  "face_w_over_h": 1.15,
+  "outline_over_face_w": 0.052
+ },
+ "RC30-01-f000509": {
+  "n": 31,
+  "median": 20.0,
+  "iqr": [
+   11.5,
+   26.5
+  ],
+  "face_w": 471,
+  "face_h": 429,
+  "face_w_over_h": 1.1,
+  "outline_over_face_w": 0.042
+ },
+ "RC30-20-f000569": {
+  "n": 28,
+  "median": 40.0,
+  "iqr": [
+   15.0,
+   45.0
+  ],
+  "face_w": 589,
+  "face_h": 468,
+  "face_w_over_h": 1.26,
+  "outline_over_face_w": 0.068
+ },
+ "RC30-22-f000089": {
+  "n": 42,
+  "median": 23.5,
+  "iqr": [
+   12.5,
+   26.75
+  ],
+  "face_w": 339,
+  "face_h": 194,
+  "face_w_over_h": 1.75,
+  "outline_over_face_w": 0.069
+ },
+ "RC30-03-f000389": {
+  "n": 27,
+  "median": 30.0,
+  "iqr": [
+   18.5,
+   46.0
+  ],
+  "face_w": 398,
+  "face_h": 284,
+  "face_w_over_h": 1.4,
+  "outline_over_face_w": 0.075
+ },
+ "RC30-05-f000209": {
+  "n": 43,
+  "median": 24.0,
+  "iqr": [
+   16.5,
+   28.0
+  ],
+  "face_w": 327,
+  "face_h": 199,
+  "face_w_over_h": 1.64,
+  "outline_over_face_w": 0.073
+ }
+}
