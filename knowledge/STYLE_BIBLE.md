@@ -1,57 +1,70 @@
-# STYLE_BIBLE — consolidated production style (draft v0.2, 2026-11-28)
-Derived from the RC30 Phase 3 research (manifest `fc6f147a…278e06`); department detail and evidence in
+# STYLE_BIBLE — consolidated production style (draft v0.3, 2026-11-28, Phase 3B)
+Derived from the RC30 Phase 3 + 3B research (manifest `fc6f147a…278e06`); department detail and evidence in
 `knowledge/bibles/*.md` → specialist FINDINGS. **Goal: comparable craft with ORIGINAL, independently publishable
-characters, worlds, stories and assets.** Status: draft v0.2 with A28 audit corrections; pending user review. Confidence H/M/L per rule.
+characters, worlds, stories and assets.** Status: draft v0.3 with both independent audits applied (AUDIT.md, AUDIT_3B.md);
+pending user review. Confidence H/M/L per rule.
 
 ## 1. The look in one paragraph
-Flat 2D cut-out characters with baked near-black ink (≈ 3.6 % of head width) live inside real perspective 3D worlds that
-the camera almost never stops moving through. Lighting is a key + sky-coloured fill (≈ 7:1), shadows carry the sky hue,
-cards cast hard shadows only under a hard key, faces stay near-white and readable. Grade: lifted blacks, soft highlights,
-no S-curve, orange/yellow vs blue/violet. Scenes join with 6-frame crossfades, punctuated by zoom-throughs and
-fly-throughs. One narrator talks continuously at ≈ 200 WPM over an un-ducked tonal bed at −14 LUFS mono, with one-word
-captions fixed at ≈ 70 % frame height. Stories: odd situation → failed attempt → hidden mechanism at 50–75 % → ironic
-punch word.
+Flat 2D cut-out characters with soft gradient shading and a baked very dark ink line (≈ 3.7 % of head width, scaling with
+the card) live inside real perspective 3D worlds that the camera almost never stops moving through. Most videos (20/30)
+have no ink on scenery; a minority (6/30) ink the scenery too. Lighting is a key + sky-coloured fill (≈ 7:1); characters
+receive scene light; card cast shadows are a per-scene switch that is usually off. One grade everywhere: lifted blacks
+(p1 ≈ 0.07), soft roll-off, mild constant vignette, orange/yellow vs blue/violet. Scenes join with ≈ 7-frame crossfades
+(79 %), with zoom-throughs and fly-throughs at concept moments; the camera also changes the scene without an edit. One
+narrator talks continuously at ≈ 220 words/min over a static tonal bed ≈ 20 dB down (speech band), −14 LUFS mono, with
+one-word captions fixed at 0.70 frame height running ≈ 4 frames ahead of the voice. Stories: odd situation → failed
+attempt → hidden mechanism at 50–75 % → ironic punch word; the opening's verbal twist lands at 3–5 s.
 
 ## 2. Hard targets (for QC of our renders)
 | Area | Target | Conf | Bible |
 |---|---|---|---|
 | Format | 1080×1920, 30 fps final (360×640, 24 fps dev) | — | project rule |
 | Runtime | 45–65 s (reference median ≈ 60 s; range 31–78) | H | STORY |
-| Words | ≈ 3.3 words/s → 148 / 198 / 248 words at 45 / 60 / 75 s | M | STORY S10 |
-| Voice onset | ≤ 0.3 s; pauses ≤ 0.6 s; no title card | H/M | AUDIO A3, STORY S1 |
+| Words | ≈ 220 wpm (3.7 words/s) → ≈ 165 / 220 / 275 words at 45 / 60 / 75 s; sentences ≈ 11 words | H/M | STORY S10 |
+| Voice onset | first word ≤ 0.2 s (frame 1 in 23/30); sentence pauses ≈ 0.15–0.3 s; no title card | H/M | AUDIO A3, STORY S1 |
 | Loudness | −14 LUFS, TP ≤ −2 dBTP, LRA 2–3, mono-compatible | H | AUDIO A1–A2 |
-| Bed | under voice by ≈ 14–20 dB in the speech band, not ducked, looped 6–10 s | M | AUDIO A5–A6 |
-| Captions | 1 token (≈ 1.16 words) at a time, band y 0.689–0.724, 2 frames before the word | H/M | CAMERA K10, AUDIO A4 |
-| Shots | median ≈ 3 s, ≈ 14 per 60 s, flat pacing | M | EDITING T6–T7 |
-| Transitions | crossfade 6 f @30 / 5 f @24 default (75 %); hard cuts ≤ 10 %; placed in narration pauses | M | EDITING T1–T3, T8 |
-| Camera | moving ≥ 60 % of frames; push +22 % over ≈ 35 f, smoothstep; no shake | M | CAMERA K1–K5 |
-| Change rate | visible change every ≤ 3.5 s | L–M | EDITING T12 |
-| Character ink | baked, ≈ 3.6 % head width, L* < 10 | M | CHARACTER C8 |
-| Expressions | hold-and-snap swaps, bursts of 3–5 then holds; no lip-sync for narration | M | EXPRESSION E3–E5 |
-| Lighting | ambient ≈ 0.14 of key; shadow hue = sky; faces L* ≥ 85 | M | LIGHTING L1–L3 |
-| Grade | black floor ≈ 0.04–0.10 (no true black), p99 ≈ 0.94, no grain, no CA | M | LIGHTING L8, L10 |
+| Bed | −20 dB (±3) re VO in 400–2000 Hz, static (no duck), looped 6–10 s, one track per video | M | AUDIO A5–A6 |
+| Captions | 1 token (≈ 1.27 words), centre 0.703 H, never blank, ≈ 4 f (≈ 140 ms) before the word, sentence-final +5 f | H/M | CAMERA K10, AUDIO A3–A4 |
+| Edit shots | median ≈ 3.2 s, ≈ 2.2 edits per 10 s, ≈ 14 per video, flat pacing | M–H | EDITING T6, T8 |
+| Visual beats | a visible change every ≈ 2.9 s (incl. camera-driven scene changes); ≤ 3.5 s without change | M / L–M | EDITING T7, T12 |
+| Transitions | crossfade default 7 f @30 (6–8; 5–6 @24), 79 %; hard cuts ≤ 10 %; in narration pauses | M | EDITING T1–T3, T9 |
+| Opening | caption from frame 0–1; a visible change within 1–3 s; an edit in 0–3 s is optional (12/30) | M | EDITING T11, STORY S3 |
+| Camera | moving ≈ 67 % of frames, hold ≈ 11 %; push +24 % over ≈ 33 f, smoothstep (60 %); no shake | M | CAMERA K1–K5 |
+| Character | head H/W 0.93; height ≈ 3.3 HH; leg/torso ≈ 1.4; ball hands; ink 3.7 % HW (9.3 px for a 250 px head) | M | CHARACTER C2–C4, C9 |
+| Expressions | hard swaps, no in-betweens; ≈ 5 f holds around changes, 11–30 f between bursts; no lip-sync | M | EXPRESSION E3–E5 |
+| Body animation | moving bodies on ones; dialogue bodies frozen 24–48 f; walk step ≈ 11 f (n = 1) | M / L | ANIMATION M2–M4 |
+| Lighting | shade/lit ≈ 0.14; shadow hue = sky; card cast shadows OFF by default | L–M / M | LIGHTING L1–L3 |
+| Grade | p1 ≈ 0.07 (0.04–0.10), p99 ≈ 0.96, soft roll-off, vignette 0.70, no grain, no CA | H/M | LIGHTING L8, L10, L12 |
+| DOF | minority; added blur ≈ 3.6–4 px at 1080 on soft layers | L–M | ENVIRONMENT W8 |
 | Story | mechanism visual at 50–75 %; irony ≈ every 12 s; last word = punch | M/L | STORY S5–S8 |
 
 ## 3. Implementation map (our tools)
-- **Google Flow**: ORIGINAL character sheets (front/¾/side/back, baked ink, flat fills), expression part sheets, props and
-  painterly textures, environment art per treatment (CHARACTER, ENVIRONMENT, A01/A05/A08 TECHNIQUES).
-- **Three.js (@remotion/three)**: perspective sets, billboard cards with the A09/A10 card shader, presets per mood,
-  treatment-B outline pass, DOF/bloom/AO post stack in the A25 order; camera rig with smoothstep moves; VFX library E01–E18.
-- **Remotion**: timeline, 6-frame crossfades, zoom-through/iris masks, captions in the fixed band, expression swaps from
-  word timestamps, safe-zone overlay in dev.
-- **ElevenLabs**: ORIGINAL voice directed to ≈ 200 WPM, short pauses; word timestamps → captions (−2 f) and swaps (−1 f);
-  never clone the reference narrator.
-- **FFmpeg**: loudnorm (I = −14, TP = −2, LRA ≈ 3), mono-compatible mix, high-pass ≈ 100–115 Hz; rcpipe + `qc_grade.py` +
-  `pacing_qc.py` run on our renders for comparison against these targets.
+- **Google Flow**: ORIGINAL character sheets (front/¾/side/back, baked ink, soft gradient fills), expression part sheets,
+  props and painterly textures, environment art per the chosen scenery-ink treatment (CHARACTER, ENVIRONMENT, A01/A05/A08
+  TECHNIQUES).
+- **Three.js (@remotion/three)**: perspective sets (near/subject/far 0.5–2 / 3–6 / ≥ 20 m for orbit and dolly shots),
+  billboard cards with the A09/A10 card shader (ink scales with the card), material presets (A08 table), treatment-B
+  outline pass only when chosen, DOF/bloom/AO post stack in the A25 order; camera rig with smoothstep moves; VFX E01–E25.
+- **Remotion**: timeline, 7-frame crossfades, zoom-through/iris masks, captions in the fixed band ≈ 4 f ahead of word
+  timestamps, expression swaps driven by story beats, safe-zone overlay in dev.
+- **ElevenLabs**: ORIGINAL voice directed to ≈ 220 wpm with short sentence pauses; word timestamps → captions; never clone
+  the reference narrator.
+- **FFmpeg**: loudnorm (I = −14, TP = −2, LRA ≈ 3), static bed −20 dB re VO in the speech band, mono-compatible mix,
+  high-pass ≈ 100–115 Hz; rcpipe + `tools/caption_events.py` + `qc_grade.py` + `pacing_qc.py` on our renders to compare
+  against these targets.
 - Module architecture and order: `knowledge/engineering/a25-threejs-remotion-engineer/TECHNIQUES.md` (M1–M15).
 
 ## 4. Originality rules
 No reference characters, faces, designs, sets, signage, stories, topics already in RC30, scripts, jokes, music or voice.
-Use the reference only for measured craft parameters. Proposed own character signature (needs approval): rounded-square
-heads, tapered limbs, mitten hands, indigo ink. Story sourcing via A17 rubric + originality gate.
+Reference caption transcripts are private research material, never committed or reused. Use the reference only for
+measured craft parameters. Genre-level constants may be shared; the reference's exact character combination must not be
+reproduced (CHARACTER, originality note). Proposed own character signature (needs approval): rounded-square heads,
+tapered limbs, mitten hands, indigo ink. Story sourcing via A17 rubric + originality gate.
 
 ## 5. Known weak spots (do not over-trust)
-Proportions (7 videos measured), walk (n = 1), expression timing (n = 9), SFX model (detectors failed), hook typing
-(single-axis labels disagree), DOF blur magnitude (no px value), camera magnitudes (proxy 2-D), vignette (confounded),
-6 videos without confirmed edit lists. Decisions pending the user: treatment A vs B, where final renders run, own
-character signature.
+Walk cycle (numeric n = 1; bob/lean/slip unmeasured); SFX density/level/sync (no detector reached usable precision);
+light-rendering treatment split (A09, low, inconsistent; scenery-ink split by A10 is the usable axis, 1–2 frames per
+video); DOF share (metric upper bound vs visual over-call, contradiction kept); per-move camera magnitudes (noisy;
+medians robust); key azimuth, fill ratio on ≥ 15 videos; blink rate; child/animal/object proportions; picture-axis hook
+coding (κ 0.57; two LLM coders); 3A overview-based expression vocabulary not re-checked. Decisions pending the user:
+scenery-ink treatment (A majority / B), where final renders run, own character signature.

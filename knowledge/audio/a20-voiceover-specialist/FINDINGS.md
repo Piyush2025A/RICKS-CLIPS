@@ -2,6 +2,7 @@
 Phase 3B update 2026-11-28: see "Phase 3B additions" (F-A20-101..105) and "Phase 3B revisions".
 Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · 2026-11-28 · A20.
 (Written to disk verbatim by the director from A20's hand-off; the agent's Write tool refused this file.)
+> Director correction (Phase 3B, A28 AUDIT_3B Tier 3): the ledger now holds 58 A20 records (8 contact sheets 3A + 50 caption-overlay records 3B); RC30-22 and RC30-30 transcription views were not logged by A20 — the director spot-checked both sheets against `caption_text.csv` (word-for-word match) and logged those views under `director`.
 All 30 videos computational (native 44.1 kHz stereo, pipe decode, read-only; no temporary WAVs). Visual ledger: 8
 records — contact sheets RC30-02 f0–47, 15 f624–671, 24 f576–623, 25 f240–287, 26 f336–383, 27 f480–527, 28 f336–383,
 30 f432–479 (120×213). The agent cannot hear; all claims computational. Tables: `data/audio_per_video.csv`,
