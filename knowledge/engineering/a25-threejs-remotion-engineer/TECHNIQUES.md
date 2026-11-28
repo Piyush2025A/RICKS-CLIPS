@@ -51,3 +51,6 @@ Same code path; knobs: `uiScale`, shadow map size (1024 dev / 2048 final), outli
 2. Approve one `npm view` compat check and Remotion Free licence re-verification at setup.
 3. Where will final 1080p renders run (laptop HD 620 or rented GPU)? Container software GL is only for dev.
 4. Hand-offs: C2 toon vs standard RESOLVED (Phase 4): smooth gradient card shading, no mandatory toon bands (A01 3B F-a01-102, A10); A06/A07 on pitched cards (C10); A11 on face floor vs grade (C11); A26 for first benchmarks.
+
+## Approved (Phase 5A, verified by one still): deterministic texture card
+useRemotionTexture (delayRender + advance after commit + sRGB) and hard-link private asset serving; details in ENGINE.md. Status: verified on swangle only.

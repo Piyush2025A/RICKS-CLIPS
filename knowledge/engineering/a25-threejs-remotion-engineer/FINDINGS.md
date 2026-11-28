@@ -96,3 +96,12 @@ Feasibility: A = as-is (library/standard feature), C = custom work, R = risky.
 - R5 Software WebGL2 limits: MAX_TEXTURE_SIZE 8192 (technical-audit); float render targets/MRT under SwiftShader should work but are slow (INFERRED).
 - R6 Remotion licence: Free licence conditions recorded in `research/integration-feasibility.md`; A25 did not re-verify DOC-3 details; director to confirm before commercial use.
 - R7 Flow dependency: pose-swap library (A04/A24) depends on separated layers from Flow, not drivable from container (research/integration-feasibility.md).
+
+## Phase 5A engine foundation results (2026-11-28) — EXP: single-still integration
+- F-A25-201 MEASURED (high; 2 runs): same frame twice at swangle gives identical PNG SHA-256 aee435c5...a67b (frame 24, 360x640). Per machine+flags only.
+- F-A25-202 MEASURED (medium, n=5 runs): 360x640 still, bundle ~2 s, selectComposition ~0.4 s, renderStill 0.54-0.78 s (plate card + box, software GL, 4 vCPU). Not a benchmark; A26 to measure.
+- F-A25-203 MEASURED (high): only `swangle` gave a WebGL context; angle/swiftshader/angle-egl failed with Remotion 4.0.547 + its chrome-headless-shell 158.0.8127.2 (contradicts nothing in DOC-2, which recommends swangle for no GPU; DOC-2's `angle` in SSR advice (DOC-1) does NOT hold in this container).
+- F-A25-204 OBSERVED (high): rendered still shows the lighthouse plate full frame (lighthouse upper-left, bearded character on a pier with lantern, sunset sea) with an orange box edge-on at centre; the visible watermark sparkle at bottom-right (~x300,y582) remains visible; no black bars; colours match the plate (no tone mapping).
+- F-A25-205 MEASURED: texture loaded after first paint did not redraw under ThreeCanvas frameloop="never" (black plate); fixed with explicit advance().
+- F-A25-206 MEASURED: remotion bundler drops symlinks in publicDir and serve-handler 404s symlinks; hard link works.
+- CONTRADICTION (A20 vs own contract): `pipeline/voice/CONTRACT.md` says frame = floor(t*fps+0.5); `beats.py` uses Python round() (half-to-even). TEST6S clause 1 t_on 2.55 @30: contract 77, beats.json 76. Only exact .5 ties differ (+-1 frame). Engine uses the CONTRACT formula; owner A20 to decide (hand-off).

@@ -1,0 +1,30 @@
+{
+  "name": "ricks-clips-engine",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Ricks Clips animation engine (Remotion + three.js). Phase 5A foundation.",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "studio": "remotion studio remotion/index.ts",
+    "still": "node --experimental-strip-types --no-warnings remotion/scripts/still.ts",
+    "test:beats": "node --experimental-strip-types src/contracts/beats.test.ts"
+  },
+  "dependencies": {
+    "@react-three/fiber": "9.8.2",
+    "@remotion/bundler": "4.0.547",
+    "@remotion/cli": "4.0.547",
+    "@remotion/renderer": "4.0.547",
+    "@remotion/three": "4.0.547",
+    "react": "19.3.1",
+    "react-dom": "19.3.1",
+    "remotion": "4.0.547",
+    "three": "0.187.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.7",
+    "@types/react": "19.3.3",
+    "@types/react-dom": "19.3.0",
+    "@types/three": "0.187.0",
+    "typescript": "5.9.3"
+  }
+}
