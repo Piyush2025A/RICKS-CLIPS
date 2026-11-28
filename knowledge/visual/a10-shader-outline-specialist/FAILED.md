@@ -9,3 +9,7 @@
 - F-5 Vignette from composition-confounded luma: not separable; low confidence.
 - F-6 Native fetch for video 08 failed (`printf %02d` with `08` read as octal); not retried.
 - The Write tool refused the deliverables; texts returned in the hand-off.
+- F-7 (3B) Automated head tracking along push-in moves (`push_width.py`, bright-component nearest a manual seed): seeds wrong in 7 of 11
+  frames (head_w 13-1079 px), result `data/push_width.json` is invalid and unused; replaced by pooled/same-character statistics plus viewing.
+- F-8 (3B) The system python has no cv2/scipy; use `.venv-analysis/bin/python -I`. Frame extraction for 30 videos took ~3 min in the foreground (timed out at
+  120 s and moved to background); wait with bounded loops on file counts.

@@ -33,3 +33,13 @@
 - Bloom: `luminanceThreshold` 0.9, `luminanceSmoothing` 0.2, `intensity` 0.35–0.6, `mipmapBlur` true (HYPOTHESIS).
 - Vignette: `offset` 0.35, `darkness` 0.25 (corner/centre luma ≥ 0.8; low confidence).
 - No grain, no chromatic aberration (measured absent). Captions composited later in Remotion.
+
+## Phase 3B updates (2026-11-28)
+- T-a10-001: ink target = 3.7 % of head width (IQR 2.7-4.9 %), 9 px at 1080 (IQR 7-12), line colour very dark warm/aubergine (about RGB 40-50, 25-35, 35-45),
+  not #000. When the card scales in a push-in the baked line scales with it (width ~ head^0.55); do not add a constant-width screen outline. If
+  art is generated at one scale, expect 4 % at 150 px heads and 2.5 % at 400 px; no correction needed.
+- T-a10-002: treat the world outline pass as per-shot optional. Per-video treatment (30 videos): A no ink 20, B ink 6, mixed 4. Expose `uWorldInk` (0..1) per
+  shot. Mixed/B shots with big props: allow a heavier prop line (8-12 px at 1080 on clock/porthole-class props, via the card/texture or a per-object
+  ID edge), keep scenery hairlines at 2-2.5 px.
+- Headgear and worn props belong to the character card and take the same thick ink.
+- Resolution independence unchanged: `uWidthPx * renderWidth/1080`; verify 360p (divide by 3) once the shader is built (not yet built).
