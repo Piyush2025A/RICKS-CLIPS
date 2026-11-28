@@ -43,5 +43,26 @@ A19's 7 categories map onto one axis each: claim/premise → V1; paradox → V2;
 direct address → V5; mystery object/odd act → D1 or D2; event in progress → D3. Agreement with A19 is counted on the
 axis that A19's label belongs to (primary or secondary match reported separately).
 
-## Analysis (filled in by the director after coding)
-(pending)
+## Analysis (director, 2026-11-28) — MEASURED agreement; codes in `research/data/phase3b_hook_codes_coder{A,B}.csv`, script `research/data/phase3b_hook_agreement.py`
+Coders: A = A17 (picture window only 0–1.6 s: no Bash for composites; first sheets viewed, logged by the director);
+B = fresh general-purpose agent (0–3 s and 0–1.6 s). Both blind to each other, to A18/A19 labels and to titles.
+| Axis | Po | Cohen's κ | Reading |
+|---|---|---|---|
+| V verbal frame (primary) | 0.93 | **0.89** | reliable (almost perfect) |
+| V complete by 3 s / 5 s | 0.87 | 0.71 | reliable |
+| D on-screen device, same 0–1.6 s window | 0.70 | **0.57** | moderate; D1 vs D4 boundary fuzzy (oddness often only stated by the words) |
+| D, A 0–1.6 s vs B 0–3 s | 0.67 | 0.53 | window matters (cut to object/event at ≈ 1.5 s in 07, 15, 18) |
+Any-label overlap: V 30/30, D 27/30.
+**Consensus distribution** (videos where both coders agree): V (28/30): claim/premise V1 16, paradox V2 7, direct address
+V5 3, stakes V3 1, question V4 1. D (21/30, 0–1.6 s): odd act D1 9, person/setting intro D4 7, key object D2 5.
+**Verbal frame complete only after 3 s** (both coders): ≈ 2/3 of videos (A 21/30, B 19/30 at 5 s or later) — the payoff
+word/twist typically lands at 3–5 s.
+**A19 (single list, title + 3 s) vs blind coders:** primary match on the axis A19's label belongs to: 12/30 (A), 14/30 (B);
+primary-or-secondary 19/30, 21/30. **A18** (5 videos, 1–5 s, "odd act" for 4/5) matches coder D codes in 1–2/4 cases
+(both coders call 23 and 30 person/setting intros on picture alone; the oddness is verbal).
+**Resolution:** the A18/A19 disagreement is explained by the mixed single list (two dimensions) plus different windows
+(A19 used titles); neither original typing is reproducible as a single label. The two-axis scheme is reproducible for
+the verbal frame (κ 0.89) and moderately for the picture device (κ 0.57). Production rule (medium): the verbal frame is
+most often a plain claim/premise (16/28) or paradox (7/28) whose twist word lands at 3–5 s; the picture shows an act
+already happening or a posed character/object that the words make strange. Limits: 2 coders, both LLM agents; coder A's
+picture window is 0–1.6 s; no audience-retention data (which hook works better is untested, HYPOTHESIS).

@@ -1,0 +1,31 @@
+key,D_primary,D_secondary,D_conf,V_primary,V_secondary,V_conf,V_complete_by,note
+RC30-01,D4,D2,3,V3,V5,3,3s,host posed by toilet; conditional doom statement
+RC30-02,D1,D3,3,V2,V1,4,5s,digging in cell; tunnel-fails twist at 3.3s
+RC30-03,D1,D2,3,V2,V1,4,5s,rolling bomb; 'wouldn't go off' lands 3.2s
+RC30-04,D1,D3,3,V2,V5,2,5s,planting tree; cars-hit-it outcome after 3s
+RC30-05,D1,D2,3,V1,V2,3,3s,loading shotgun with gold; odd ammo
+RC30-06,D1,D2,2,V1,V6,3,5s,drilling holes in board; because-clause unfinished
+RC30-07,D3,D1,2,V1,V3,3,5s,driver in car; brakes; crash at 3.6s
+RC30-08,D1,D2,3,V1,V6,4,3s,hammering coaster loop; 'you see' teaser
+RC30-09,D1,D4,2,V1,V6,3,3s,guard painting wall; 'not just any pink' teaser
+RC30-10,D1,D3,3,V1,V2,3,3s,sawing track; train visible behind
+RC30-11,D1,D3,3,V1,V3,3,5s,chef pours oil off ship; point after 3s
+RC30-12,D1,D2,3,V1,V2,4,3s,smashing piggy bank; slowest-horse bet
+RC30-13,D2,D4,4,V1,V3,4,3s,two figures at button pedestal; forbidden press
+RC30-14,D4,D3,2,V1,V2,3,5s,gunslinger posed then bullet; rule ends 3.0s
+RC30-15,D4,D2,3,V1,V2,3,3s,man at counter then memory capsule
+RC30-16,D2,D4,3,V5,V2,3,5s,presenter with two scratchcards; look-at opener
+RC30-17,D1,D4,2,V1,V3,4,3s,burial pit then smiling man in coffin
+RC30-18,D4,D2,3,V1,V2,3,5s,clerk at counter; lottery ticket; reveal 3.2s
+RC30-19,D2,D1,3,V2,V3,4,5s,FIRE button close-up; 'worse' arrives 3.9s
+RC30-20,D1,D4,3,V1,V2,3,5s,hooded man sneaking at house; action ends 4.9s
+RC30-21,D2,D1,3,V1,V3,3,5s,dragon head close-up; warning arrives 3.2-4.6s
+RC30-22,D4,D3,2,V2,V5,3,5s,sailors at cannon; 'lucky ones' lands 3.5s
+RC30-23,D4,D2,3,V2,V1,4,5s,knight and priest at pardons stall; 'yet' 3.1s
+RC30-24,D4,D2,3,V1,V2,3,5s,smith king soldier; spear-shield paradox by 5s
+RC30-25,D1,D4,2,V4,V5,5,3s,man with headache pill flying; explicit question
+RC30-26,D4,D2,3,V2,V1,4,5s,alley and glowing parlor; Yet-contrast
+RC30-27,D2,D3,4,V5,V2,3,5s,slot reels spinning; 'you just watched'; twist 4.1s
+RC30-28,D3,D1,4,V1,V4,2,5s,person falling from tower; mystery clause ends 4.8s
+RC30-29,D2,D4,3,V5,V1,2,5s,check number close-up; 'if you ever' teaser
+RC30-30,D4,D2,3,V2,V5,3,5s,close-up host with steel balls; genius payoff 3.1s
