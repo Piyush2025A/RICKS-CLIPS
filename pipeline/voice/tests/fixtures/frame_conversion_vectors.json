@@ -1,0 +1,359 @@
+{
+ "rule": "us=floor(t*1e6+0.5); frame=floor((us*fps+500000)/1e6); t is a decimal string; expected via fractions.Fraction(Decimal(t))",
+ "cases": [
+  {
+   "t": "0.0625",
+   "fps": 24,
+   "expected": 2,
+   "note": "tie 1.5"
+  },
+  {
+   "t": "0.1875",
+   "fps": 24,
+   "expected": 5,
+   "note": "tie 4.5"
+  },
+  {
+   "t": "0.3125",
+   "fps": 24,
+   "expected": 8,
+   "note": "tie 7.5"
+  },
+  {
+   "t": "0.5625",
+   "fps": 24,
+   "expected": 14,
+   "note": "tie 13.5"
+  },
+  {
+   "t": "1.0625",
+   "fps": 24,
+   "expected": 26,
+   "note": "tie 25.5"
+  },
+  {
+   "t": "2.55",
+   "fps": 30,
+   "expected": 77,
+   "note": "tie 76.5 (TEST6S clause 1)"
+  },
+  {
+   "t": "0.05",
+   "fps": 30,
+   "expected": 2,
+   "note": "tie 1.5"
+  },
+  {
+   "t": "0.15",
+   "fps": 30,
+   "expected": 5,
+   "note": "tie 4.5"
+  },
+  {
+   "t": "0.0166666667",
+   "fps": 60,
+   "expected": 1,
+   "note": "~1/60 s"
+  },
+  {
+   "t": "0.025",
+   "fps": 60,
+   "expected": 2,
+   "note": "tie 1.5"
+  },
+  {
+   "t": "0.02",
+   "fps": 25,
+   "expected": 1,
+   "note": "tie 0.5"
+  },
+  {
+   "t": "0.06",
+   "fps": 25,
+   "expected": 2,
+   "note": "tie 1.5"
+  },
+  {
+   "t": "0.0208333",
+   "fps": 24,
+   "expected": 0,
+   "note": "1/48 s just below tie 0.5 (rounded decimal)"
+  },
+  {
+   "t": "0.020834",
+   "fps": 24,
+   "expected": 1,
+   "note": "just above 1/48"
+  },
+  {
+   "t": "2.549999",
+   "fps": 30,
+   "expected": 76,
+   "note": "tie -1us"
+  },
+  {
+   "t": "2.550001",
+   "fps": 30,
+   "expected": 77,
+   "note": "tie +1us"
+  },
+  {
+   "t": "0.062499",
+   "fps": 24,
+   "expected": 1,
+   "note": "tie -1us"
+  },
+  {
+   "t": "0.062501",
+   "fps": 24,
+   "expected": 2,
+   "note": "tie +1us"
+  },
+  {
+   "t": "0.049999",
+   "fps": 30,
+   "expected": 1,
+   "note": "tie -1us"
+  },
+  {
+   "t": "0.050001",
+   "fps": 30,
+   "expected": 2,
+   "note": "tie +1us"
+  },
+  {
+   "t": "0",
+   "fps": 24,
+   "expected": 0,
+   "note": "zero"
+  },
+  {
+   "t": "0",
+   "fps": 30,
+   "expected": 0,
+   "note": "zero"
+  },
+  {
+   "t": "600",
+   "fps": 30,
+   "expected": 18000,
+   "note": "large"
+  },
+  {
+   "t": "600",
+   "fps": 24,
+   "expected": 14400,
+   "note": "large"
+  },
+  {
+   "t": "600.0166665",
+   "fps": 30,
+   "expected": 18001,
+   "note": "large near tie"
+  },
+  {
+   "t": "599.979167",
+   "fps": 24,
+   "expected": 14400,
+   "note": "large near tie"
+  },
+  {
+   "t": "0.1",
+   "fps": 30,
+   "expected": 3,
+   "note": "float-tricky"
+  },
+  {
+   "t": "0.1",
+   "fps": 24,
+   "expected": 2,
+   "note": "float-tricky"
+  },
+  {
+   "t": "0.7",
+   "fps": 30,
+   "expected": 21,
+   "note": "float-tricky"
+  },
+  {
+   "t": "0.7",
+   "fps": 24,
+   "expected": 17,
+   "note": "float-tricky"
+  },
+  {
+   "t": "1.15",
+   "fps": 30,
+   "expected": 35,
+   "note": "float-tricky tie 34.5"
+  },
+  {
+   "t": "1.15",
+   "fps": 24,
+   "expected": 28,
+   "note": "float-tricky"
+  },
+  {
+   "t": "2.675",
+   "fps": 30,
+   "expected": 80,
+   "note": "float-tricky"
+  },
+  {
+   "t": "2.675",
+   "fps": 24,
+   "expected": 64,
+   "note": "float-tricky"
+  },
+  {
+   "t": "1.005",
+   "fps": 60,
+   "expected": 60,
+   "note": "float-tricky"
+  },
+  {
+   "t": "0.0005",
+   "fps": 24,
+   "expected": 0,
+   "note": "sub-frame"
+  },
+  {
+   "t": "0.0000005",
+   "fps": 30,
+   "expected": 0,
+   "note": "half-microsecond tie -> 1 us"
+  },
+  {
+   "t": "1.5",
+   "fps": 24,
+   "expected": 36,
+   "note": "integer"
+  },
+  {
+   "t": "1",
+   "fps": 25,
+   "expected": 25,
+   "note": "integer"
+  },
+  {
+   "t": "3.3333333",
+   "fps": 30,
+   "expected": 100,
+   "note": "~100/30"
+  },
+  {
+   "t": "4.35",
+   "fps": 30,
+   "expected": 131,
+   "note": "float-tricky tie 130.5"
+  },
+  {
+   "t": "8.4",
+   "fps": 25,
+   "expected": 210,
+   "note": "integer frame 210"
+  },
+  {
+   "t": "0.0416667",
+   "fps": 24,
+   "expected": 1,
+   "note": "1/24 s"
+  },
+  {
+   "t": "0.08",
+   "fps": 24,
+   "expected": 2,
+   "note": "TEST6S clause 0 t_on"
+  },
+  {
+   "t": "0.08",
+   "fps": 30,
+   "expected": 2,
+   "note": "TEST6S clause 0 t_on"
+  },
+  {
+   "t": "2.09",
+   "fps": 24,
+   "expected": 50,
+   "note": "TEST6S clause 0 t_off"
+  },
+  {
+   "t": "2.09",
+   "fps": 30,
+   "expected": 63,
+   "note": "TEST6S clause 0 t_off"
+  },
+  {
+   "t": "2.55",
+   "fps": 24,
+   "expected": 61,
+   "note": "TEST6S clause 1 t_on"
+  },
+  {
+   "t": "2.55",
+   "fps": 30,
+   "expected": 77,
+   "note": "TEST6S clause 1 t_on"
+  },
+  {
+   "t": "3.69",
+   "fps": 24,
+   "expected": 89,
+   "note": "TEST6S clause 1 t_off"
+  },
+  {
+   "t": "3.69",
+   "fps": 30,
+   "expected": 111,
+   "note": "TEST6S clause 1 t_off"
+  },
+  {
+   "t": "4.27",
+   "fps": 24,
+   "expected": 102,
+   "note": "TEST6S clause 2 t_on"
+  },
+  {
+   "t": "4.27",
+   "fps": 30,
+   "expected": 128,
+   "note": "TEST6S clause 2 t_on"
+  },
+  {
+   "t": "4.986",
+   "fps": 24,
+   "expected": 120,
+   "note": "TEST6S clause 2 t_off"
+  },
+  {
+   "t": "4.986",
+   "fps": 30,
+   "expected": 150,
+   "note": "TEST6S clause 2 t_off"
+  },
+  {
+   "t": "5.287",
+   "fps": 24,
+   "expected": 127,
+   "note": "TEST6S clause 3 t_off"
+  },
+  {
+   "t": "5.287",
+   "fps": 30,
+   "expected": 159,
+   "note": "TEST6S clause 3 t_off"
+  },
+  {
+   "t": "6.79",
+   "fps": 24,
+   "expected": 163,
+   "note": "TEST6S clause 4 t_off"
+  },
+  {
+   "t": "6.79",
+   "fps": 30,
+   "expected": 204,
+   "note": "TEST6S clause 4 t_off"
+  }
+ ]
+}

@@ -5,7 +5,7 @@ import numpy as np
 HERE = os.path.dirname(os.path.abspath(__file__)); VOICE = os.path.dirname(HERE)
 sys.path.insert(0, VOICE); sys.path.insert(0, HERE)
 import align, captions, silence, normalize, schemacheck
-from common import frames, decode_audio
+from common import seconds_to_frame as frames, decode_audio
 
 FX = os.path.join(HERE, "fixtures")
 def fx(n): return json.load(open(os.path.join(FX, n), encoding="utf-8"))

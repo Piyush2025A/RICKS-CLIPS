@@ -4,16 +4,16 @@
 Rules (all times seconds; frames derived BY TIME for each fps, never copied between rates):
  * one token on screen at a time (default: 1 word = 1 token; optional --merge-function-words joins a short
    function word with the following word, e.g. "dug a"; reference median is 1-3 words per token);
- * show_at = onset - 0.140 s (round(0.14*fps) = 4 f @30, 3 f @24), clamped >= 0;
+ * show_at = onset - 0.140 s (seconds_to_frame(0.14, fps) = 4 f @30, 3 f @24), clamped >= 0;
  * never blank: hide_at of a token == show_at of the next token;
  * sentence-final token (word ends . ! ? ...) stays >= 5 f @30 (=0.1667 s) after its t_off before the next
    caption may appear, unless the next onset arrives earlier (next show_at is then capped at the next onset);
  * the last token hides at t_off + hold, clamped to the audio duration; all times clamped to [0, duration];
- * frame_in = round(show_at*fps); frame_out (exclusive) = next frame_in; each caption lasts >= 1 frame.
+ * frame_in = seconds_to_frame(show_at, fps); frame_out (exclusive) = next frame_in; each caption lasts >= 1 frame.
 """
 import argparse, os, re, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from common import SCHEMA_VERSION, frames, load_json, dump_json
+from common import SCHEMA_VERSION, seconds_to_frame, load_json, dump_json
 
 LEAD_S = 0.140
 HOLD_S = 5 / 30            # sentence-final hold, defined at 30 fps, converted by time
@@ -44,7 +44,7 @@ def schedule(words, duration, fps, lead=LEAD_S, hold=HOLD_S, merge_function_word
     """Return (captions, warnings)."""
     toks = make_tokens(words, merge_function_words)
     warns, n = [], len(toks)
-    total = frames(duration, fps)
+    total = seconds_to_frame(duration, fps)
     show = []
     for i, t in enumerate(toks):
         s = max(0.0, t["t_on"] - lead)
@@ -59,14 +59,14 @@ def schedule(words, duration, fps, lead=LEAD_S, hold=HOLD_S, merge_function_word
         show.append(min(s, duration))
     caps, prev_fi = [], -1
     for i, t in enumerate(toks):
-        fi = max(frames(show[i], fps), prev_fi + 1)
+        fi = max(seconds_to_frame(show[i], fps), prev_fi + 1)
         hide = show[i + 1] if i + 1 < n else min(duration, t["t_off"] + hold)
         caps.append({"index": i, "token": t["token"], "word_indices": t["word_indices"], "show_at": round(show[i], 4),
                      "hide_at": round(hide, 4), "frame_in": fi, "frame_out": 0,
                      "sentence_final": is_sentence_final(t["token"])})
         prev_fi = fi
     for i, c in enumerate(caps):
-        fo = caps[i + 1]["frame_in"] if i + 1 < n else frames(c["hide_at"], fps)
+        fo = caps[i + 1]["frame_in"] if i + 1 < n else seconds_to_frame(c["hide_at"], fps)
         c["frame_out"] = max(fo, c["frame_in"] + 1)
     for c in caps:                                                   # clamp to the clip
         if c["frame_in"] >= total:
@@ -78,9 +78,9 @@ def schedule(words, duration, fps, lead=LEAD_S, hold=HOLD_S, merge_function_word
 def build_doc(words_doc, fps, **kw):
     dur = words_doc.get("duration_s") or (words_doc["words"][-1]["t_off"] if words_doc["words"] else 0.0)
     caps, warns = schedule(words_doc["words"], dur, fps, **kw)
-    return {"schema_version": SCHEMA_VERSION, "fps": fps, "duration_s": dur, "total_frames": frames(dur, fps),
-            "lead_s": kw.get("lead", LEAD_S), "lead_frames": frames(kw.get("lead", LEAD_S), fps),
-            "hold_frames": frames(kw.get("hold", HOLD_S), fps),
+    return {"schema_version": SCHEMA_VERSION, "fps": fps, "duration_s": dur, "total_frames": seconds_to_frame(dur, fps),
+            "lead_s": kw.get("lead", LEAD_S), "lead_frames": seconds_to_frame(kw.get("lead", LEAD_S), fps),
+            "hold_frames": seconds_to_frame(kw.get("hold", HOLD_S), fps),
             "merge_function_words": bool(kw.get("merge_function_words")), "captions": caps, "warnings": warns}
 
 def to_srt(doc):

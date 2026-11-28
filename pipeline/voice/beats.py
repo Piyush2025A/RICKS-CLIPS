@@ -12,7 +12,10 @@ alignment) are optional and off by default. Method:
 Output JSON: sentences[] and clauses[] with t_on/t_off (s), frames at 24 and 30 fps (by time), source per edge.
 Usage: beats.py <script.txt> <silence.json> -o beats.json
 """
-import argparse, json, re, sys
+import argparse, json, os, re, sys
+
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
+from common import seconds_to_frame  # noqa: E402
 
 SENT_END = ".?!"
 CLAUSE = ",;:—…"
@@ -33,10 +36,6 @@ def tokens(text):
     if out:
         out[-1][1] = "end"
     return out
-
-
-def frames(t, fps):
-    return int(round(t * fps))
 
 
 def plan(script, sil):
@@ -77,7 +76,7 @@ def plan(script, sil):
             t_off, nxt, off_src = t1, None, "measured"
         clauses.append({"index": i, "text_chars": len(s), "ends_with": kind, "t_on": round(t_on, 3), "t_off": round(t_off, 3),
                         "on_source": on_src, "off_source": off_src,
-                        "frames_24": [frames(t_on, 24), frames(t_off, 24)], "frames_30": [frames(t_on, 30), frames(t_off, 30)]})
+                        "frames_24": [seconds_to_frame(t_on, 24), seconds_to_frame(t_off, 24)], "frames_30": [seconds_to_frame(t_on, 30), seconds_to_frame(t_off, 30)]})
         if nxt is not None:
             t_on, on_src = nxt, off_src
     sentences, cur = [], []

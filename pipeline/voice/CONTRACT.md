@@ -22,9 +22,20 @@ Outputs live in `productions/<id>/voice/`. Raw media stays in `~/ricks-clips-pri
 | `captions_<fps>.json` | captions.schema.json | per fps: token, word_indices, show_at, hide_at (s), frame_in (inclusive), frame_out (exclusive), sentence_final |
 
 ## Units and frame conversion
-Seconds are the master unit. Frames are derived by time: `frame = floor(t * fps + 0.5)` for any fps (30 final, 24 dev). Durations
-specified in frames at 30 fps convert by time (5 f hold = 0.1667 s = 4 f @24; 0.14 s lead = 4 f @30, 3 f @24). The rate is
-always stored with the captions. Trim shifts all word times by `-trim_start_s`.
+Seconds are the master unit. Frames are derived by time for any integer fps (30 final, 24 dev); never copy frame numbers across rates.
+**Canonical rule (Phase 5A, director decision; both languages, bit-for-bit):** round half up on integer microseconds.
+```
+t >= 0 and finite (reject negative / NaN / Infinity); fps positive integer
+us    = floor(t * 1_000_000 + 0.5)
+frame = floor((us * fps + 500_000) / 1_000_000)      # exact integer arithmetic (Python //, TS BigInt or safe integers)
+```
+Exact .5 ties go up: 2.55 s @30 -> 77, 0.0625 s @24 -> 2, 0.1875 s @24 -> 5. Rationale: Python `round()` is banker's rounding
+(ties to even), which disagreed with the TypeScript `Math.floor(t*fps+0.5)` on ties (2.55 @30 gave 76 vs 77); and `t*fps` in
+binary floating point puts decimal ties a few ulp off .5, so the microsecond step makes decimal-typed times deterministic.
+Implementation: `common.seconds_to_frame(t, fps)`; every conversion in beats/captions goes through it. `src/contracts/time.ts`
+MUST match bit-for-bit; shared vectors: `pipeline/voice/tests/fixtures/frame_conversion_vectors.json` (t as decimal string, expected
+computed by exact rational arithmetic). Durations specified in frames at 30 fps convert by time (5 f hold = 0.1667 s = 4 f @24;
+0.14 s lead = 4 f @30, 3 f @24). The rate is always stored with the captions. Trim shifts all word times by `-trim_start_s`.
 
 ## Alignment rules (`align.py`)
 * Char alignment -> words: whitespace tokenisation; punctuation stays attached; punctuation-only tokens merge into the previous

@@ -1,12 +1,19 @@
 """Shared helpers for the voice pipeline (A20). Stdlib + numpy only; audio via the ffmpeg binary."""
-import hashlib, json, subprocess
+import hashlib, json, math, subprocess
 import numpy as np
 
 SCHEMA_VERSION = "1.0"
 
-def frames(t, fps):
-    """Seconds -> frame index by time (round half up), never by copying frame numbers across rates."""
-    return int(np.floor(t * fps + 0.5))
+def seconds_to_frame(t, fps):
+    """Canonical seconds -> frame (CONTRACT.md): round half up on integer microseconds, exact integer arithmetic.
+    us = floor(t*1e6 + 0.5); frame = (us*fps + 500000) // 1000000. Must match src/contracts/time.ts bit-for-bit."""
+    if isinstance(fps, bool) or not isinstance(fps, int) or fps <= 0:
+        raise ValueError(f"fps must be a positive integer, got {fps!r}")
+    t = float(t)
+    if not math.isfinite(t) or t < 0:
+        raise ValueError(f"t must be finite and >= 0, got {t!r}")
+    us = math.floor(t * 1_000_000 + 0.5)
+    return (us * fps + 500_000) // 1_000_000
 
 def sha256_file(path):
     h = hashlib.sha256()
