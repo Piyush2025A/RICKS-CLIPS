@@ -1,19 +1,19 @@
 # A11 colour & tone grading — Phase 3 FINDINGS (RC30)
-Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · 2026-11-28 · visual ledger: 15 records
-(`knowledge/dataset/coverage/visual/a11-color-grading-specialist.jsonl`, 1 fps overview sheets, videos 01 02 03 06 09 10 12 14 17 19 21 23 25 28 30) ·
-videos covered computationally: 30/30 (1 fps native pass, 1,697 frames) + 10/30 native per-frame (`color.csv`, v0.2.0: 02 15 23 24 25 26 27 28 29 30).
+Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · 2026-11-28 · visual ledger: 21 records (15 + 6 in 3B)
+(`knowledge/dataset/coverage/visual/a11-color-grading-specialist.jsonl`, 1 fps overview sheets, videos 01 02 03 05 06 07 09 10 11 12 14 15 17 19 21 23 25 26 28 29 30 = 21 videos with visual evidence) ·
+videos covered computationally: 30/30 (1 fps native pass, 1,697 frames) + **30/30 native per-frame (`color.csv` v0.2.0, all 50,898 frames; 3B)** + 120 native 1080x1920 frames (4 per video, stats only, no images; `data/native3b_mask_rolloff_vignette.json`).
 
 ## Method and range handling (read first)
 - Source is BT.709 limited range (16–235). My pass decodes with `ffmpeg scale=270:480:flags=area:in_range=limited:out_range=full:in_color_matrix=bt709`
   (explicit expansion), then Y' = 0.2126R'+0.7152G'+0.0722B' on gamma-coded values 0–1 (display-referred), CIELAB via OpenCV (D65, sRGB).
-  All luma values below are **full-range-expanded 0–1**; 16/255 = 0.063 is the limited-range floor.
+  All luma values below are **full-range-expanded 0–1**; 16/255 = 0.063 is the limited-range floor. (3B clarification: "expanded" = normalised full range v=Y/255 after limited→full; limited-range code = 16 + 219·v. Probe: `color_range tv, bt709`, h264 yuv420p, 1080x1920, 30 fps CFR for the checked videos. A27 decodes `-pix_fmt bgr24` through swscale, which expands tv→full, then cv2 BGR2GRAY (BT.601 weights). Text such as "9/255 above the limited floor" in F-a11-001 mixed the two conventions — SUPERSEDED, see F-a11-101.)
 - A27 `color.csv` luma is also expanded (p1 min 1, p99 max 255 would be impossible unexpanded). Its per-video medians agree with mine within ±7/255
   (02: p50 115 vs 110; 23: 132 vs 137; 28: 146 vs 140) — differences = caption pixels (white text) included in A27 and masked in mine, plus 270 px proxy. A27 p99/clip numbers are therefore caption-contaminated; I use my masked pass for clipping.
-- Caption band masked: y 0.60–0.76 of frame height (OBSERVED on sheets 02/03/14/25: caption centre ≈ 0.67).
+- Caption band masked: y 0.60–0.76 of frame height. **Caption centre ≈ 0.70 of frame height (A14 native 0.689–0.717; re-viewed 3B on 6 sheets, caption at y≈225/320 of a 180x320 cell). The earlier "≈ 0.67" was a misread of the sheet label strip — SUPERSEDED.** The mask still covers the band.
 - 1 fps sampling (frame ≈ 30k) → n = 1,697 frames, 30 videos. "Mood" labels = nearest A09 F-A09-006 centroid in (L*,a*,b*) of the whole frame — **my approximation, not A09's rule-based labels** (n per class 125–200, 17–26 videos each).
 - Scripts + inputs: `scripts/pass1fps.py pass2.py analyze.py analyze2.py trans.py`; outputs in `data/`. Reproduce: `.venv-analysis/bin/python scripts/pass1fps.py 1..30; analyze.py`.
 
-## F-a11-001 Blacks are lifted: the typical Short has no true black
+## F-a11-001 Blacks are lifted: the typical Short has no true black  [NUMBERS SUPERSEDED by F-a11-101 (3B): use 0.07, not 0.099; the 0.09–0.12 implementation floor is withdrawn]
 MEASURED, high (n=30 videos, 1,697 frames). Per-video median of frame luma p1: **0.099** (IQR 0.075–0.117; = 25/255, ≈ 9/255 above the limited-range floor); p5 0.140 (0.099–0.165).
 Pooled frame p1 0.094 (IQR 0.057–0.131). Frames with > 1 % pixels ≤ 2/255: 7.2 %, concentrated in 01 (98 % of frames), 07 (42 %), 27 (29 %), 30 (21 %), 08 (14 %), 26, 05 — all low-key/space/night videos. Videos 09, 11 clip the top instead (see 002).
 Per mood p1 (frame median): bright interior 0.146, warm day/sunset 0.137, day cool 0.113, neutral 0.097, red/orange 0.098, warm lamp 0.087, night blue 0.075, violet 0.070, dark low-key 0.029. Evidence `data/per_video_tone_chroma.csv`, `tone_chroma_hue_summary.json`.
@@ -64,3 +64,47 @@ Implementation: tolerance for same-location shots ΔE76 ≲ 8 and |Δp50| ≲ 0.
 - A27 native `p99 ≥ 254` frame shares (0–35 %) vs my masked 5.8 %: difference = white captions; use masked.
 - Mood labels are approximate; A09 per-frame labels were not available as a table. Re-run with A09 labels if published.
 - Not measured: hero-object masks, per-shot (cut-resolved) ΔE for the 20 videos not yet in v0.2.0, true tone-curve transfer (needs matched renders → A09/A10 A/B).
+
+## Phase 3B additions (2026-11-28)
+Evidence: A27 `color.csv` for **all 30 videos / 50,898 frames** (computational, `scripts/native3b.py`, `group_tests.py`, `cap_and_shots.py`; outputs `data/native3b_*.json`), 120 native frames decoded for statistics (`scripts/native_mask_check.py`; no image opened), 6 overview sheets viewed (ledger: 21 records, 21 videos). Range convention for every number below: **8-bit values after limited→full expansion (v = code/255; limited code = 16+219·v), luma = BT.601 gray as in A27**. A27 gives per-frame percentiles only, so "p1 of a video" = median over frames of the per-frame p1 (IQR over frames or videos stated).
+
+### F-a11-101 Black point on native data: p1 = 18/255 = 0.071 (replaces 0.099)
+MEASURED, **high** (30/30 videos, 50,898 frames). Per-video median of per-frame p1: **18 (IQR 10–25; range 1 (01) – 33 (23, 24)) = 0.071 (0.039–0.098)**; p5 **32 (26–41) = 0.125 (0.10–0.16)**; p50 110 (94–130) = 0.43; p95 212 (203–227) = 0.83; p99 245 (239–248) = 0.96 (range 223–255). Limited-range code equivalents: p1 31.5, p5 44, p99 226. Caption effect (120 native frames, band y 0.64–0.76 masked vs unmasked): the burned-in caption's dark outline lowers frame p1 by median **2/255** (IQR 1–3) and its white fill raises p99 by median 1 (IQR 0–3.3) — so caption-free p1 ≈ 20/255 = 0.078, and A27 numbers are usable to ±3/255 (my F-a11-001 "A27 p99 caption-contaminated" is true but small for p1/p99 medians; the 0–35 % "p99≥254 frames" in F4 mostly reflect real bright frames, see 104). Caption segments cover ≈ 100 % of frames in every video (caption_segments.csv), so no caption-free control exists.
+Share of frames with p1 ≤ 2/255: 9.3 % overall (01 92 %, 07 61 %, 08 29 %, 27 29 %, 30 21 %, 06 16 %); native sample: min gray in the masked frame = 0 in 84 % of frames, but ≤ 2/255 pixels are a median 0 % (IQR 0–0.2 %) and ≤ 16/255 a median 0.4 % (0–1.4 %): true black exists in pixels but as a tiny share (outlines).
+By frame brightness class (all videos): dark frames (p50 < 64; 20.5 % of frames) p1 7 (IQR 2–16), p5 15; mid (64–140; 51 %) p1 19 (11–27), p5 33 (25–43); bright (≥ 140; 28 %) p1 26 (18–36), p5 48 (37–65). **Black floor tracks frame exposure**: target p1 ≈ 0.03 / 0.075 / 0.10 for dark / mid / bright shots. Table `data/native3b_black_white_groups.json → per_toneclass`.
+**Implementation target (replaces floor 0.09–0.12): output p1 ≈ 0.07 (acceptable 0.04–0.10) overall; 0.075 mid, 0.10 bright, 0.03 dark/low-key; p5 ≈ 0.125.** The old 0.099 came from a 270-px area proxy + 709 weights + caption mask (+7/255), as A28 #14 said.
+
+### F-a11-102 One grade, not two: lit-3D vs illustrated vs mixed (A09 F-A09-105 groups)
+MEASURED, **medium-high** (all 50,898 frames; groups 14 lit-3D [01 03–10 12–14 22 27], 11 illustrated [15–20 23–25 29 30], 5 mixed [02 11 21 26 28]; note 02 and 11 are in A09's lit-3D range but counted once, as mixed). Per-video medians (lit / illustrated / mixed): p1 18 / 19 / 18; p5 32.5 / 31 / 37; p50 110 / 129 / 101; p95 210 / 218 / 224; p99 244.5 / 245 / 251; contrast p95−p5 176 / 174 / ~180; mean HSV saturation 0.47 / 0.49 / 0.43; share of pixels S>0.15&V>0.15 0.87 / 0.84 / 0.87; Lab a* mean 6.4 / 10.1 / 10.7, b* 4.2 / 3.8 / 0.5. Permutation test on video medians (lit vs illustrated, 20k shuffles): **no metric differs (all p ≥ 0.13; black, white, contrast, saturation p ≥ 0.28)**, also with the low-key videos 01/07/08/27 removed (p ≥ 0.2). Pooled-frame hue distribution (HSV 30° bins, S>0.15&V>0.15): lit orange 30–60° 13 %, blue 210–240° 26 %; illustrated 17 %, 23 %; mixed 19 %, 30 % — same orange/blue pairing. Only descriptive differences: (a) lit-3D has more crushed frames (p1 ≤ 2: 16 % vs 2.6 % illustrated vs 1.7 % mixed) because the dark space/night/low-key videos are all lit-3D; (b) in dark frames the illustrated floor is higher (p1 9 vs 3 for lit-3D) — painted gradients rarely go to black; (c) illustrated p50 +19 (not significant, n=11/14); (d) mixed videos have a hotter top end (p99 251, 21 % of frames p99 ≥ 254 vs 8–11 %). **Conclusion: one display-referred grade serves both treatments; differences are carried by lighting/art, not by a different grade.** Caveat: A09's labels are medium confidence and 5 videos are mixed; test power with n=11–14 detects only large differences (≳ 15/255 in p50).
+
+### F-a11-103 Highlight roll-off is a soft shoulder, not a clip
+MEASURED on 120 native frames (4/video, all 30 videos; band masked), **medium** (sample, not every frame). Pixel shares by gray band (median, IQR): exactly 255: 0.1 % (0–0.2 %); ≥ 250: 0.4 % (0–1.4 %); 235–249: 1.3 % (0.3–3.8 %); 220–234: 1.4 % (0.5–3.8 %). Equal mass per 15-code band down from 234 and a ≤ 0.1 % spike at 255 → gradual taper, no hard clip. Masked frame p99 per video median 240 (IQR 230–246) = 0.94, matching the old 0.938; A27 per-frame p99 (0.96) is 1–3 codes higher from the caption fill. Mixed videos (11, 28, 02) clip more (video median p99 251 ≥ 0.98). Target white point stays **p99 ≈ 0.95 (0.90–0.97)**, shoulder as T1; allow p99 ≥ 0.99 only for flash/specular/white-wall shots (09 and 11: 54–64 % of frames p99 ≥ 254).
+
+### F-a11-104 Vignette on native frames: corner/centre 0.70 (IQR 0.56–0.91), same in all treatments
+MEASURED, medium (120 native frames; corner = mean of four 12 % x 12 % boxes, centre box x 0.3–0.7, y 0.35–0.65, gray). Median 0.70 (0.56–0.91); lit-3D 0.71, illustrated 0.69, mixed 0.70. The earlier 1-fps median 0.75 used other boxes; both say mild in day (≥ 0.85) and strong in lamp/night/low-key. The treatment split does not change the vignette. Still a scene+light mixture, no overlay isolated (A10 bound stands).
+
+### F-a11-105 Shot-to-shot colour steps on A15's confirmed transitions (30 videos, 568 transitions)
+MEASURED, medium-high (A15 `transitions_confirmed.csv`; ΔE76 between mean Lab of 4 frames before and after each candidate; luma percentiles over the same frames). Median (IQR) ΔE: all 15–20; by type: XF crossfade (n=308) **20.1 (11.8–32.5)**, FP (n=177, A15 code, treated as non-colour jump) 12.1 (6.4–19.2), ZT zoom-through (27) 23.7, HC hard cut (37) 18.9, FT (8) 22.5, VB (11) 27.6. By treatment: lit-3D 15.3 (9.3–24.6; p90 36), mixed 17.1 (10.1–27.3; p90 40), **illustrated 20.6 (12.0–35.4; p90 52.5)**. |Δp50| median 0.09 (lit) / 0.09 (mixed) / 0.115 (illustrated), p90 0.26–0.37; |Δp1| median 0.025 (p90 0.085–0.11); |Δp99| 0.035 (p90 0.15–0.17). Black point and white point stay within ≈ 0.03 / 0.04 across cuts at the median even when the mean colour jumps: the grade's end points are stable while mood (hue/mid-tone) changes. Consistent with F-a11-010 (1 fps, median ΔE 7.5) — transition candidates are by construction at changes, so are larger. Illustrated videos make larger steps (more location/time-of-day changes), with the same end-point stability.
+Continuity rule update (T8): black-point step ≤ 0.04 and white-point step ≤ 0.05 at any cut (median 0.025/0.035); mean-colour ΔE ≤ 25 and |Δp50| ≤ 0.12 for ordinary cuts, up to 50 at declared mood changes.
+
+### F-a11-106 Per-mood grades: still approximate (unresolved)
+The per-mood p1…p99 table (T2) rests on my 1-fps nearest-centroid labels (F5). A09 per-frame labels are still not published, so per-mood targets are NOT upgraded; the native tone-class split (F-a11-101) is the only mood-adjacent result that is table-resolved on every frame. UNRESOLVED.
+
+### F-a11-107 Hue pairing on native frames (all frames, HSV bins)
+MEASURED, medium-high: pooled over 50,898 frames, orange 30–60° 13–19 % and blue 210–240° 23–30 % of saturated pixels in each treatment group, red/green/cyan minor — same orange vs blue pairing as F-a11-008 (CIELAB, 1 fps). Confirms the teal-free ultramarine/orange scheme on every frame (bin definitions differ: HSV H vs Lab h_ab, so percentages are not comparable one-to-one).
+
+### F-a11-108 Visual check (6 sheets: 05, 07, 15, 29, 11, 26; OBSERVED, low-medium)
+Lit-3D (05, 07): PBR-textured scenery with hard ink-free props, saturated sky/grass blue-green in 07, warm cave gold in 05; illustrated (15, 29): painted gradients, bloom/glow, pastel desert (29) and blue-violet night streets (15); mixed (11, 26): 3D ship/pachinko set with painted overlays. All share a mild lifted-black, warm-orange vs blue-violet palette and a bright white caption; I cannot see a different overall grade between treatments — agrees with F-a11-102 (the difference is in rendering style, not in grade).
+
+## Phase 3B revisions
+- F-a11-001: black p1 **0.099 SUPERSEDED → 0.071 (F-a11-101)**; "implementation floor 0.09–0.12" **WITHDRAWN**, new target 0.07 (0.04–0.10); the wording "≈ 9/255 above the limited-range floor" was mixing range conventions (SUPERSEDED). Direction (lifted blacks, high confidence) stands. Per-mood p1 values in T2 remain on the old proxy (+≈7/255 high) — flagged, not recomputed (see 106).
+- F-a11-001 text "p5 0.14": SUPERSEDED → 0.125 (native).
+- F-a11-002: p99 0.938 confirmed (native masked sample 0.94, A27 0.96); the roll-off claim UPGRADED to measured on native frames (103). "A27 p99 caption-contaminated" DOWNGRADED to ±1–3 codes.
+- Caption centre "≈ 0.67" SUPERSEDED → ≈ 0.70 (0.689–0.717, A14).
+- F-a11-009 vignette 0.75: CONFIRMED in direction, native 0.70 (104).
+- F-a11-010: native evidence added for 30 videos (105); the "10/30 native" limit is lifted.
+- F-a11-003/004/005/006/007/008: unchanged (not re-tested; per-mood labels still approximate).
+
+## Contradictions / open (3B)
+- A28 #14 vs my 0.099: resolved in favour of A27 native (0.071).
+- Mood-specific p1/p5 targets: not re-derived (needs A09 labels). Hero-object chroma and true tone curve: still unmeasured.

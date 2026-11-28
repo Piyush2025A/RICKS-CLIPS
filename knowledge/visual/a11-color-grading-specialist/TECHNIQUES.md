@@ -1,14 +1,15 @@
-# A11 TECHNIQUES — measured grade recipes (RC30). Status: derived from measurements, NOT yet validated on our own renders (no EXP run).
+# A11 TECHNIQUES — measured grade recipes (RC30). Status: derived from measurements, NOT yet validated on our own renders (no EXP run). Phase 3B update 2026-11-28: black/white points re-measured on native A27 tables (F-a11-101..105); old floor 0.10 SUPERSEDED.
 All values are display-referred (sRGB-coded, full range after limited→full expansion), caption band excluded. Source of each number: FINDINGS F-a11-xxx and `data/`.
 
 ## T0 Range discipline
 Encode our final video as BT.709 limited range (`-color_range tv -colorspace bt709 -color_primaries bt709 -color_trc bt709`) like the reference; do all grade maths in full-range 0–1 and measure after expanding limited→full (never compare raw 16–235 with expanded values). QC uses `src/grade/qc_grade.py` (`--full-range` for PNG).
 
 ## T1 Baseline tone mapping (all moods)
-Output black floor and white ceiling (video medians): p1 = 0.10 (IQR 0.075–0.117), p5 = 0.14, p99 = 0.94 (0.906–0.957), contrast p95−p5 = 0.64 (0.61–0.69).
+Output black floor and white ceiling (native, 8-bit expanded /255, per-video medians of per-frame percentiles, 30 videos): **p1 = 0.071 (IQR 0.039–0.098), p5 = 0.125 (0.10–0.16), p50 0.43, p95 0.83, p99 0.96 A27 / 0.94 caption-masked (0.90–0.97)**, contrast p95−p5 ≈ 0.64–0.69. [Old p1 0.10 / p5 0.14 SUPERSEDED.] One grade for lit-3D, illustrated and mixed treatments (F-a11-102).
+Black floor by shot brightness: dark (frame p50<0.25) p1 0.03 / p5 0.06; mid p1 0.075 / p5 0.13; bright (p50>0.55) p1 0.10 / p5 0.19.
 Piecewise transfer `y = lift + (white−lift)·x` then shoulder above x0=0.80: `y = y0 + (white−y0)·(1−(1−t)^1.6)`, t=(x−x0)/(1−x0).
-Params: day/neutral lift 0.10, white 0.95; low-key lift 0.03; shoulder starts 0.80. No S-curve (F-a11-004).
-FFmpeg: `curves=all='0/0.10 0.5/0.52 0.8/0.84 1/0.95'` (neutral/day starting point; adjust per mood target table); Three.js: apply in the final full-screen pass after tone mapping, before sRGB encode (`out = mix(vec3(lift), vec3(white), shoulder(c))`).
+Params (3B): mid/neutral lift 0.075, bright/day lift 0.10, low-key/dark lift 0.03; white 0.95 (p99 0.94–0.96); shoulder starts 0.80; the roll-off must be a taper (≈ 1.4 % of pixels per 15 codes in 220–249, ≤ 0.1 % at exactly 255). No S-curve (F-a11-004).
+FFmpeg: `curves=all='0/0.075 0.5/0.52 0.8/0.84 1/0.95'` (neutral mid-tone start; day/bright shots lift 0.10; dark shots 0.03; adjust per mood target table); Three.js: apply in the final full-screen pass after tone mapping, before sRGB encode (`out = mix(vec3(lift), vec3(white), shoulder(c))`).
 
 ## T2 Per-mood targets (frame medians; fit render percentile → target percentile)
 | mood | p1 | p5 | p25 | p50 | p75 | p95 | p99 | C* p50 | C* p90 | black RGB | vignette c/c |
@@ -42,7 +43,10 @@ Target face-white pixels L* ≈ 92 (88–96), a* ≈ +1, b* ≈ +1 (+6 warm lamp
 Corner/centre luma ≥ 0.85 in day, 0.60–0.70 in night/lamp, 0.45–0.55 only in spotlit low-key. Produce with lighting falloff; any overlay must be ≤ 0.1 extra darkening (A10 upper bound).
 
 ## T8 Continuity rules
-Same-location shots: ΔE76 of frame-mean Lab ≤ 8 (RC30 per-video median 3.4–11.5; single-location videos ≈ 3.5–5.5), |Δp50| ≤ 0.05. Declared mood change (cut or ~6-frame crossfade): allow ΔE up to 40 (RC30 p90 28–39); crossfade must be a monotone blend (luma overshoot < 5/255) — no flash unless it is a VFX event (flash overshoot 15–25 in RC30).
+3B (A15 confirmed transitions, 568): at any cut the black-point step ≤ 0.04 and white-point step ≤ 0.05 (RC30 median 0.025 / 0.035); ordinary cuts ΔE ≤ 25 (median 15–21) and |Δp50| ≤ 0.12; mood changes up to ΔE 50. Same-location shots: ΔE76 of frame-mean Lab ≤ 8 (RC30 per-video median 3.4–11.5; single-location videos ≈ 3.5–5.5), |Δp50| ≤ 0.05. Declared mood change (cut or ~6-frame crossfade): allow ΔE up to 40 (RC30 p90 28–39); crossfade must be a monotone blend (luma overshoot < 5/255) — no flash unless it is a VFX event (flash overshoot 15–25 in RC30).
 
 ## T9 QC spec — `src/grade/qc_grade.py <video|png> [--mood M] [--fps 1] [--full-range]`
-Decodes at 1 fps/270×480, masks caption band, computes median per-frame y_p1, y_p50, y_p99, contrast p95−p5, C* p50/p90. Checks: (a) video-level medians within RC30 IQR (video-level only; for a single scene use --mood); (b) with `--mood`, |Δ| ≤ 0.04 p1, 0.08 p50, 0.05 p99, 10 C* p90 vs table; (c) reports max |Δ p50| 1-s step (flag > 0.20 outside mood cuts) and % frames with p1 ≤ 2/255 (flag > 1 % outside low-key). Exit 1 on failure. Smoke-tested on a 3 s reference clip (private) — runs; thresholds untested on original renders.
+Decodes at 1 fps/270×480, masks caption band, computes median per-frame y_p1, y_p50, y_p99, contrast p95−p5, C* p50/p90. Checks (3B ranges: p1 0.039–0.098, p99 0.94–0.97, caption band y 0.64–0.76, centre 0.70): (a) video-level medians within RC30 IQR (video-level only; for a single scene use --mood); (b) with `--mood`, |Δ| ≤ 0.04 p1, 0.08 p50, 0.05 p99, 10 C* p90 vs table; (c) reports max |Δ p50| 1-s step (flag > 0.20 outside mood cuts) and % frames with p1 ≤ 2/255 (flag > 1 % outside low-key). Exit 1 on failure. Smoke-tested on a 3 s reference clip (private) — runs; thresholds untested on original renders.
+
+## T10 Caption-band geometry (3B)
+Caption centre y ≈ 0.70 of frame height (0.689–0.717, A14); mask 0.64–0.76. Caption dark outline lowers frame p1 by ≈ 2/255 and white fill raises p99 by ≈ 1/255 — measure our QC with the band masked.

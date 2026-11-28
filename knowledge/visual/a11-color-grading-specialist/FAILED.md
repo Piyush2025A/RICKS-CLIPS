@@ -6,3 +6,6 @@
 - **F5 mood labels**: A09's per-frame rule labels are not available as a table; used nearest centroid in L*a*b* of the frame mean — mixed-light frames may be misassigned. Not validated.
 - **F6 transitions**: only 10/30 videos had both shot_candidates and color.csv when I ran; candidates include false positives. Cut-resolved ΔE for the remaining 20 not done.
 - **F7 hero vs background**: no segmentation available; centre/periphery is a weak proxy (centre includes mid-ground).
+- **F8 (3B) mask check without a with/without-caption control**: caption_segments.csv marks ~100 % of frames in every video, so a within-video caption-present vs absent comparison is impossible; used native frames with the band masked vs unmasked instead (stats only).
+- **F9 (3B) caption centre 0.67**: misread the contact-sheet label strip as a header (cells are 180x320, labels overlay the image); true centre 0.70. Lesson: take geometry from cell size, not by eye.
+- **F10 (3B) 1-fps 270-px proxy black point (0.099)** overstated p1 by ~7/255 (area-downscale + masked outline + 709 weights); never fit to a proxy when a native table exists. First run of native_mask_check.py lost its output to a wrong relative output path — use absolute paths.
