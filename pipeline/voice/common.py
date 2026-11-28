@@ -15,6 +15,18 @@ def seconds_to_frame(t, fps):
     us = math.floor(t * 1_000_000 + 0.5)
     return (us * fps + 500_000) // 1_000_000
 
+def duration_frames_covering(t, fps):
+    """Duration rule (D039): smallest integer N with N/fps >= t, so media is never truncated. Exact integer ceil on
+    integer microseconds: us = floor(t*1e6 + 0.5); N = -((-us*fps) // 1_000_000). t == 0 -> 0.
+    Event timestamps keep seconds_to_frame. Must match durationFramesCovering in src/contracts/time.ts."""
+    if isinstance(fps, bool) or not isinstance(fps, int) or fps <= 0:
+        raise ValueError(f"fps must be a positive integer, got {fps!r}")
+    t = float(t)
+    if not math.isfinite(t) or t < 0:
+        raise ValueError(f"t must be finite and >= 0, got {t!r}")
+    us = math.floor(t * 1_000_000 + 0.5)
+    return -((-us * fps) // 1_000_000)
+
 def sha256_file(path):
     h = hashlib.sha256()
     with open(path, "rb") as f:

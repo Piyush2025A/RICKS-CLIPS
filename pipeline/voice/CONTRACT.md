@@ -37,6 +37,16 @@ MUST match bit-for-bit; shared vectors: `pipeline/voice/tests/fixtures/frame_con
 computed by exact rational arithmetic). Durations specified in frames at 30 fps convert by time (5 f hold = 0.1667 s = 4 f @24;
 0.14 s lead = 4 f @30, 3 f @24). The rate is always stored with the captions. Trim shifts all word times by `-trim_start_s`.
 
+**Event vs duration rule (D039).** Event timestamps (word onsets, cuts, captions) use `seconds_to_frame` (nearest, half up).
+Clip / composition durations that must contain media use a ceiling so audio is never truncated:
+```
+us = floor(t * 1_000_000 + 0.5)                  # same validation as seconds_to_frame; t = 0 -> 0
+N  = -((-us * fps) // 1_000_000)                  # exact integer ceil = smallest N with N/fps >= t
+```
+Python `common.duration_frames_covering(t, fps)`; TypeScript `durationFramesCovering` (src/contracts/time.ts, A25). Examples: real
+TEST6S narration 7.058875 s @24 -> 170 f (7.0833 s); exact multiples stay (2.0 @24 -> 48, 7.0 @30 -> 210); 1 us above a multiple -> +1.
+Shared vectors: `duration_cases` in the same fixture file (expected by exact Fraction arithmetic).
+
 ## Alignment rules (`align.py`)
 * Char alignment -> words: whitespace tokenisation; punctuation stays attached; punctuation-only tokens merge into the previous
   word; `-`, `'`, `.`/`,` inside numbers stay inside a word; em/en dash ends a word (`rate-` / `really`); SSML `<...>` and v3
