@@ -50,3 +50,8 @@ state grid at 360p 24 fps, check tile legibility.
 Caption change = diff > 100; merge within 2 frames. Output summary `data/caption_change_frames.json` (noisy in bright/scenic frames:
 RC30-09, 25, 27, 28 show false positives, intervals of 3 frames - use only with visual confirmation, as in F-A02-007).
 `scripts/mouth.py` = dark-pixel fraction in a mouth ROI (camera motion pollutes; not usable standalone).
+
+## Phase 3B additions (2026-11-28)
+- T-A02-3B-01 Face swap candidates: `scripts/det3b.py` (quarter-res gray diff > 40, caption boxes masked, local component < 130 px) then `scripts/pick3b.py` for every-frame native crop strips. Always view; detector also flags signs/props.
+- T-A02-3B-02 Talking shot recipe: 4-6 mouth drawings, 1-2 frames each, flap only in beat windows; between beats hold one drawing 10-30 frames. Open/close actions = 2-3 chained drawings, 1 frame each. Blink = shut drawing 1-3 frames (+ optional 1-frame half-lid).
+- T-A02-3B-03 Lip-sync test: `scripts/sync3b.py` (circular placement null against caption onsets).

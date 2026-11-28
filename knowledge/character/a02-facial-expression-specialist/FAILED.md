@@ -21,3 +21,8 @@ Not attempted numerically: no face tracker valid for cartoons was run; ROI diff 
 ## F-A02-X5 Not done
 48 px readability self-test, second halves of videos, 10 videos not in catalogue (04, 06, 08, 11, 14, 17, 20, 23, 24, 29), per-video
 blink rate for >= 10 videos, swap-to-word lag n >= 30.
+
+## Phase 3B (2026-11-28)
+- F-A02-X2: automatic face-swap detection by frame difference alone is not face-specific (hits signs, text, crossfades, props); needed manual review of every strip; ~half the clusters were unusable. A face ROI tracker would be needed for rates per second.
+- F-A02-X3: blink frequency not measurable: strip windows (20-30 frames) are too short; needs continuous face-ROI tracks over whole close-up shots.
+- F-A02-X4: 110 px tiles: "0 in-between drawings" is reader judgement, not a measurement; shapes finer than eyes/mouth class are not reliable.

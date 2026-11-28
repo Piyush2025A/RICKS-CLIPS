@@ -1,0 +1,57 @@
+event_id,video,f_first,f_last,event_type,part,change,n_changes,inbetween_drawings,hold_before_f,hold_after_f,censored,confidence
+E01,RC30-03,322,325,swap_burst,eyes,squint > < -> half-lid bar -> ring eyes,3,0,,13,after,medium
+E02,RC30-03,339,341,blink,eyes,ring -> half -> squint bar,2,0,13,,before,medium
+E03,RC30-03,764,764,swap,eyes+accessory,dot eyes -> ring eyes (tick lines from f765),1,0,3,11,both,medium
+E04,RC30-03,775,775,swap,mouth,open o -> teeth grid,1,0,6,,before,low
+E05,RC30-01,378,380,swap_burst,mouth,smirk -> open -> wide laugh grin,3,0,2,,before,medium
+E06,RC30-01,381,381,swap,eyes,open dots -> half-lid/closed,1,0,1,4,none,low
+E07,RC30-01,386,388,blink,eyes,half-lid -> shut line -> reopen,2,0,4,3,none,low
+E08,RC30-02,743,763,mouth_burst,mouth,talking close-up 4+ shapes (teeth/o/line/open),17,0,1,,short,medium
+E09,RC30-05,1089,1091,swap,mouth+head,squiggle -> open grin -> big laugh with head tilt,2,0,12,,before,low
+E10,RC30-06,1062,1067,mouth_burst,mouth,grit -> o -> teeth -> half -> o,5,0,1,4,short,medium
+E11,RC30-06,1072,1072,swap,mouth,flat line -> wide open red,1,0,4,3,none,medium
+E12,RC30-07,1253,1253,swap,eyes+mouth,neutral -> frown (right character),1,0,3,9,both,low
+E13,RC30-07,1262,1264,swap_burst,eyes,dots -> line -> ring glasses-wide,2,1,9,,before,low
+E14,RC30-07,1485,1498,mouth_burst,mouth+eyes,wail cycle squint eyes + open/closed mouth,4,0,4,,short,low
+E15,RC30-08,282,285,mouth_burst,mouth+brow,grin -> open ('But' caption f285),3,0,6,,before,low
+E16,RC30-09,22,22,swap,eyes+mouth,glasses ring eyes -> > < + open shout,1,0,6,14,both,medium
+E17,RC30-09,386,386,swap,eyes,dots -> half-lid (left cop),1,0,4,3,none,medium
+E18,RC30-09,390,390,swap,eyes+brow,reopen + brow shift,1,0,4,8,none,low
+E19,RC30-09,399,399,swap,eyes,open -> closed arc ^,1,0,8,,before,medium
+E20,RC30-09,1437,1438,blink,eyes,open -> half-lid 1f -> open,1,0,6,10,none,low
+E21,RC30-09,1448,1448,swap,brows+mouth,neutral -> inner-up worried + frown,1,0,11,3,none,medium
+E22,RC30-10,343,346,swap_burst,eyes,arc -> wink -> arc -> half-lid,4,0,2,,before,low
+E23,RC30-12,359,362,mouth_burst,mouth,cigar closed -> open red -> half -> closed,4,0,3,,before,medium
+E24,RC30-12,1903,1905,swap_burst,eyes,dots -> half-lid -> dots (right pair),2,0,2,,before,low
+E25,RC30-13,948,950,blink,eyes,open -> line (2f) -> open,1,0,5,10,none,medium
+E26,RC30-13,961,961,blink,eyes,open -> line,1,0,11,,before,low
+E27,RC30-14,397,401,swap_burst,mouth+brow+eyes,mouth -> brow raise f398 -> eye line f399-400 -> reopen f401,3,0,3,,before,medium
+E28,RC30-14,1391,1394,mouth_burst,mouth,shout shapes 4 in 16f,4,0,1,,short,low
+E29,RC30-15,1351,1352,swap_burst,eyes+brow,ring -> one-eye wink squint -> both half-lid bars,2,0,10,2,both,medium
+E30,RC30-15,2062,2062,swap,mouth,grin -> open smile D,1,0,8,7,none,low
+E31,RC30-16,1479,1482,blink,eyes,open -> half-lid line (2f) -> reopen with brow raise,2,0,6,5,none,low
+E32,RC30-18,502,504,swap_burst,eyes+mouth,glasses character small changes,3,0,3,,before,low
+E33,RC30-19,851,853,swap_burst,eyes+mouth,dot -> half line -> ring -> ring+open mouth + sweat,4,0,3,,before,medium
+E34,RC30-20,837,848,swap_burst,eyes+brows,worried -> smug brow -> ring pupil shifts (left char),6,0,1,,short,low
+E35,RC30-21,8,14,swap_burst,eyes,half-lid -> shut bars -> wide ring dots at f14,3,0,3,,before,medium
+E36,RC30-21,1098,1102,swap_burst,eyes,line -> ring -> dot (pig-nose char),3,0,1,,short,low
+E37,RC30-23,709,712,swap_burst,mouth+eyes,smirk -> grin -> wink arc -> smirk,4,0,1,,short,medium
+E38,RC30-23,1205,1209,swap_burst,eyes,bars -> ring -> dot -> bars,3,0,2,,before,low
+E39,RC30-24,849,851,swap_burst,eyes,dot -> ring (glasses-less),2,0,5,,before,low
+E40,RC30-24,986,992,swap_burst,eyes+mouth,laugh -> frown,2,0,3,,before,low
+E41,RC30-27,296,303,mouth_burst,mouth+eyes,grin teeth -> closed -> wink lines,6,0,2,,before,medium
+E42,RC30-27,450,458,swap_burst,eyes+brows,half-lid -> line -> dots wide raised brows 3f -> back,5,0,3,,before,medium
+E43,RC30-29,609,610,blink,eyes,open -> line -> open,1,0,5,,before,low
+E44,RC30-25,37,38,swap,eyes+mouth,bars -> rings (earlier view f37->38),1,0,2,5,none,medium
+E45,RC30-25,44,45,swap,eyes,half-lid -> > < (earlier view),1,0,6,19,none,medium
+E46,RC30-30,79,80,swap,eyes+mouth,sleepy bars -> ring eyes + wavy mouth (earlier view),1,0,49,9,none,medium
+E47,RC30-08,1002,1020,hold_control,face,0 changes while 2 caption changes (f1011 f1016),0,,19,,both,medium
+E48,RC30-12,808,818,hold_control,face,0 changes ring eyes + grit teeth while captions change f808 f815,0,,11,,both,medium
+E49,RC30-14,984,1002,hold_control,face,tongue-out face 0 swaps (only pupil nudge),0,,19,,both,medium
+E50,RC30-15,918,938,hold_control,face,huge grin 0 swaps 21f,0,,21,,both,medium
+E51,RC30-17,1419,1449,hold_control,face,neutral 0 changes while captions change f1422 f1440,0,,31,,both,medium
+E52,RC30-17,1555,1581,hold_control,face,sleepy double bars 27f,0,,27,,both,medium
+E53,RC30-19,1694,1707,hold_control,face,grin teeth + arc eyes 0 swaps,0,,14,,both,medium
+E54,RC30-22,1371,1393,hold_control,face,happy arc eyes pirate 0 swaps while captions change f1379 f1388 f1393,0,,23,,both,medium
+E55,RC30-23,478,488,hold_control,face,smug face 0 swaps,0,,11,,both,medium
+E56,RC30-29,637,654,hold_control,face,calm face 0 swaps,0,,18,,both,medium
