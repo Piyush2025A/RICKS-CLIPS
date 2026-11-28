@@ -7,6 +7,47 @@ Rev 3 labels: **VERIFIED** = official page read in full or the repo source read 
 · **UNVERIFIED**. Rev 2 labels: **PUBLISHED** = stated on an official page (quoted, fetched 2026-11-27) · **VERIFIED** = observed in our own
 account/test · **THIRD-PARTY** = non-official source · **UNVERIFIED** = not tested.
 
+## Current status (Phase 4) — 2026-11-28 (A23, rev 4)
+This section is authoritative. Older sections are kept as history; statements they contain that are overtaken by tests are
+marked `[SUPERSEDED rev 4: ...]` in place. Evidence: DECISION_LOG D014-D024, `research/t5-drive-transfer.md`, private
+provenance record of the D015 test, `knowledge/engineering/a23-google-flow-integration-engineer/TERMS_REVIEW.md`.
+
+| Topic | Status | Evidence |
+|---|---|---|
+| Cloud session drives Flow in a browser | **FAILED**, do not retry from cloud | D014: no `claude-in-chrome` tools exposed in the cloud session |
+| Local Claude in Chrome driving the user's signed-in Chrome, one image | **WORKS (single generation, user present)** | D015 + provenance JSON: Nano Banana 2 Lite, 9:16, x1, 15-27 s, PNG RGBA 768x1376, 2,206,600 B, sha256 `bd4fac1d...a3a`, Flow credits 1050 -> 1050 (0 used), visible watermark + C2PA `caBX` (15,050 B) preserved, no CAPTCHA, download needed one manual confirmation |
+| Prompt adherence of that test | **Weak on shape words** (bean head, stick limbs not followed; hatching instead of flat) | provenance `visual_inspection` (viewed by Claude); templates in `prompts/flow/` use explicit negatives and a measured-values checklist |
+| Remote Control / attached computer folder to cloud | **BLOCKED** on the user's Linux Mint (Claude Desktop 6.28899.6) | D019-D021 |
+| Cloud <-> local file transfer | **Google Drive connector WORKS**, byte-exact (25/25 SHA-256) | D022-D024: cloud -> Drive <= ~3.1 MB per file (4.2 MB per connector call); Drive -> cloud <= 10 MB per file; Drive <-> computer via browser unlimited by connector |
+| Consequence for Flow stills | Flow assets originate on the user's computer, so the binding limit is **local -> Drive -> cloud <= 10 MB per file**; the D015 PNG (2.2 MB) fits. 2K/4K upscales and videos may exceed it (check size first; process locally if so). The ~3.1 MB cloud -> Drive limit matters only for previews/prompt packs sent the other way | t5-drive-transfer.md |
+| Credits for direct image generation | **0 credits observed** with Nano Banana 2 Lite (n = 1) | provenance; consistent with 16729550 |
+| Agent/Tools credit discrepancy (C2) | **STILL OPEN**, not needed for initial workflow; see section 1B | T16 quote |
+| ToS position | supervised = GREY (leaning permitted); unattended = do not; commercial = UNRESOLVED; watermark/C2PA = preserve | TERMS_REVIEW.md |
+| Third-party Flow MCP / extensions (FlowPilot, Flow Studio, google-flow-mcp) | **REJECTED**, unchanged (D013) | section 1A.5 |
+| "Integration working" per project rule 3 | **PARTIAL**: single-image local generation + download + private storage verified; **not yet verified end-to-end**: A24 intake of a real Flow file, Drive hand-off of that file to the cloud, batch of >= 5 assets with quota log | open for Phase 4 test E1 (section 1B) |
+| Blockers (replaces section 4 table) | (1) user decision on commercial use check (Q1); (2) user approval for each generation batch; (3) ElevenLabs key not configured; (4) visible-watermark handling for cut-outs (Q3) | TERMS_REVIEW.md |
+
+### 1B. Flow Agent / Tools: needed for the initial workflow? (docs only, no credits spent)
+**Decision proposal: NO. Start with direct image generation in the Flow UI (Nano Banana 2 Lite for drafts, Nano Banana Pro
+for finals), one approved request at a time.** Reasons (PUBLISHED): direct images use the per-model daily allowance, not
+credits (16729550) and measured 0 credits (n = 1); the Agent's media "uses your Google Flow credits" (17093911) and its
+default confirmation can be set to "Never", which would spend credits without a pause, contradicting our approval gate;
+Tools add a shared-link code-exposure risk (17104535) and a creation quota; neither gives an export or API. Our own prompt
+packs and the Claude in Chrome supervised workflow already cover house-style scaffolding that a Tool would hold.
+What the Agent could add later (INFERRED): batch variations, renaming assets to our IDs, Collections. Worth testing only
+if manual renaming becomes the bottleneck (manual_steps metric).
+Credit-spending tests to **propose for user approval** (nothing run; costs are counts, not money, no extra subscription):
+| ID | Test | Cost estimate | Answers |
+|---|---|---|---|
+| E1 | 1 direct image via Nano Banana Pro (the planned final model), read allowance counter before/after; then download, A24 intake, Drive hand-off | 1 of 100 daily Pro images, expected 0 credits | model quota counting, end-to-end intake |
+| E2 | 1 image via Flow Agent with "Confirm before generating = Always", user reads credit balance before and after | expected 0-? credits: Agent doc says media uses credits; unknown amount (UI shows cost before approval; user can decline) | C2 discrepancy |
+| E3 | 1 image via a prebuilt Tool (no custom Tool creation) | same as E2, UI shows the cost first | C2 for Tools |
+| E4 | batch of 4 variations (x4 setting, one request) on Nano Banana 2 Lite, measure throttle and the manual-step count | 4 of 1,000 shared-pool images | batch behaviour, "rapid generations" limit |
+Do E1 first; E2-E4 only if the user wants Agent/Tools. Video generation (Veo) is out of scope for this proposal; its credit
+cost is unknown here and needs its own approval.
+
+---
+
 ## 1. Google Flow
 
 ### 1.1 Correction to revision 1
@@ -92,7 +133,7 @@ The cloud container has no Google session. It must not create one (datacenter lo
 Chrome integration as far as documented. Flow therefore always runs on the user's computer, and the question is
 only how outputs reach the pipeline.
 
-### 1.7 Local-to-cloud asset bridge options
+### 1.7 Local-to-cloud asset bridge options `[SUPERSEDED rev 4: native folder sharing blocked (D020/D021); Google Drive connector verified (D023), see Current status]`
 | Bridge | How | Status / risk |
 |---|---|---|
 | **B1 Remote Control folder** | ~~A cloud session attaches a shared local folder via Remote Control~~ **SUPERSEDED BY REV 3 (§1A.2): this mechanism does not exist.** Remote Control is a window onto a session that runs on the user's machine; it does not mount local folders into a cloud container. | Incorrect in rev 2. Replaced by "local worker session" (§1A.5). |
@@ -101,7 +142,7 @@ only how outputs reach the pipeline.
 | **B4 Private asset store** | Separate *private* Git (LFS) repo or bucket for generated assets | Needs a user decision; never the public repo. |
 | Rejected | Third-party Flow wrappers needing our Google session (useapi.net), unreviewed CDP browser MCPs, cookie/token extraction | Violates rules 9/13. |
 
-### 1.8 Recommended architecture (proposed, D003 rev 2)
+### 1.8 Recommended architecture (proposed, D003 rev 2) `[SUPERSEDED rev 4: by 1A.7 and D014/D015; cloud never drives Flow, local supervised session does]`
 - **Tier 0: approved fallback and first hand-off test.** The user runs one prompt manually in Flow, downloads it, and
   drops it in the hand-off folder. We test bridges B1 and B3 for byte-exact transfer (SHA-256 on both sides,
   dimensions, visual check). This establishes the intake manifest format.
@@ -117,7 +158,7 @@ only how outputs reach the pipeline.
 Google AI Pro benefits do not cover Gemini API key usage. That is billed via Cloud Billing (ai.google.dev AI-plans
 doc; developer-forum support replies). No API use without approval.
 
-### 1.10 Phase 4 end-to-end verification checklist (planned)
+### 1.10 Phase 4 end-to-end verification checklist (planned) `[partly done: single local generation D015; Drive transfer D023; remaining items tracked in Current status]`
 1. Read the Flow / Google generative-AI terms on automation and commercial use, then record conclusions.
 2. Tier 0 test: 1 image → bridge → cloud; SHA-256 match, dimensions, and a visual check logged.
 3. Record the in-app limit counters before and after (account-specific limit verification).
@@ -244,7 +285,7 @@ Scale: security risk and ToS status for the **user's Google account**; "cloud" =
 | 8 | useapi.net hosted Flow MCP/REST (third-party service) | Paid third-party; needs the user's Google session handed over | **Very high** (credentials/session to third party) | Violates rules 9/13 | Yes | 0 | High |
 | X | Cookie/token extraction, headless/stealth drivers, cloud-side Google login | n/a | n/a | Prohibited by CLAUDE.md rules 9/13 and quoted ToS | n/a | n/a | n/a |
 
-### 1A.7 Recommended architecture (supersedes §1.8 where different)
+### 1A.7 Recommended architecture (supersedes §1.8 where different) `[rev 4: Tier 2 confirmed working for one image; Tier 1 Agent/Tools not needed initially (1B); bridge = Drive (<=10 MB into cloud)]`
 Principle: Flow only ever runs in the user's own visible browser on the user's own computer; the cloud never holds a
 Google session; binaries never enter the public repo; only text crosses to the cloud.
 ```
@@ -291,7 +332,7 @@ counts, screenshots only if the user agrees, and manual-step count. Create an EX
 Mark "working" only after T3 + T5 + (T6 or T7) pass, with evidence in `PROGRESS.md`. Stop rules: any CAPTCHA, re-login,
 unknown dialog, rate-limit or safety message halts automation and returns control to the user.
 
-### 1A.9 Open questions and items needing the user
+### 1A.9 Open questions and items needing the user `[rev 4: Q1: user approved the single supervised test (D015); a standing decision for the workflow is still requested (Q2 in the hand-off); Q3 answered: Drive; Q5 done in TERMS_REVIEW.md (Labs terms page unreadable); Q6 answered: Chrome tools worked for navigation, prompt entry, generation and download with one manual confirmation]`
 1. **Decision:** accept Option 2 (unendorsed UI automation of Flow by Claude in Chrome, user present) given residual
    account-restriction risk to the Google account? Or stay on Tier 1 only?
 2. User actions: install the extension, run local Claude Code (>= 2.1.283, claude.ai login), keep computer on; confirm
@@ -329,7 +370,7 @@ Creators $25/seat/mo; Enterprise from $500/mo). **Applicability (INFERRED):** an
 videos qualifies for the free licence. Verify the full terms (remotion.dev/docs/terms) and the eligibility quiz before
 publication, and re-check if the team grows beyond 3 people or a company entity is formed.
 
-## 4. Blockers
+## 4. Blockers `[SUPERSEDED rev 4: see the blockers row in Current status; rows "cloud cannot log in" accepted, "bridge unverified" closed by D023, "Chrome integration not set up" closed by D015, "ToS unread" replaced by TERMS_REVIEW.md]`
 | Blocker | Owner | Unblocks |
 |---|---|---|
 | No official Flow API; cloud cannot log in | accepted architecture (§1.8) | — |

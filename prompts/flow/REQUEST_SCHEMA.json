@@ -1,0 +1,68 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ricks-clips/flow-request/v1",
+  "title": "Flow supervised asset request record",
+  "description": "One request = one user-approved Flow generation. Text only, safe to commit; contains no media, no URLs, no account or project identifiers.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "request_id", "template", "kind", "prompt", "settings", "approval", "originality_check"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "request_id": {"type": "string", "pattern": "^[A-Z0-9]+-[a-z0-9-]+-v[0-9]+$", "description": "e.g. HERO-turnaround-v1"},
+    "template": {"enum": ["character_turnaround", "expression_part_sheet", "separated_body_parts", "prop", "texture_tileable", "environment_plate"]},
+    "kind": {"enum": ["character", "expression", "parts", "prop", "texture", "environment"], "description": "A24 intake --kind"},
+    "design_brief_ref": {"type": "string", "description": "path or ID of the user-approved design brief"},
+    "reference_asset_ids": {"type": "array", "items": {"type": "string"}, "description": "A24 asset_ids used as Flow reference ingredients; empty for none"},
+    "placeholders": {"type": "object", "additionalProperties": {"type": "string"}, "description": "values substituted into the template"},
+    "prompt": {"type": "string", "minLength": 40, "description": "final text pasted verbatim into Flow"},
+    "settings": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["mode", "model", "aspect_ratio", "output_count", "agent_switch"],
+      "properties": {
+        "mode": {"enum": ["Image"]},
+        "model": {"enum": ["Nano Banana Pro", "Nano Banana 2.1", "Nano Banana 2", "Nano Banana 2 Lite"]},
+        "aspect_ratio": {"enum": ["9:16", "16:9", "1:1", "3:4", "4:3"]},
+        "output_count": {"type": "integer", "minimum": 1, "maximum": 4},
+        "agent_switch": {"const": "off"},
+        "download_size": {"enum": ["1K original", "2K upscaled"], "default": "1K original"}
+      }
+    },
+    "expected_credits": {"type": "number", "minimum": 0, "description": "ceiling the user approves; stop if the UI shows more"},
+    "expected_quota_pool": {"enum": ["pro", "shared_fast_pool"]},
+    "approval": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["approved_by_user", "approved_utc"],
+      "properties": {
+        "approved_by_user": {"type": "boolean"},
+        "approved_utc": {"type": ["string", "null"], "format": "date-time"},
+        "approval_note": {"type": "string"}
+      }
+    },
+    "originality_check": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["no_reference_characters_or_sets", "no_confidential_data", "no_text_in_image_requested"],
+      "properties": {
+        "no_reference_characters_or_sets": {"type": "boolean"},
+        "no_confidential_data": {"type": "boolean"},
+        "no_text_in_image_requested": {"type": "boolean"}
+      }
+    },
+    "acceptance_checklist": {"type": "array", "items": {"type": "string"}},
+    "result": {
+      "type": "object",
+      "description": "filled after the run; pointers only",
+      "additionalProperties": false,
+      "properties": {
+        "status": {"enum": ["pending", "generated", "accepted", "rejected", "blocked", "failed"]},
+        "asset_id": {"type": "string"},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "credits_consumed": {"type": "number"},
+        "manual_steps": {"type": "integer"},
+        "deviations": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  }
+}
