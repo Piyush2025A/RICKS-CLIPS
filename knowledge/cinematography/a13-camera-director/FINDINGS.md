@@ -1,7 +1,7 @@
 # A13 Camera director — FINDINGS (Phase 3, RC30)
 
-Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · date 2026-11-28 · visual-ledger records 6
-(`knowledge/dataset/coverage/visual/a13-camera-director.jsonl`) · **videos covered computationally: 23** (RC30-01..05, 07, 08, 14..20, 22..30 as
+Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · date 2026-11-28 · visual-ledger records 12 (3B)
+(`knowledge/dataset/coverage/visual/a13-camera-director.jsonl`) · **videos covered computationally: 30 (3B; was 23 in 3A)** (RC30-01..05, 07, 08, 14..20, 22..30 as
 processed so far; 06, 09-13, 21 absent from `v0.2.0` at run time). Scripts: `data/scripts/*.py` (originals in
 `~/ricks-clips-private/analysis-data/rc30/agents/a13-camera-director/`, run order moves.py > ease.py > shake.py > sync.py > final.py).
 Tables: `data/camera_per_video.csv`, `data/moves_table.csv` (555 moves), `data/*.json`.
@@ -88,3 +88,30 @@ Label HYPOTHESIS/INFERRED, confidence low. Deep corridor dolly (RC30-25), strong
 - Run our own Three.js renders through the same estimator to validate magnitudes (EVIDENCE: our moves validated on 360p renders).
 - Re-run after the batch completes (RC30-06, 09-13, 21 missing): `python3 data/scripts/final.py` chain.
 - Dolly vs zoom separation needs depth cues (A27/A07).
+
+## Phase 3B additions (2026-11-28)
+Header update: visual-ledger records now **12** (`knowledge/dataset/coverage/visual/a13-camera-director.jsonl`), **videos with visual evidence: 18** (01, 02, 03, 04, 05, 07, 08, 14, 15, 16, 17, 20, 23, 24, 25, 26, 27, 29; 4 earlier + 14 new via native start/end pair montages and 3 every-frame sheets). Computational coverage: **30/30 videos** (tables regenerated with RC30-06, 09-13, 21 included; `data/moves_table.csv` now 767 moves, new column `Zc` = compounded scale change %). Scripts `data/scripts/push3b*.py`; data `data/push3b_validation.json`; EXP `experiments/EXP-a13-3b-push-validation.md`.
+
+### F-a13-100 — Push magnitude validation against native frames: the summed-% proxy under-states by about 21 %; the compounded product is unbiased
+Label MEASURED (native decode, independent SIFT start-to-end similarity fit) + OBSERVED (pair montages, 16 videos). Confidence medium (n=15 reliable moves in 13 videos; sample selection biased to dur >= 20 f).
+Method: 22 clean non-fast pushes, 16 videos. For each: native frames start-1 and end, 360x640 gray, SIFT + ratio test 0.75 + RANSAC `estimateAffinePartial2D`; scale = sqrt(a^2+b^2). Reliable = >= 15 inliers (15 moves, 13 videos; 6 had < 15 inliers, 1 failed).
+Result (total scale change over the move, % = (S_end/S_start - 1) x 100): direct 39.5 % (IQR 28.6-59.7); proxy sum 35.7 (22.9-44.9); proxy compounded 42.8 (25.6-56.0). Ratio direct/proxy-sum **1.21 (IQR 1.07-1.32)**; direct/proxy-compounded **0.99 (0.87-1.12)**; native LK chain / proxy compounded 0.99 (0.93-1.05, n=15). Compounded/sum over all 22: 1.21 (1.11-1.29). So the 3A table understated magnitude because it summed per-frame % instead of compounding; the 320 px proxy itself is not biased.
+Limits: the LK chain shares the similarity model with rcpipe (not independent); only the SIFT result is independent. Direct and chain disagree by > 25 % in 5 of 15 reliable moves (count from push3b_validation.json; e.g. RC30-01, RC30-05 f185-205, RC30-23 differ 15-25 %): in a 3D dolly with parallax, "scale" depends on which depth plane dominates the inliers, so a single number carries about +-20 % uncertainty (OBSERVED RC30-20: character stays similar size while floor tiles shrink/grow).
+
+### F-a13-101 — Corrected push magnitude (supersedes F-a13-003 numbers)
+Label MEASURED. Confidence medium. n=181 non-fast pushes, 30 videos (all frames; `moves_table.csv` Zc).
+Total scale change per push, compounded: **median 23.9 % (IQR 10.0-45.8)** over **33 f (IQR 18-51)**; mean rate 0.8 %/f (0.4-1.3). Summed (old definition) 21.3 % (8.8-37.7) on the same 181. Per-video median of medians 29.3 % (IQR 15-38, n=30). Clean subset (not near a shot candidate; n=54, 24 videos): 36.6 % (11.1-55.2) over 35 f. Pull-outs (n=88, 28 videos): 14.3 % (7.4-26.8) over 28 f. Units: total scale change over the move in % of start size; apply the factor 1.21 only if the summed convention is used.
+Reliability caveat OBSERVED: of the 22 sampled "pushes" 4 are not clean camera pushes (RC30-03 f903-969: character shrinks, camera quasi-static, proxy sign wrong; RC30-08 f767-815, RC30-15 f1095-1117 and RC30-26 f916-1012 are shot/scene changes or reveals with parallax). So roughly 15-20 % of table "pushes" are artefacts; medians are robust to this, tails are not.
+
+### F-a13-102 — Easing re-check on native per-frame scale curves: smoothstep confirmed (75-86 % of pushes)
+Label MEASURED. Confidence medium-low (n=14-20 moves, 16 videos). Method: per-frame native LK similarity scale for every frame of each move, cumulative log-scale normalised 0-1, RMSE against smoothstep, linear, ease-out quad/cubic, ease-in quad, smootherstep.
+Moves with total change > 15 %: n=20, 16 videos: smoothstep best 15 (75 %), ease-out quad 3, ease-in quad 2. Reliable subset (>= 15 SIFT inliers, n=14): smoothstep 12 (86 %), ease-out quad 2; median RMSE smoothstep 0.040, smootherstep 0.057, linear 0.075, ease-out quad 0.179, ease-in quad 0.201. Median time of peak speed 0.43 of the move (IQR 0.37-0.54). Re-run of the 3A fitter on all 30 videos (96 in-shot non-fast moves, 28 videos): smoothstep 58 (60 %), ease-out quad 13, linear 12, ease-in 7, sine 4; peak 0.47 (0.32-0.59); attack 12 f, release 12 f. **Confirmed: in-shot moves are symmetric ease-in-out; ease-out is the minority (about 14 %).** The "65 %" is revised to 60 % (proxy, n=96, 28 videos) and 75-86 % (native, n=14-20). Contradiction STYLE_BIBLE vs motion.md unchanged: symmetric ease wins for in-shot moves; fast tier (n=429) fits ease-out quad best (100/394, 25 %) but is not majority either.
+
+### F-a13-103 — Dataset-wide camera stats with the 6 newly completed videos (30/30)
+Label MEASURED. Confidence medium. 30 videos, 50,898 frames (valid-confidence frames only). Hold share median **10.8 %** (IQR 8.4-14.4), creep 19.7 % (16.4-25.1), move 66.6 % (58.3-73.1) of valid frames (3A, 23 videos: hold 10.5 %). New videos' hold: RC30-06 10.4, 09 11.2, 10 5.0, 11 4.4, 13 12.8, 21 14.6 %. Moves 767 (non-fast 338, fast 429). Move-onset vs caption-change (10 videos with A20 events): within 3 f 64 % vs 61 % baseline; still no evidence of word-locking. Move start within 6 f of a shot-candidate end: non-fast 37 % vs 15 % random; fast 43 % vs 15 %. Boundaries from `shot_candidates.json` (superset); A15's `transitions_confirmed.csv` was not used to re-mask (open item). Shake detector re-run: 191 events in 29 videos, still interpreted as object motion (3A visual checks only on RC30-01, -15).
+
+## Phase 3B revisions
+- **F-a13-003: SUPERSEDED (numbers).** "22 % (sum)" is replaced by F-a13-101: 23.9 % compounded over 30 videos, validated by a native SIFT check (ratio 0.99, n=15). Old "magnitude upper-bound" wording was wrong: the sum was a lower bound (about 21 % low per move).
+- **F-a13-004: CONFIRMED/REVISED.** Smoothstep share 60 % (proxy, 30 videos) and 75-86 % (native); see F-a13-102.
+- Header counts (23 videos, 555 moves) superseded by 30 videos, 767 moves. Other 3A numbers drawn from the 23-video table (F-a13-001/002 hold shares, F-a13-005..008) were regenerated in `camera_per_video.csv` but their prose is not rewritten; use F-a13-103 for hold/creep/move.
+- Unresolved: true "scale" under depth parallax (+-20 %); A15-confirmed boundary re-masking; word-lock power at 9-f caption cadence.
