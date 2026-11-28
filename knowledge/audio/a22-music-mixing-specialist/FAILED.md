@@ -14,3 +14,8 @@
 - **Source separation / mono-bed estimation:** not attempted (no separator allowed/installed).
 - Process note: parallel background launches wrote duplicate runs on the same outputs (first launch with wrong filename
   `01.mp4` vs `1.mp4`); results are idempotent but wasted CPU.
+
+## Phase 3B
+- First 3B run used "bass 30-150 Hz" as the voice-free band: it contains voice (+4 dB voiced-minus-pause) and gave paired "differences" of +9 dB; replaced by 30-90 Hz. 4-8 kHz is also not voice-free (sibilants) and is not used for the ducking claim.
+- Strict pause definition C with -20 dB under the speech median left 1 pause in RC30-10; changed to -15 dB (median 11 pauses, 1.5 s per video). Strict pauses remain a small sample.
+- Full-band K-weighted bed estimate (voiced-minus-pause 4 LU) is dominated by non-voice-band energy and is not a usable bed ratio; use 400-2000 Hz.

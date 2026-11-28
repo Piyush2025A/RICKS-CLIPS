@@ -47,3 +47,4 @@ A14: not re-run unless a later wave needs it (A28: ledger PASS; caption band ver
 - A20 part 1 DONE: captions transcribed RC30-01..09 (1,624 segments, 1 illegible, 0 non-caption; private caption_text.csv).
 - A20 part 2 DONE: RC30-10..19 transcribed (1,861 segments, 0 illegible). Gaps in seg ids = segments < 2 frames dropped by design (MIN_SEG).
 - A21 DONE: bed level 30/30 reconciles A21/A22 (mean pause −15.6 dB, floor −24.6 dB mid; side −27.1 dB; mean vs floor, not a conflict); SFX detection: no method reaches 0.7 precision (0.19–0.36) → no SFX density/sync reported; no systematic transition whoosh.
+- A22 DONE: bed level reproduced independently (14.4/14.8/20.6/24.8 dB by pause strictness ≈ A21) → target bed −20 dB re VO (400–2000 Hz) ±3, static; no ≥2 dB duck on voice-free views; end swell 4 confirmed (01/11 disputed); tempo pulse only 13/30; no track changes.

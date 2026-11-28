@@ -50,3 +50,15 @@ controls), `a22_struct.py`, `a22_agg.py` (tables). Run for a produced mix: expec
 ## T4 Mix check before delivery
 side-level median, side−mid, voice-active minus gap (400–2000 Hz) = 12–14 dB (bed upper bound −14), bass band act-gap ≈ 0,
 LTAS 1/3-octave curve within ±3 dB of `data/ltas_third_octave.csv`, no ducking ETA (> 1 dB dip = remove).
+
+## T5 Mix recipe, Phase 3B update (supersedes the numbers in T2.2 and T2.3 where different; v0.2)
+| Stem | Target | Measure | Source |
+|---|---|---|---|
+| VO | speech-frame K-weighted level -13.2 LUFS on the master (IQR -13.5..-13.1); stem LRA 2-3 LU | 10 ms mean-square, voiced frames | F-A22-100 |
+| Bed | **-20 dB re VO in 400-2000 Hz (+-3), static, from t=0 to end, no sidechain duck** (allowed duck <= 1 dB; reference < 2 dB on bass/side) | stem vs stem, voiced frames, mean power | F-A22-100, 102 |
+| Bed check on master | pause frames (>= 150 ms, 50 ms trimmed) -17.2 +-1.5 LUFS; side 400-2000 voiced-minus-pause 0.8 +-2 dB | master only | F-A22-100 |
+| Bed spectrum | full-spectrum floor: 4-8 kHz in pauses >= speech frames; 30-150 Hz about 4 dB under speech | master | F-A22-100 |
+| SFX | no level measured (A21 detection failed); keep SFX peak below VO peak, no sub-bass solo | - | F-a21-102 |
+| End | optional 1.5-2 s low-weighted swell in the last 3 s for ~1 in 8 videos | - | F-A22-103 |
+| Master | -14 LUFS integrated (accept -14.0 +-0.3; reference whole-file -14.1), TP <= -2 dBTP (project rule <= -1), LRA <= 3 LU, PLR 12 | ebur128 peak=true after encode | F-A22-009 |
+Tempo: no BPM requirement (F-A22-104); write at any 60-120 BPM, loop 6-10 s. Pause-based checks always state definition B above.
