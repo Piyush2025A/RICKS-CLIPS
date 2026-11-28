@@ -36,3 +36,21 @@ No separate character voices needed (F-A20-010).
 ## T5 Reproduce
 `.venv-analysis/bin/python -I scripts/audio_an.py <n>` (run with cwd = output dir) -> aud_<n>.json; `cap20.py <n>` -> capser_<n>.npy; `capev.py`;
 `xcorr.py`; `capstat.py`; `agg.py` (writes data CSVs). Inputs: `~/ricks-clips-private/reference-videos/RC30/<n>.mp4`.
+
+## T6 ElevenLabs direction sheet for an ORIGINAL narrator (Phase 4, 2026-11-28; planning only, no spend authorised)
+Evidence for numbers: F-A20-101..105 (MEASURED, reference). The ElevenLabs facts below are from the director's connector report
+and general product knowledge: INFERRED / HYPOTHESIS until the 6 s test (`pipeline/voice/TEST_PLAN_6S.md`) verifies them.
+| Item | Direction |
+|---|---|
+| Identity | One original library/designed voice, constant across all videos. Never clone, never imitate the reference narrator or any real person; do not chase the reference F0 (bed-biased, F-A20-009). |
+| Pace | ~220 wpm (3.7 w/s over the voiced span; accept 3.0-3.9), sentences ~11 words, breath gap 0.15-0.3 s, no pause > 0.6 s. Measure with `words.json`, not by ear. |
+| Model A: `eleven_multilingual_v2` | Has a `speed` voice setting (HYPOTHESIS: 0.7-1.2) and SSML `<break time="0.3s"/>` for pauses; stable, predictable; ~1 credit/char (120 credits for the 6 s test line). First choice for the test: pace is tunable by parameter, and `align.py` strips the break tags. |
+| Model B: `eleven_v3` / v4 | Expressive, inline audio tags (`[whispers]`, `[excited]`); tags are text, so they cost characters and appear in alignment text (`align.py` masks them). HYPOTHESIS: no `speed` knob, so pace is steered by punctuation/wording and stability presets; less predictable duration. Try only after Model A passes; one variable at a time. |
+| Flash/turbo | Cheaper (HYPOTHESIS ~0.5 credit/char), lower expressiveness; use for non-final timing drafts only if the director approves the spend. |
+| Settings start | stability 0.5, similarity 0.75, style 0, speaker boost on, speed 1.0 (raise toward 1.1 only if wps < 2.8). Keep identical across videos; change one setting per experiment. |
+| Text prep | Short sentences (~11 words), commas for breath, spell out numbers/acronyms, no stage directions in the narration text, pronunciation fixes via respelling or an approved pronunciation dictionary, log every substitution. |
+| Timing source | Preferred: API `/with-timestamps` (free with the TTS call; needs an API key - not available). Fallback: Scribe `words` (extra credits, ~tens of ms edge error unverified) -> `align.py scribe`. Local forced alignment only with an approved tool. |
+| Cost control | 1 take per test; log characters, credits, settings, flow id in the manifest; estimate before every call; keep scripts short; free tier is non-commercial + attribution (user decision on a paid plan before any release). |
+| Post | trim to <= 0.2 s head / <= 0.3 s tail (`silence.py`), `normalize.sh vo` (-14 LUFS, TP -2, mono 48 kHz); A22 does the real mix (bed -20 dB re VO, static). |
+Caption token rule: default one word per token (PRODUCTION_DEFAULTS); function-word merging (T3.3 "dug a") is an optional experiment (`captions.py --merge-function-words`).
+Tools: `pipeline/voice/` (CONTRACT.md).

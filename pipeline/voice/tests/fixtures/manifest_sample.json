@@ -1,0 +1,63 @@
+{
+ "schema_version": "1.0",
+ "production_id": "TEST6S",
+ "script_version": "v0",
+ "voice": {
+  "voice_id": "SYNTHETIC",
+  "name": "Synthetic test",
+  "origin": "library"
+ },
+ "model": "eleven_multilingual_v2",
+ "settings": {
+  "stability": 0.5,
+  "similarity_boost": 0.75,
+  "style": 0.0,
+  "speed": 1.0,
+  "use_speaker_boost": true,
+  "output_format": "mp3_44100_128",
+  "seed": null
+ },
+ "text": {
+  "submitted": "Hello there.",
+  "characters": 12,
+  "words": 2,
+  "sha256": "0000000000000000000000000000000000000000000000000000000000000000"
+ },
+ "audio": {
+  "file": "narration_raw.mp3",
+  "sha256": "aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa",
+  "codec": "mp3",
+  "sample_rate_hz": 44100,
+  "channels": 1,
+  "duration_s": 1.2,
+  "loudness": {
+   "integrated_lufs": -20.1,
+   "lra_lu": 2.0,
+   "true_peak_dbtp": -3.0,
+   "stage": "raw"
+  }
+ },
+ "timing": {
+  "words_file": "words.json",
+  "source": "scribe",
+  "timing_error_median_ms": null
+ },
+ "provenance": {
+  "provider": "elevenlabs",
+  "generated_utc": "2026-11-28T00:00:00Z",
+  "flow_id": null,
+  "credits": {
+   "estimated": 120,
+   "actual": null,
+   "scribe_actual": null
+  },
+  "take": 1,
+  "approval_ref": "SYNTHETIC",
+  "intake_ref": null
+ },
+ "licence": {
+  "tier": "free",
+  "commercial_use": "not_allowed",
+  "attribution_required": true
+ }
+}

@@ -246,3 +246,19 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
 ## Phase 4 — Google Flow + ElevenLabs integration (started 2026-11-28, D033)
 - [x] Task 1 documentation reconciliation: `knowledge/PRODUCTION_DEFAULTS.md` v1; active docs corrected (D033); Git
       protections strengthened (.gitignore + pre-commit guard, verified).
+- [x] Task 2 Google Flow (A23 + A24): terms review (`knowledge/engineering/a23-google-flow-integration-engineer/TERMS_REVIEW.md`:
+      supervised use grey-leaning-permitted, unattended automation treated as prohibited, commercial use unresolved,
+      SynthID/C2PA/visible watermark preserved); feasibility reconciled (rev 4); workflow `pipeline/flow/WORKFLOW.md`;
+      skill `.claude/skills/google-flow-supervised/` (director fix: never delete the downloaded original); request
+      templates + schema `prompts/flow/`; Flow Agent/Tools not needed initially (credit tests E1–E4 proposed, not run).
+      A24 intake `pipeline/assets/` (10/10 tests, director rerun OK); lighthouse dry-run byte-exact, C2PA chunk kept,
+      **alpha 100 % opaque** (cut-outs need keyable backgrounds + matting — approval pending).
+- [~] Drive hand-off of a real Flow asset: local → Drive ✅ (folder `ricks-clips-handoff`, file id
+      `1Z7A-w2CrTALkAxAWC2_yYTrvmJ9g6Ftz`, 2,206,600 B = local); Drive → cloud SHA-256 check **pending (user runs the
+      cloud prompt in `research/phase4-validation-checklist.md` §C2)**.
+- [x] Task 3 ElevenLabs (director read-only connector checks + A20): free tier, 5,011/10,000 credits used, voice slots
+      3/3; TTS via flows (no alignment output); word timestamps via Scribe STT (credit cost TBD); free tier non-commercial
+      + attribution; 6-s line priced 120 credits (estimate only, nothing charged). A20 `pipeline/voice/` contract,
+      schemas, align/captions/silence/normalize (30/30 tests, director rerun OK); `TEST_PLAN_6S.md` (not run).
+- [x] Task 4 checklist: `research/phase4-validation-checklist.md`.
+- **Blocked on user:** approve the 6-s ElevenLabs test spend; run the cloud C2 prompt; licence/terms decisions.

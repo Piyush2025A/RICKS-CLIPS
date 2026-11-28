@@ -321,3 +321,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   `git config core.hooksPath tools/git-hooks` (repo-local). Verified: blocks a PNG, a provenance file and a fake key;
   passes clean files. No tracked file removed (none matched the new rules).
 - Status: done.
+
+## D034 · 2026-11-28 · Phase 4 integration groundwork; stopped at credit/user gates
+- Flow: supervised local workflow, skill, templates, intake tool and terms review adopted (no generation, 0 credits).
+  Flow Agent/Tools not required for the initial workflow. Drive folder `ricks-clips-handoff` created (private) for
+  local→cloud hand-off; lighthouse PNG uploaded (size verified); cloud-side hash check pending.
+- ElevenLabs: connector verified read-only; timestamps = Scribe STT words (TTS returns none via the connector); free
+  tier is non-commercial (paid plan needed before any commercial release — user decision). Recommended voice for the
+  6-s test: workspace voice "David – Deep Audiobook & Documentary" (`cCYjmrGZaI86GUJ7F2Nn`, not a library voice, so
+  usable on the free tier), alternative "James – Husky, Engaging and Bold" (`EkK5I93UQWFDigLMpZcX`); neither imitates
+  the reference narrator. `eleven_v4` has no speed parameter (schema read); `eleven_multilingual_v2` has speed 0.7–1.2.
+- Status: waiting for user approval of the 6-s test spend (~136 credits TTS + Scribe TBD) and for the cloud C2 check.

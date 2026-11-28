@@ -1,0 +1,101 @@
+{
+ "language_code": "eng",
+ "text": "It was a cold morning The kettle sang then stopped",
+ "words": [
+  {
+   "text": "It",
+   "start": 0.1,
+   "end": 0.2,
+   "type": "word",
+   "logprob": -0.01
+  },
+  {
+   "text": " ",
+   "start": 0.2,
+   "end": 0.22,
+   "type": "spacing"
+  },
+  {
+   "text": "was",
+   "start": 0.22,
+   "end": 0.4,
+   "type": "word",
+   "logprob": -0.02
+  },
+  {
+   "text": " ",
+   "start": 0.4,
+   "end": 0.42,
+   "type": "spacing"
+  },
+  {
+   "text": "a",
+   "start": 0.42,
+   "end": 0.48,
+   "type": "word",
+   "logprob": -0.1
+  },
+  {
+   "text": "(sniff)",
+   "start": 0.5,
+   "end": 0.6,
+   "type": "audio_event"
+  },
+  {
+   "text": "cold",
+   "start": 0.62,
+   "end": 0.95,
+   "type": "word",
+   "logprob": -0.05
+  },
+  {
+   "text": "mourning",
+   "start": 0.97,
+   "end": 1.4,
+   "type": "word",
+   "logprob": -1.2
+  },
+  {
+   "text": "The",
+   "start": 1.8,
+   "end": 1.95,
+   "type": "word",
+   "logprob": -0.01
+  },
+  {
+   "text": "kettle",
+   "start": 1.97,
+   "end": 2.3,
+   "type": "word",
+   "logprob": -0.03
+  },
+  {
+   "text": "sang",
+   "start": 2.32,
+   "end": 2.7,
+   "type": "word",
+   "logprob": -0.02
+  },
+  {
+   "text": "then",
+   "start": 2.95,
+   "end": 3.15,
+   "type": "word",
+   "logprob": -0.04
+  },
+  {
+   "text": "really",
+   "start": 3.16,
+   "end": 3.4,
+   "type": "word",
+   "logprob": -0.9
+  },
+  {
+   "text": "stopped",
+   "start": 3.42,
+   "end": 3.9,
+   "type": "word",
+   "logprob": -0.02
+  }
+ ]
+}

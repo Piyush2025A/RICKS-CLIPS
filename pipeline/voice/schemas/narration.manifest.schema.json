@@ -1,0 +1,77 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "narration.manifest.schema.json",
+  "title": "Narration manifest (productions/<id>/voice/narration.manifest.json)",
+  "type": "object",
+  "required": ["schema_version", "production_id", "voice", "model", "settings", "text", "audio", "provenance", "licence"],
+  "properties": {
+    "schema_version": {"type": "string"},
+    "production_id": {"type": "string"},
+    "script_version": {"type": "string"},
+    "voice": {
+      "type": "object", "required": ["voice_id", "name", "origin"],
+      "properties": {
+        "voice_id": {"type": "string"}, "name": {"type": "string"},
+        "origin": {"enum": ["library", "designed", "stock", "other"], "description": "never 'cloned'; no real person's voice"},
+        "notes": {"type": "string"}
+      }
+    },
+    "model": {"type": "string", "description": "e.g. eleven_multilingual_v2, eleven_v3"},
+    "settings": {
+      "type": "object",
+      "properties": {
+        "stability": {"type": ["number", "null"]}, "similarity_boost": {"type": ["number", "null"]},
+        "style": {"type": ["number", "null"]}, "speed": {"type": ["number", "null"]},
+        "use_speaker_boost": {"type": ["boolean", "null"]}, "output_format": {"type": ["string", "null"]},
+        "seed": {"type": ["integer", "null"]}
+      }
+    },
+    "text": {
+      "type": "object", "required": ["submitted", "characters"],
+      "properties": {
+        "submitted": {"type": "string", "description": "exact string sent (tags included)"},
+        "characters": {"type": "integer", "minimum": 0}, "words": {"type": "integer", "minimum": 0},
+        "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    },
+    "audio": {
+      "type": "object", "required": ["file", "sha256", "sample_rate_hz", "channels", "duration_s"],
+      "properties": {
+        "file": {"type": "string"}, "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "codec": {"type": "string"}, "sample_rate_hz": {"type": "integer", "minimum": 8000},
+        "channels": {"type": "integer", "minimum": 1, "maximum": 2}, "duration_s": {"type": "number", "minimum": 0},
+        "loudness": {
+          "type": "object",
+          "properties": {"integrated_lufs": {"type": "number"}, "lra_lu": {"type": "number"}, "true_peak_dbtp": {"type": "number"},
+                         "stage": {"enum": ["raw", "normalised"]}}
+        }
+      }
+    },
+    "timing": {
+      "type": "object",
+      "properties": {"words_file": {"type": "string"}, "source": {"enum": ["api_alignment", "scribe", "forced"]},
+                     "timing_error_median_ms": {"type": ["number", "null"]}}
+    },
+    "provenance": {
+      "type": "object", "required": ["provider", "generated_utc", "credits", "take", "approval_ref"],
+      "properties": {
+        "provider": {"type": "string"}, "generated_utc": {"type": "string"}, "flow_id": {"type": ["string", "null"]},
+        "credits": {"type": "object", "required": ["estimated", "actual"],
+                    "properties": {"estimated": {"type": "number"}, "actual": {"type": ["number", "null"]},
+                                   "scribe_actual": {"type": ["number", "null"]}}},
+        "take": {"type": "integer", "minimum": 1},
+        "approval_ref": {"type": "string", "description": "director/user approval record (DECISION_LOG id or message ref)"},
+        "intake_ref": {"type": ["string", "null"], "description": "pipeline/assets/intake.py sidecar path or sha"}
+      }
+    },
+    "licence": {
+      "type": "object", "required": ["tier", "commercial_use"],
+      "properties": {
+        "tier": {"enum": ["free", "starter", "creator", "pro", "other"]},
+        "commercial_use": {"enum": ["allowed", "not_allowed", "unknown"]},
+        "attribution_required": {"type": "boolean"},
+        "notes": {"type": "string"}
+      }
+    }
+  }
+}
