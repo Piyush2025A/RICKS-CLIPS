@@ -7,3 +7,10 @@
 - Placement: bind impacts to the visual feature that is ~0.5 s after the story trigger (RC30-09: rings f820-838), not to caption onset; offsets in frames NOT yet measured, so test 0 vs +/-2 frames in A/B (EXP planned, not run).
 - Level: side-level only measured; total level vs voice UNKNOWN. Default until measured: SFX peak -6 to -10 LU vs narration (HYPOTHESIS).
 - Licence log per file in productions/<id>/sfx/ (rule, not from data).
+
+## Phase 3B additions (2026-11-28)
+- Bed level (approved, MEASURED medium-high, n = 30): mid bed about -20 dB re speech (400-2000 Hz; bounds -15.6 mean-pause / -24.6 pause floor), side (stereo) component about -27 dB re mid speech; static, no ducking (A22 F-A22-005). Check by speech-minus-pause level on your own mix: expect 15-16 dB mean and about 25 dB on the P10 floor.
+- Codec limit: rendered mix has no side energy above about 3.9 kHz in the reference; do not take a missing wide HF as an absence of SFX.
+- Ending swell (MEASURED, medium, 5-6/30 videos): 1.5-2 s low-weighted broadband swell with decay about 1-2 s before the end; optional, not universal.
+- Transitions: reference shows no systematic whoosh in the stereo side channel (F-a21-103). Do not add a whoosh on every transition because of this study; test by listening-equivalent A/B in production.
+- SFX placement/offset in frames: still no measured value (detector failed).

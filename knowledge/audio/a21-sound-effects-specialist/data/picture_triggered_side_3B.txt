@@ -1,0 +1,22 @@
+THR 0.5
+A12_bump     n= 80 videos=27 hit=0.23 chance=0.19 95%=0.25 p_ge=0.200
+A12_flash    n= 43 videos=20 hit=0.14 chance=0.15 95%=0.23 p_ge=0.635
+A15_FP       n=178 videos=30 hit=0.28 chance=0.22 95%=0.27 p_ge=0.035
+A15_FT       n=  8 videos= 8 hit=0.38 chance=0.17 95%=0.38 p_ge=0.150
+A15_HC       n= 37 videos=10 hit=0.19 chance=0.16 95%=0.27 p_ge=0.320
+A15_VB       n= 11 videos= 8 hit=0.36 chance=0.15 95%=0.36 p_ge=0.060
+A15_XF       n=308 videos=30 hit=0.22 chance=0.19 95%=0.22 p_ge=0.075
+A15_ZT       n= 27 videos=15 hit=0.26 chance=0.23 95%=0.37 p_ge=0.475
+ALL_A15      n=569 videos=30 hit=0.24 chance=0.20 95%=0.23 p_ge=0.010
+ALL_A12      n=123 videos=27 hit=0.20 chance=0.17 95%=0.23 p_ge=0.260
+THR 0.7
+A12_bump     n= 80 videos=27 hit=0.04 chance=0.05 95%=0.09 p_ge=0.745
+A12_flash    n= 43 videos=20 hit=0.05 chance=0.02 95%=0.07 p_ge=0.250
+A15_FP       n=178 videos=30 hit=0.07 chance=0.05 95%=0.07 p_ge=0.110
+A15_FT       n=  8 videos= 8 hit=0.00 chance=0.02 95%=0.12 p_ge=1.000
+A15_HC       n= 37 videos=10 hit=0.03 chance=0.03 95%=0.08 p_ge=0.615
+A15_VB       n= 11 videos= 8 hit=0.36 chance=0.03 95%=0.09 p_ge=0.000
+A15_XF       n=308 videos=30 hit=0.06 chance=0.05 95%=0.07 p_ge=0.175
+A15_ZT       n= 27 videos=15 hit=0.11 chance=0.06 95%=0.11 p_ge=0.200
+ALL_A15      n=569 videos=30 hit=0.07 chance=0.05 95%=0.06 p_ge=0.000
+ALL_A12      n=123 videos=27 hit=0.04 chance=0.04 95%=0.07 p_ge=0.485

@@ -46,3 +46,4 @@ A14: not re-run unless a later wave needs it (A28: ledger PASS; caption band ver
 - Director check (A16 open item): RC30-10 f48–95 every-frame sheet viewed + shot_features (mad 14.5–18.9, ssim_dist 0.45–0.49 smooth over f58–71, no spike) → continuous camera orbit/pull-back, NOT a hard cut; A15 list stands (A16's 29/30 → 30/30 agreement).
 - A20 part 1 DONE: captions transcribed RC30-01..09 (1,624 segments, 1 illegible, 0 non-caption; private caption_text.csv).
 - A20 part 2 DONE: RC30-10..19 transcribed (1,861 segments, 0 illegible). Gaps in seg ids = segments < 2 frames dropped by design (MIN_SEG).
+- A21 DONE: bed level 30/30 reconciles A21/A22 (mean pause −15.6 dB, floor −24.6 dB mid; side −27.1 dB; mean vs floor, not a conflict); SFX detection: no method reaches 0.7 precision (0.19–0.36) → no SFX density/sync reported; no systematic transition whoosh.

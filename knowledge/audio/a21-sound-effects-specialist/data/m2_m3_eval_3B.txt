@@ -1,0 +1,8 @@
+M2 all n 511 videos 30 precision 0.21 chance 0.20 (95% 0.23) lift 1.02
+M2 strength>=12 n 511 videos 30 precision 0.21 chance 0.20 (95% 0.23) lift 1.02
+M2 strength>=20 n 55 videos 23 precision 0.15 chance 0.18 (95% 0.27) lift 0.79
+M3 all n 1532 videos 30 precision 0.19 chance 0.20 (95% 0.22) lift 0.92
+M3 strength>=10 n 1212 videos 30 precision 0.18 chance 0.20 (95% 0.22) lift 0.92
+M3 strength>=14 n 638 videos 30 precision 0.19 chance 0.20 (95% 0.23) lift 0.96
+M3 strength>=18 n 233 videos 30 precision 0.20 chance 0.20 (95% 0.24) lift 1.03
+(M1 lines removed: they came from the superseded 48-band run, see FAILED 5; current M1 results are in m1_grid_3B.txt)
