@@ -37,3 +37,4 @@ A14: not re-run unless a later wave needs it (A28: ledger PASS; caption band ver
 - A04 DONE: walkers found 5, numeric step period still n=1 (RC30-14, 11 f); pose rate 11 segments/8 videos (ones, no twos; dialogue holds 24–48 f); 25 gestures/15 videos; bob 1.2 % (n=1) vs H-UP 3–7 % unresolved.
 - A02 DONE: 46 expression events in 26 videos (every-frame strips): 45 hard swaps, 0 tweens seen (medium); holds median 5 f; no mouth-to-word lock in 12 shots/10 videos; blinks 1–3 f (n=7).
 - A08 DONE (partial tasks 1–4): props real 3D; ~3 hero props/video; no ink on props/scenery in 14 natives (contradicts 3A F-010, unresolved); texture grain only on grass/gravel/lattice; material table in TECHNIQUES.
+- A07 DONE: DOF edge-spread on 581 native frames/30 videos: soft ≥2.5 px 9.1 % (supersedes 22 %); blur sigma ≈3.6–4 px; parallax 32 pairs/10 videos (two regimes); FOV 73° v (low, 13 frames); haze not re-measured.
