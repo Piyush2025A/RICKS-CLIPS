@@ -83,6 +83,16 @@ class T(unittest.TestCase):
         self.assertEqual(s["technical"]["mode"], "RGBA"); self.assertEqual(s["technical"]["bit_depth"], 8)
         self.assertEqual(check(s, SCHEMA), [])
 
+    def test_bad_settings_json_copies_nothing(self):
+        # regression (2026-11-28): invalid --settings-json must fail BEFORE any copy (no orphan in the store)
+        rc, r = run(self.common(self.rgb, "prop") + ["--settings-json", "/no/such/file.json"])
+        self.assertEqual(rc, 2); self.assertIn("error", r)
+        self.assertFalse(os.path.exists(os.path.join(self.store, "prop")) and os.listdir(os.path.join(self.store, "prop")))
+        # a JSON file path is accepted as well as inline JSON
+        p = os.path.join(self.d, "s.json"); open(p, "w").write('{"k": 2}')
+        rc, r = run(self.common(self.rgb, "prop") + ["--settings-json", p])
+        self.assertEqual(rc, 0); self.assertEqual(json.load(open(r["sidecar"]))["generation"]["settings"], {"k": 2})
+
     def test_rgb_no_alpha(self):
         rc, r = run(self.common(self.rgb, "prop")); s = json.load(open(r["sidecar"]))
         self.assertFalse(s["technical"]["has_alpha_channel"]); self.assertIsNone(s["technical"]["alpha"])

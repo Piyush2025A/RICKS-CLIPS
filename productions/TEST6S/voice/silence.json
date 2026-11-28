@@ -1,0 +1,33 @@
+{
+  "duration_s": 7.0589,
+  "threshold_db": -45.0,
+  "frame_hop_s": 0.01,
+  "voiced": true,
+  "lead_silence_s": 0.08,
+  "tail_silence_s": 0.269,
+  "first_voiced_s": 0.08,
+  "last_voiced_s": 6.79,
+  "internal_pauses": [
+    {
+      "start_s": 2.09,
+      "end_s": 2.55,
+      "dur_s": 0.46
+    },
+    {
+      "start_s": 3.69,
+      "end_s": 4.27,
+      "dur_s": 0.58
+    }
+  ],
+  "pause_total_s": 1.04,
+  "voiced_fraction": 0.79,
+  "trim_plan": {
+    "keep_head_s": 0.2,
+    "keep_tail_s": 0.3,
+    "trim_start_s": 0.0,
+    "trim_end_s": 7.059,
+    "new_duration_s": 7.059,
+    "note": "shift word timings by -trim_start_s after trimming"
+  },
+  "warnings": []
+}

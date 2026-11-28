@@ -32,6 +32,21 @@ def intake(args):
         if e.get("sha256") == digest and e.get("event") == "intake":
             return 0, {"status": "already_intaken", "sha256": digest, "stored_path": e["stored_path"]}
 
+    # Validate all inputs BEFORE copying (director fix 2026-11-28: a bad --settings-json used to crash after the copy,
+    # leaving an orphan file with no sidecar/ledger line, so the retry stored a duplicate v02).
+    prompt = None
+    if args.prompt_file:
+        with open(os.path.expanduser(args.prompt_file), encoding="utf-8") as f:
+            prompt = f.read()
+    try:
+        sj = args.settings_json
+        if sj and os.path.isfile(os.path.expanduser(sj)):   # accept a path to a JSON file as well as inline JSON
+            with open(os.path.expanduser(sj), encoding="utf-8") as f:
+                sj = f.read()
+        settings = json.loads(sj) if sj else None
+    except (ValueError, OSError) as e:
+        return 2, {"error": f"--settings-json is not valid JSON or a readable JSON file: {e}"}
+
     facts = (L.analyse_image(src, fmt) if is_img else L.analyse_audio(src, fmt) if is_aud else {"format": fmt})
     date = args.date or L.utcnow()[:10].replace("-", "")
     slug = L.slugify(args.slug or os.path.splitext(os.path.basename(src))[0])
@@ -49,11 +64,6 @@ def intake(args):
         os.remove(dest)
         return 3, {"error": "copy verification failed (hash/size mismatch); copy removed"}
 
-    prompt = None
-    if args.prompt_file:
-        with open(os.path.expanduser(args.prompt_file), encoding="utf-8") as f:
-            prompt = f.read()
-    settings = json.loads(args.settings_json) if args.settings_json else None
     now = L.utcnow()
     events = []
     if args.generated_utc:

@@ -24,7 +24,7 @@ attempt → hidden mechanism at 50–75 % → ironic punch word; the opening's v
 | Voice onset | first word ≤ 0.2 s (frame 1 in 23/30); sentence pauses ≈ 0.15–0.3 s; no title card | H/M | AUDIO A3, STORY S1 |
 | Loudness | −14 LUFS, TP ≤ −2 dBTP, LRA 2–3, mono-compatible | H | AUDIO A1–A2 |
 | Bed | −20 dB (±3) re VO in 400–2000 Hz, static (no duck), looped 6–10 s, one track per video | M | AUDIO A5–A6 |
-| Captions | 1 token (≈ 1.27 words), centre 0.703 H, never blank, ≈ 4 f (≈ 140 ms) before the word, sentence-final +5 f | H/M | CAMERA K10, AUDIO A3–A4 |
+| Captions | Production (D036): rendered captions off by default — added post-render in Canva Auto Captions; keep the 0.67–0.74 H band clear of key action. Reference (if enabled): 1 token, centre 0.703 H, never blank, ≈ 140 ms before the word | H/M | CAMERA K10, AUDIO A3–A4 |
 | Edit shots | median ≈ 3.2 s, ≈ 2.2 edits per 10 s, ≈ 14 per video, flat pacing | M–H | EDITING T6, T8 |
 | Visual beats | a visible change every ≈ 2.9 s (incl. camera-driven scene changes); ≤ 3.5 s without change | M / L–M | EDITING T7, T12 |
 | Transitions | crossfade default 7 f @30 (6–8; 5–6 @24), 79 %; hard cuts ≤ 10 %; in narration pauses | M | EDITING T1–T3, T9 |

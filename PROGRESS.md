@@ -262,4 +262,13 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
       + attribution; 6-s line priced 120 credits (estimate only, nothing charged). A20 `pipeline/voice/` contract,
       schemas, align/captions/silence/normalize (30/30 tests, director rerun OK); `TEST_PLAN_6S.md` (not run).
 - [x] Task 4 checklist: `research/phase4-validation-checklist.md`.
-- **Blocked on user:** approve the 6-s ElevenLabs test spend; licence/terms decisions. (C2 done, D035.)
+- [x] **TEST6S narration (D036)** — 1 take, David voice, eleven_multilingual_v2, **136 credits** (≤ 150), 7.06 s;
+      original MP3 private + read-only, SHA-256 63768ec7…927b (two downloads identical), intaken + verified; silence,
+      quality, loudness measured; normalised VO −14.2 LUFS / −2.8 dBTP (−14.3 / −2.2 after AAC) after a normalize fix;
+      sentence/beat timings via new `beats.py` (no transcription). Report: `productions/TEST6S/voice/TEST_RESULT.md`.
+- [x] Captions disabled by default (Canva post-render); background removal + supervised Flow approved (D036);
+      `.gitignore` `*.ts` → `*.m2ts`.
+- [x] Readiness: private 360×640/24 fps clip from an intaken Flow plate + normalised VO (169 frames, 7.059 s), frame viewed.
+- [x] **C2 Drive → cloud SHA-256 check** — done by the cloud session (D035, commit 5657bab): SHA-256 match, C2PA chunk intact.
+- [ ] Engine import (Remotion/Three.js) — needs the A25 scaffold (`npm install`); next phase.
+- Phase 5 NOT started (needs approval).

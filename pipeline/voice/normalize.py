@@ -45,10 +45,37 @@ def _guard(src, dst):
     if os.path.abspath(src) == os.path.abspath(dst) or os.path.exists(dst):
         raise FileExistsError(f"refusing to overwrite {dst}")
 
+def _gain_limit(src, dst, gain_db, TP=TP_T, pre="", channels=None):
+    """Fallback when linear loudnorm cannot reach I without exceeding TP (it then under-shoots by the TP headroom):
+    static gain, then a peak limiter run at 4x oversampling (192 kHz) as a true-peak approximation, ceiling TP-0.8 dB.
+    Added 2026-11-28 by the director after the first real TTS test (linear pass gave -15.3 LUFS for a -14 target)."""
+    ceiling = 10 ** ((TP - 0.8) / 20)   # 0.8 dB margin: AAC encoding overshoot measured +0.4 dB (TEST6S, 2026-11-28)
+    chain = (pre + "," if pre else "") + (f"volume={gain_db:.2f}dB,aresample=192000,"
+                                          f"alimiter=limit={ceiling:.4f}:attack=1:release=50:level=false,aresample={SR}")
+    cmd = ["ffmpeg", "-nostdin", "-n", "-hide_banner", "-i", src, "-af", chain, "-ar", str(SR)]
+    if channels: cmd += ["-ac", str(channels)]
+    _run(cmd + ["-c:a", "pcm_s24le", dst])
+
+
 def normalize_vo(src, dst, **kw):
     _guard(src, dst)
     m = _loudnorm_two_pass(src, dst, pre=f"highpass=f={HP_HZ}", channels=1, **kw)
-    return {"pass1": m, "result": measure(dst)}
+    res = measure(dst)
+    out = {"pass1": m, "result": res, "method": "loudnorm-linear"}
+    I = kw.get("I", I_T); TP = kw.get("TP", TP_T)
+    if abs(res["I"] - I) > 0.5:
+        # linear mode was TP-limited: redo with gain + oversampled limiter, keep the linear file as *_linear.wav
+        lin = dst[:-4] + "_linear.wav"; os.replace(dst, lin)
+        g = I - float(m["input_i"])
+        for _ in range(6):                       # small correction loop: limiter reduces loudness slightly
+            if os.path.exists(dst): os.remove(dst)
+            _gain_limit(src, dst, g, TP=TP, pre=f"highpass=f={HP_HZ}", channels=1)
+            res = measure(dst)
+            if abs(res["I"] - I) <= 0.3: break
+            g += I - res["I"]
+        out.update({"linear_result": measure(lin), "linear_file": lin, "result": res,
+                    "method": "gain+oversampled-limiter", "gain_db": round(g, 2)})
+    return out
 
 def _band(x, lo=400, hi=2000):
     from scipy.signal import butter, sosfilt

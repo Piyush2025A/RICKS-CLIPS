@@ -1,0 +1,137 @@
+{
+  "method": "script punctuation + silence.py pauses (no transcription)",
+  "voiced": [
+    0.08,
+    6.79
+  ],
+  "pauses_matched": 2,
+  "pauses_total": 2,
+  "sentences": [
+    {
+      "index": 0,
+      "clauses": [
+        0,
+        1
+      ],
+      "t_on": 0.08,
+      "t_off": 3.69,
+      "on_source": "measured",
+      "off_source": "measured",
+      "frames_24": [
+        2,
+        89
+      ],
+      "frames_30": [
+        2,
+        111
+      ]
+    },
+    {
+      "index": 1,
+      "clauses": [
+        2,
+        3,
+        4
+      ],
+      "t_on": 4.27,
+      "t_off": 6.79,
+      "on_source": "measured",
+      "off_source": "measured",
+      "frames_24": [
+        102,
+        163
+      ],
+      "frames_30": [
+        128,
+        204
+      ]
+    }
+  ],
+  "clauses": [
+    {
+      "index": 0,
+      "text_chars": 43,
+      "ends_with": "clause",
+      "t_on": 0.08,
+      "t_off": 2.09,
+      "on_source": "measured",
+      "off_source": "measured",
+      "frames_24": [
+        2,
+        50
+      ],
+      "frames_30": [
+        2,
+        63
+      ]
+    },
+    {
+      "index": 1,
+      "text_chars": 32,
+      "ends_with": "sentence",
+      "t_on": 2.55,
+      "t_off": 3.69,
+      "on_source": "measured",
+      "off_source": "measured",
+      "frames_24": [
+        61,
+        89
+      ],
+      "frames_30": [
+        76,
+        111
+      ]
+    },
+    {
+      "index": 2,
+      "text_chars": 15,
+      "ends_with": "clause",
+      "t_on": 4.27,
+      "t_off": 4.986,
+      "on_source": "measured",
+      "off_source": "estimated",
+      "frames_24": [
+        102,
+        120
+      ],
+      "frames_30": [
+        128,
+        150
+      ]
+    },
+    {
+      "index": 3,
+      "text_chars": 7,
+      "ends_with": "clause",
+      "t_on": 4.986,
+      "t_off": 5.287,
+      "on_source": "estimated",
+      "off_source": "estimated",
+      "frames_24": [
+        120,
+        127
+      ],
+      "frames_30": [
+        150,
+        159
+      ]
+    },
+    {
+      "index": 4,
+      "text_chars": 35,
+      "ends_with": "end",
+      "t_on": 5.287,
+      "t_off": 6.79,
+      "on_source": "estimated",
+      "off_source": "measured",
+      "frames_24": [
+        127,
+        163
+      ],
+      "frames_30": [
+        159,
+        204
+      ]
+    }
+  ]
+}

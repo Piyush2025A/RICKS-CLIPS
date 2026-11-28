@@ -58,3 +58,10 @@ Limit: with LRA/TP not reachable in linear mode ffmpeg falls back to dynamic nor
 `.venv-analysis/bin/python -I -m unittest discover -s pipeline/voice/tests` (30 tests; synthetic audio generated at test time;
 fixtures regenerate with `tests/make_fixtures.py`). Not covered: real TTS output, real Scribe responses (formats follow the
 director's description of the connector, unverified until the 6 s test).
+
+## D036 update (2026-11-28) — narration-only default
+- Default production path: narration audio + `silence.json` + `beats.json` (sentence/clause timings from the script and
+  measured pauses; `beats.py`). No Scribe transcription, no word timestamps, no rendered captions by default (the user
+  adds subtitles post-render with Canva Auto Captions). `align.py` and `captions.py` stay for optional future use.
+- `normalize.py vo` falls back to gain + 4× oversampled limiter (ceiling TP − 0.8 dB) when linear loudnorm is TP-limited;
+  verified on TEST6S: −14.2 LUFS / −2.8 dBTP (WAV), −14.3 / −2.2 after AAC.

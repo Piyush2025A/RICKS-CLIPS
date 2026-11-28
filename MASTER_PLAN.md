@@ -58,7 +58,7 @@ Completion criteria:
 ### Phase 4 — Google Flow and ElevenLabs integration
 - Google Flow: tiered architecture D003 rev 2 (`research/integration-feasibility.md` §1.8, checklist §1.10). End-to-end
   test = prompt → image in Flow → asset in our pipeline with provenance metadata, verified by checksum and viewing.
-- ElevenLabs: network secret via environment settings; one approved low-cost TTS-with-timestamps test.
+- ElevenLabs: official connector (no API key in the repo); one approved low-cost narration-only test (D036: no transcription/timestamps; sync by sentence/story-beat timings; subtitles added post-render in Canva).
 - Gate: both integrations verified end-to-end with recorded evidence and credit usage.
 
 ### Phase 5 — Character design and animation rig

@@ -343,3 +343,20 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Note: the connector shows PNG downloads as an inline preview in the conversation (behaviour seen in T5); the image
   was therefore displayed, but no visual judgement was made or recorded. Nothing generated, no credits spent.
 - Status: C2 passed; local → Drive → cloud path verified for a real 2.2 MB Flow asset within the 10 MB limit.
+## D036 · 2026-11-28 · User approvals: 6-s narration, captions via Canva, background removal, supervised Flow
+- User approved ONE 6-s ElevenLabs narration (David voice, ≤ 150 credits), narration only — no Scribe/transcription or
+  timestamp extraction; free-tier output for private development only (not commercial publication).
+- Captions: the user adds subtitles post-render with Canva Auto Captions → rendered captions OPTIONAL and DISABLED by
+  default; `captions.py`/`align.py` kept for future use. Animation sync uses sentence/story-beat timings (new
+  `pipeline/voice/beats.py`: script punctuation + measured pauses, no credits).
+- Approved: background removal for OUR original generated character assets (originals unchanged; watermarks and
+  content credentials respected); supervised Google Flow operations within the existing allowance, subject to service
+  terms; no unattended automation, no subscriptions, no paid APIs.
+- `.gitignore`: `*.ts` (would hide TypeScript sources) replaced by `*.m2ts`; `.ts`/`.tsx` verified not ignored.
+- Executed: TEST6S — 136 credits (counter 5,011 → 5,147), 7.06 s, SHA-256 63768ec7…927b, stored read-only, intaken,
+  verified; loudness tool fixed (linear loudnorm TP-limited at −15.3 LUFS → gain + 4× oversampled limiter, TP − 0.8 dB:
+  −14.2 LUFS/−2.8 dBTP WAV, −14.3/−2.2 after AAC); intake tool fixed (inputs validated before copying; regression test;
+  the orphan duplicate copy created by the failed first attempt was removed after hash check — the raw original and
+  the recorded intake copy were untouched). Readiness clip 360×640/24 fps built privately and checked.
+- Status: all local Phase 4 verification complete; C2 (Drive → cloud) verified by the cloud session (D035). Remaining:
+  engine-level imports (Remotion/Three.js scaffold = next phase). Phase 5 not started.

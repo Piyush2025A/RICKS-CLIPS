@@ -20,7 +20,7 @@ Notation: In -> Out. Owners per OWNERSHIP.md; A25 owns `src/contracts/` and `src
 | M9 | Grade LUT toolchain | A11 | offline stills + mood id | `lut-<mood>.png` (neutral 16^3 strip) + params JSON (offline Python; not runtime) |
 | M10 | VFX library | A12 | `EffectCue` {id E01-E18, tStart s, params, seed, anchor} | meshes/sprites/overlays with analytic positions in t; DOM overlay layers for 2D-only effects |
 | M11 | Transitions | A15 | `Transition` {type crossfade/cut/zoom/iris/cover/fly, seconds, from, to, params} | overlap Sequences + opacity ramp (default), or shader mask for iris/zoom; sources: two scenes in overlap |
-| M12 | Captions | A14/A20 | `words.json` (word, t_on, t_off), style | DOM layer in safe band (centre y 0.703 H ≈ 1350 @1920), lead ≈ 140 ms (3B F-A20-104), never blank between words; outside WebGL |
+| M12 | Captions | A14/A20 | `words.json` (word, t_on, t_off), style | **OPTIONAL, disabled by default (D035: subtitles added post-render in Canva Auto Captions)**; if enabled: DOM layer in safe band (centre y 0.703 H ≈ 1350 @1920), lead ≈ 140 ms, never blank; outside WebGL. Animation sync input: `beats.json` (sentence/clause timings, `pipeline/voice/beats.py`) |
 | M13 | Asset registry | A24/A25 | Flow outputs in `assets/` (git-ignored), manifest with hash | preloaded textures with `delayRender`, sRGB flags, mipmap policy |
 | M14 | QC / dev overlays | A28/A29 | frame, render | safe-zone overlay, determinism hash test, tsc, 24-fps frame-accuracy test, per-frame timing log |
 | M15 | Render orchestrator | A25 | composition id, range, quality flag (dev/final) | segmented renders + ffmpeg concat + BT.709 limited tagging (A11 T0); logs seconds per still |
