@@ -10,3 +10,12 @@
   as a miss warning sign.
 - Part-1 CSV was first written to repo-root `data/` (outside ownership); moved by the director into this folder.
 - Not done: easing curve; overview scan beyond t = 40 s for 12, 16, 19, 26; the 6 videos not processed by rcpipe.
+
+## Phase 3B
+- Crossfade endpoints from 120x213 every-2nd-frame composites carry +-1-2 f error; composites of long candidates were subsampled
+  (13 tiles per row) so exact start/end frames of slow dissolves in RC30-13/21 are not exact. Needs native frames or
+  motion-compensated fitting if exact easing is required.
+- The overview-sheet scan for the six new videos was replaced (except RC30-06) by a windowed-histogram gap scan; it found 5
+  misses but its recall is unvalidated.
+- Windowed gap scan thresholds were chosen by inspection of candidate windows (median 0.9-1.3, p10 0.5-0.7); peaks below ~0.35
+  were not examined.
