@@ -26,3 +26,5 @@
 {"agent": "director", "viewed_at": "2026-11-27T19:50:06Z", "image_kind": "contact_sheet", "frames": ["RC30-15-f000048..f000095"], "view_resolution": "120x213", "purpose": "C8 holdout: verify suspected misses / opening candidates"}
 {"agent": "director", "viewed_at": "2026-11-28T05:19:37Z", "image_kind": "crop", "frames": ["RC30-27-f000254", "RC30-27-f000600"], "view_resolution": "540x192", "purpose": "caption band appearance for caption detector tuning"}
 {"agent": "director", "viewed_at": "2026-11-28T05:20:37Z", "image_kind": "overlay", "frames": ["RC30-27-f000000..f000500"], "view_resolution": "360x72", "purpose": "caption-detector tile sheet validation (segments 1-60)"}
+{"agent": "director", "viewed_at": "2026-11-28T06:22:53Z", "image_kind": "overlay", "frames": ["RC30-27-f000000..f000927"], "view_resolution": "254x38", "purpose": "dense caption reading-sheet legibility test"}
+{"agent": "director", "viewed_at": "2026-11-28T06:33:25Z", "image_kind": "contact_sheet", "frames": ["RC30-10-f000048..f000095"], "view_resolution": "120x213", "purpose": "check A16-reported possible hard cut RC30-10 f63-66"}
