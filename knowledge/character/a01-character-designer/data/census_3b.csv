@@ -1,0 +1,31 @@
+key,humans_distinct_approx,crowd_ge6,animals,object_or_organ_characters,children,hats_on_any_char,glasses_any,notes
+01,8,N,0,0,0,Y,N,mission-control crew + 3 astronauts + yellow protagonist (name-tag)
+02,7,N,0,0,0,Y,N,prisoners orange; guards grey caps; headlamp
+03,5,Y,0,0,0,Y,N,commander + samurai camp crowd; bomb/pot props
+04,5,N,0,0,1,Y,N,sheriff hat; vest workers; tree towing
+05,8,N,0,0,0,Y,Y,miners; top-hat rich man; bowler expert
+06,8,Y,0,0,0,Y,Y,fort soldiers crowd; armoured general
+07,7,N,0,0,1,Y,Y,faces visible inside cars; sunglasses; lawyer
+08,5,Y,0,0,1,Y,N,cap+overalls protagonist; park crowd
+09,6,Y,0,0,0,Y,N,guards; prisoners; tie protagonist
+10,8,Y,0,0,0,Y,Y,railroad workers; purple-face gag
+11,9,N,2,0,0,Y,N,chef/captain/pirates; large mascot animal on flag (rendering differs) and green parrot
+12,8,Y,3,0,0,Y,Y,horses+jockeys (rendered), piggy bank; grandstand crowd
+13,7,N,0,1,1,Y,Y,police x2; bronze statues
+14,6,Y,2,0,0,Y,N,cowboys; horses rendered
+15,8,N,1,0,1,Y,Y,hooded shadow villain; frog
+16,6,Y,0,0,0,Y,N,coworkers; tiny crowd of players
+17,7,Y,0,0,0,Y,Y,villagers; nightcap; coffin man
+18,5,N,0,0,0,Y,Y,cashier quiff; clerk curly hair+glasses
+19,8,Y,1,0,0,N,Y,office crowd; cat 2D ink-outlined
+20,5,N,2,0,1,Y,Y,burglar; cats x2 2D ink-outlined; police
+21,8,Y,2,0,0,Y,N,court crowd; frogs rendered; dragon heads are props
+22,7,Y,0,1,0,Y,N,pirates stripes; powder-sack object character
+23,8,Y,2,0,0,Y,N,knight-priest; donkey; devils; villagers
+24,6,Y,1,0,0,Y,Y,king/smith/messenger; armies crowd; bird
+25,2,Y,0,2,0,N,N,human + pill characters (crowd of pills) + brain prop
+26,6,Y,1,0,0,Y,Y,pachinko players crowd; calico cat
+27,4,N,0,0,1,Y,N,casino; red-cap friend with chain
+28,9,Y,1,1,0,Y,Y,survivor group; scientist; pigeon; pink brain character
+29,5,N,0,0,0,Y,Y,bank staff; police; auditor
+30,3,N,0,1,0,N,N,protagonist; Edison-type figure; brain and water-skin ghost

@@ -26,3 +26,9 @@
 - Blob or projected contact shadow under the figure; outline constant in screen space.
 - Crowds: instanced cards, 3-colour palette, no face below ≈ 10 px head height.
 - Exceptions by material swap: additive translucent blue for x-ray; recoloured face for gags.
+
+## 3B additions (2026-11-28)
+- T-a01-04 Census recipe: open sheet 1 of each video, list distinct designs (hat + torso hue + facial mark) → `data/census_3b.csv`; target cast 5–8 per 40 s; one non-human variant per episode.
+- T-a01-05 Card shading recipe (from F-a01-102): 2-stop soft gradient (≈ 10–15 % L*) on head and torso; 1–2 hard white streaks on hair/hat; outline above all; no cel terminator.
+- T-a01-06 Eye set recipe (F-a01-103): define 5 eye types per character; resting = dash under brow or dot; shock = ring + pupil.
+- T-a01-07 Originality check: before approving a design, count matches to F-a01-110 "copy-risk" list; ≥ 4 simultaneous matches = redesign (swap head shape, hands, ink colour, face fill).
