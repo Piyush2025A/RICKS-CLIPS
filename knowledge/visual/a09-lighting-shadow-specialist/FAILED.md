@@ -9,3 +9,9 @@
 6. A27 `color.csv` existed for 8 videos only at start → own 1 fps pass for all 30; cross-check on those 8 open.
 7. `get_frames.py` slow under load: RC30-02-f000659, RC30-04-f000179, RC30-12-f000749, RC30-17-f000959 not viewed.
 8. Write tool refused the three deliverables; texts returned in the hand-off.
+9. (3B) Automatic same-material shadow-step finder (`data/kf.py`, 8x8 blocks, plateau-step-plateau, chroma gate) on 180
+   frames: output piled at the filter cutoff (median 0.66, IQR 0.645-0.67 in every video) = it found gradients, not
+   shadows. Discarded; manual pairs used instead.
+10. (3B) First manual pair boxes landed on non-shadow areas (07-f000410 grass pair hit a card; 15-f000513 tile pair ratio
+   1.1; 14-f000908 first boxes inside the shadow). Re-picked on overlay views; only confirmed pairs reported.
+11. (3B) One-frame-per-sample census cannot prove shadow absence; "none" = none visible in 6 frames + 1 crop.

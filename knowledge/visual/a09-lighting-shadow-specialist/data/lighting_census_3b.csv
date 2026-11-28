@@ -1,0 +1,31 @@
+video,treatment,card_floor_shadow,time_of_day_states,key_fill_colour,practicals
+01,A,hard,interior+space night,neutral cool interior key / blue space,screen glow
+02,A(+cross-section),none,day,cool sky key; warm vault gold,vault glow
+03,A,none,night,cool moon key + warm fire,campfire; torch
+04,A,none,day,warm-white sun / cool sky fill,none
+05,A,none,mine interior,warm torch,candle; lantern
+06,A,none,day->dusk->rain night,warm/cool,lantern
+07,A,none,day->dusk->night,warm/cool,headlights; window
+08,A,none,day->night moon,cool,string lights
+09,A,hard (window gobo),interior day,cool window key,fluorescent
+10,A,none,day,warm canyon sun,none
+11,mixed,none,storm night + warm galley,cool blue / warm lamp,lantern
+12,A,none,day,warm key / violet shadow,none
+13,A,none,day->night,cool blue night + warm windows,street lamps; windows
+14,A,hard (low sun f908; none f370),noon->sunset,orange key / violet shadow (db* -43..-67),none
+15,B,none,day->sunset->night,warm,sun disc; window
+16,B,none,warm lamp interior,warm lamp vignette,desk lamp
+17,B,none,dusk->snow night,warm lantern / blue,lantern; window
+18,B,none,interior + blue night,flat + spotlight vignette,hanging bulb
+19,B,none,interior,flat + painted yellow sun wedge,lamp
+20,B,none,yellow day interior -> blue night,flat,floor lamp
+21,mixed,none,hall->day->moon night,warm/cool,torches
+22,A,none,day->forge fire->dusk,warm,forge fire; lantern
+23,B,soft (chest only; low),day->forest shafts,warm,hell glow
+24,B,none,day->candle forge,warm,candles; forge
+25,B,none,red monochrome / white domestic,red,none
+26,mixed,none,neon night + warm interior,magenta/blue neon,neon; vending glow
+27,A,none,casino interior,warm red,slot machine lights
+28,mixed,hard-soft (blue shadows on grating),day exterior,sun / blue shadow,none
+29,B,none,day->sunset,warm,none
+30,B,none,dark night,warm bulb pool,hanging bulb
