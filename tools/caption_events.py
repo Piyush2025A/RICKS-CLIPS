@@ -65,6 +65,7 @@ def mask_of(rgb):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument("video"); ap.add_argument("--key", required=True); ap.add_argument("--out", required=True)
+    ap.add_argument("--dense", action="store_true", help="reading sheets: 5x30 tiles of 300x40, segment id at left")
     a = ap.parse_args()
     od = os.path.join(a.out, a.key); os.makedirs(os.path.join(od, "sheets"), exist_ok=True)
     cmd = ["ffmpeg", "-nostdin", "-hide_banner", "-loglevel", "error", "-i", a.video,
@@ -116,6 +117,9 @@ def main():
             w.writerow([s[0], s[1], s[2], s[2] - s[1] + 1, f"{(s[1] + 1) / 30:.3f}", f"{(s[2] + 2) / 30:.3f}", cf] + list(bb))
     # tile sheets
     TW, TH, LAB, COLS, ROWS = 360, 72, 16, 4, 15
+    LW = 0
+    if a.dense:
+        TW, TH, LAB, COLS, ROWS, LW = 300, 40, 0, 5, 30, 46
     tiles = []
     for s in segs:
         cf, small, (x0, x1, y0, y1) = crops[s[0]]
@@ -123,12 +127,16 @@ def main():
             continue
         pad = 6
         c = small[max(0, y0 - pad):y1 + pad + 1, max(0, x0 - pad):x1 + pad + 1]
-        sc = min((TW - 4) / c.shape[1], (TH - LAB - 2) / c.shape[0])
+        sc = min((TW - LW - 4) / c.shape[1], (TH - LAB - 2) / c.shape[0])
         c = cv2.resize(c, (max(1, int(c.shape[1] * sc)), max(1, int(c.shape[0] * sc))), interpolation=cv2.INTER_AREA)
         t = np.full((TH, TW, 3), 90, np.uint8)
-        oy = LAB + (TH - LAB - c.shape[0]) // 2; ox = (TW - c.shape[1]) // 2
+        oy = LAB + (TH - LAB - c.shape[0]) // 2; ox = LW + (TW - LW - c.shape[1]) // 2
         t[oy:oy + c.shape[0], ox:ox + c.shape[1]] = c
-        cv2.putText(t, f"s{s[0]} f{s[1]}-{s[2]}", (3, 12), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1, cv2.LINE_AA)
+        if a.dense:
+            t[:, :LW] = 0; t[:, TW - 1] = 200; t[TH - 1, :] = 200
+            cv2.putText(t, f"{s[0]}", (2, 26), cv2.FONT_HERSHEY_SIMPLEX, 0.5, (0, 255, 255), 1, cv2.LINE_AA)
+        else:
+            cv2.putText(t, f"s{s[0]} f{s[1]}-{s[2]}", (3, 12), cv2.FONT_HERSHEY_SIMPLEX, 0.4, (0, 255, 255), 1, cv2.LINE_AA)
         tiles.append(cv2.cvtColor(t, cv2.COLOR_RGB2BGR))
     per = COLS * ROWS
     for k in range(0, len(tiles), per):
@@ -136,7 +144,8 @@ def main():
         sheet = np.zeros((r * TH, COLS * TW, 3), np.uint8)
         for j, t in enumerate(ch):
             rr, cc = divmod(j, COLS); sheet[rr * TH:(rr + 1) * TH, cc * TW:(cc + 1) * TW] = t
-        cv2.imwrite(os.path.join(od, "sheets", f"{a.key}_cap_{k // per + 1:03d}.png"), sheet)
+        sub = "dense" if a.dense else "sheets"; os.makedirs(os.path.join(od, sub), exist_ok=True)
+        cv2.imwrite(os.path.join(od, sub, f"{a.key}_{'read' if a.dense else 'cap'}_{k // per + 1:03d}.png"), sheet)
     print(a.key, "frames", nframes, "segments", len(segs), "sheets", (len(tiles) + per - 1) // per, flush=True)
 
 
