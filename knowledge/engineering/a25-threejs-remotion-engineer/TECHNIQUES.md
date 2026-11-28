@@ -54,3 +54,10 @@ Same code path; knobs: `uiScale`, shadow map size (1024 dev / 2048 final), outli
 
 ## Approved (Phase 5A, verified by one still): deterministic texture card
 useRemotionTexture (delayRender + advance after commit + sRGB) and hard-link private asset serving; details in ENGINE.md. Status: verified on swangle only.
+
+## Frame conversion parity (2026-11-28, MEASURED high)
+Use integer microseconds + BigInt for TS<->Python bit parity; verify with the shared 59-case fixture on every change (`npm test`). Never use `Math.round`/`Python round()` for frames.
+
+## Private audio in a render (2026-11-28, MEASURED high)
+Descriptor (role vo, sha256, duration) -> verify before bundling -> hard-link into out/remotion-bundle*/public -> `<Audio src={staticFile(publicPath)}>`; duration via `calculateMetadata`.
+Keep node:* imports out of any module imported by a composition (split pure vs `-node.ts`).

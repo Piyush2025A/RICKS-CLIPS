@@ -7,7 +7,13 @@
     "typecheck": "tsc --noEmit",
     "studio": "remotion studio remotion/index.ts",
     "still": "node --experimental-strip-types --no-warnings remotion/scripts/still.ts",
-    "test:beats": "node --experimental-strip-types src/contracts/beats.test.ts"
+    "test:beats": "node --experimental-strip-types --no-warnings src/contracts/beats.test.ts",
+    "test:time": "node --experimental-strip-types --no-warnings src/contracts/time.test.ts",
+    "test:narration": "node --experimental-strip-types --no-warnings src/contracts/narration.test.ts",
+    "test": "npm run typecheck && npm run test:time && npm run test:beats && npm run test:narration",
+    "synth-narration": "node --experimental-strip-types --no-warnings remotion/scripts/make-synthetic-narration.ts",
+    "render-narration": "node --experimental-strip-types --no-warnings remotion/scripts/render-narration.ts",
+    "render-narration:synthetic": "npm run synth-narration && npm run render-narration -- --descriptor assets/private/audio/TEST6S/synthetic/narration.descriptor.json"
   },
   "dependencies": {
     "@react-three/fiber": "9.8.2",

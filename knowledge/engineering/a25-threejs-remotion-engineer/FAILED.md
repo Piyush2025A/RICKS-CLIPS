@@ -10,3 +10,10 @@ No experiments run in this review (desk study; no installs, renders or code per 
 - F-A25-F01 symlinked plate in publicDir: bundler dropped it; symlink in bundle: server 404. Use hard link.
 - F-A25-F02 continueRender in texture onLoad: plate black (canvas not redrawn). Use advance() after commit.
 - F-A25-F03 chromiumOptions.gl = angle / swiftshader / angle-egl: WebGL context creation failed (BindToCurrentSequence failed). Use swangle.
+
+## 2026-11-28 node:crypto inside a composition-imported module
+First `narration.ts` mixed the pure descriptor validator with sha256/fs helpers; the Remotion webpack bundle failed ("UnhandledSchemeError: node:crypto").
+Fix: split into narration.ts (browser-safe) and narration-node.ts (Node scripts/tests only).
+
+## 2026-11-28 Previous tolerance of half-even vs half-up ties in beats.test.ts
+Removed: the old test accepted +-1 on exact .5 ties, masking the 76/77 divergence. Parity is now exact.
