@@ -6,7 +6,7 @@
  *   still   --frame N --out file.png [--gl X]            one still, fresh process
  *   stills  --frames 24,24,5,5 --outdir d [--gl X]       several stills in ONE process (per-still seconds reported)
  *   seq     --concurrency C --outdir d [--format png|jpeg]   48-frame image sequence (renderFrames)
- *   mp4     --concurrency C --out f.mp4 [--audio]        H.264 MP4 (renderMedia, crf 18, yuv420p)
+ *   mp4     --concurrency C --out f.mp4 [--audio]        H.264 MP4 (renderMedia, crf 18, yuv420p, BT.709 limited via colorSpace:'bt709')
  *   diag    --gl X                                       WebGL context info (own diagnostic composition)
  * Common: --bundle out/a26/bundle  --id EngineTest  --browser <exe>  --gl swangle
  * Output: one JSON line on stdout. Never writes outside out/a26 (git-ignored). Verifies plate SHA-256 before/after.
@@ -24,9 +24,11 @@ const bundleDir = path.resolve(root, arg('bundle', 'out/a26/bundle'));
 const id = arg('id', 'EngineTest');
 const concurrency = Number(arg('concurrency', '1'));
 const imageFormat = arg('format', 'png') as 'png' | 'jpeg';
+/** mp4 colour: bt709 (default, corrected Phase 5A). 'default' = legacy untagged-matrix behaviour, only for contrast tests. */
+const colourMode = arg('colorspace', 'bt709') as 'bt709' | 'default';
 const withAudio = flag('audio');
 const chromiumOptions = { gl };
-const inputProps = { plate: LIGHTHOUSE_PLATE_V01, audio: withAudio ? 'test/tone.wav' : undefined, captions: false };
+const inputProps = id === 'Patches' ? {} : { plate: LIGHTHOUSE_PLATE_V01, audio: withAudio ? 'test/tone.wav' : undefined, captions: false };
 const logs: string[] = [];
 const onBrowserLog = (l: { text: string }): void => { logs.push(l.text); };
 const out = (o: Record<string, unknown>): void => console.log(JSON.stringify({ script: SCRIPT_VERSION, mode, gl, concurrency, ...o }));
@@ -72,9 +74,9 @@ if (mode === 'still') {
 } else if (mode === 'mp4') {
   const o = path.resolve(root, arg('out', 'out/a26/test.mp4')); mkdirSync(path.dirname(o), { recursive: true });
   const t1 = Date.now();
-  await renderMedia({ composition: comp, serveUrl: bundleDir, outputLocation: o, codec: 'h264', crf: 18, pixelFormat: 'yuv420p', imageFormat: 'jpeg', jpegQuality: 100, concurrency, inputProps, browserExecutable, chromiumOptions, overwrite: true, scale: 1, onBrowserLog });
+  await renderMedia({ composition: comp, serveUrl: bundleDir, outputLocation: o, codec: 'h264', crf: 18, pixelFormat: 'yuv420p', colorSpace: colourMode, imageFormat: 'jpeg', jpegQuality: 100, concurrency, inputProps, browserExecutable, chromiumOptions, overwrite: true, scale: 1, onBrowserLog });
   const s = (Date.now() - t1) / 1000;
-  finish({ mp4_s: s, fps: 48 / s, file: o, bytes: statSync(o).size, sha256: sha(o), audio: withAudio });
+  finish({ mp4_s: s, fps: comp.durationInFrames / s, file: o, bytes: statSync(o).size, sha256: sha(o), audio: withAudio });
 } else if (mode === 'diag') {
   const t1 = Date.now(); const o = path.resolve(root, 'out/a26/diag.png');
   await renderStill({ composition: comp, serveUrl: bundleDir, output: o, frame: 0, inputProps, browserExecutable, chromiumOptions, imageFormat: 'png', overwrite: true, onBrowserLog });

@@ -68,3 +68,6 @@ A25 `EngineTest` supports `audio` prop (public-relative path, `<Audio src=static
 
 ## Limitations
 Single machine, single scene; determinism proven only for this browser build and flags. Timings dominated by Chromium start and PNG encode for a trivial scene. MP4 timing n=1-2. Memory sampler is polled (150 ms) so true peaks may be slightly higher. No GPU measurement exists (docs: GPU options remain a user decision; software timings must not be extrapolated). The sampler's own overhead may explain in-process stills being slightly slower than fresh ones.
+
+## Update (colour correction)
+Section 5 risk resolved: mp4 mode now uses `colorSpace: 'bt709'` (tags + zscale BT.709 limited). See `COLOUR_5A.md` for patch-test numbers. The earlier file's matrix was actually BT.601-encoded but untagged (MEASURED).
