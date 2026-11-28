@@ -1,7 +1,6 @@
 # A16 FINDINGS — edit rhythm model (Phase 3, RC30)
 Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · 2026-11-28 · A16.
-Visual ledger: `knowledge/dataset/coverage/visual/a16-editing-pacing-specialist.jsonl` (3 records: overview sheets 180x320, 1 fps,
-RC30-18, RC30-22, RC30-03, t = 1-40 s). Everything else is computational (not visual coverage).
+Visual ledger: `knowledge/dataset/coverage/visual/a16-editing-pacing-specialist.jsonl` (22 records after 3B; videos with visual evidence 30/30: 3 overview sheets of RC30-18/22/03 at 1 fps; 3B: 4 composites of RC30-22 every 5th frame f0-f1905, and 15 composites of every 3rd frame f0-f87 of all 30 videos, 120x213 tiles cropped from the every-frame sheets). Everything else is computational. NOTE: 3B opener views are every 3rd frame, not every frame; RC30-22 views every 5th frame.
 Videos: 24 with A15 confirmed edit lists (01-05, 07, 08, 12, 14-20, 22-30 minus none; 06, 09, 10, 11, 13, 21 have none). Input:
 A15 `transitions_confirmed.csv` (sha256 prefix a103bde67848d3da; non-FP rows, parts within 15 f merged, boundary = span centre →
 294 boundaries, 318 shots), A20 caption series (`capser_*.npy`, A20 detector re-run) and speech gaps (re-run of A20 Otsu envelope, `scripts/gaps.py`,
@@ -19,7 +18,7 @@ Faint pattern only: escalation 25-55 % has the highest cut rate (median 2.77 /10
 Limits: boundaries are A15's, which undercount hard cuts (F-a16-002); a flat result could hide a real trend in the missing cuts.
 Implementation: do not ramp cut rate; vary it by beat (F-a16-007). Default ~2-2.5 transitions/10 s, shot 1.8-5.1 s (IQR), median ~3 s.
 
-## F-a16-002 A15's edit list undercounts cuts in long-take 3D videos: shot length 3.06 s is an UPPER bound (OBSERVED, medium-low; RC30-22, 03)
+## F-a16-002 A15's edit list undercounts cuts in long-take 3D videos: shot length 3.06 s is an UPPER bound (OBSERVED, medium-low; RC30-22, 03) - NUMBER '>= 7 cuts/10 s' SUPERSEDED by F-a16-101 (every-frame check: about 5.4 visual beats/10 s, of which 1.3 are edits); the upper-bound logic stands
 RC30-22: A15 lists 8 joins in 63.5 s (median shot 6.27 s). The 1 fps overview (t = 1-40 s) shows a different shot at ≈ 29 of 39 consecutive-second steps
 (ship deck → water → barrels → shore → furnace → powder bag → ship …), i.e. ≥ 0.7 cuts/s (≈ 7 per 10 s, lower bound; 1 fps cannot separate a cut from a
 fast move) vs A15's 1.3 per 10 s. RC30-03 (A15: 5 joins, median 9.07 s): scene changes at t ≈ 1-2, 2-4, 5-6, 7-9, 19-20 match; a few angle changes inside the tent
@@ -46,7 +45,7 @@ Implementation: derive transition frames from pauses/clauses (F-a16-003), not fr
 Caption tokens per shot median 9 (IQR 5-15; mean 11.7 ≈ 3.5 s at 0.33 s/token — consistent with shot median ≈ 3 s). Pauses ≥ 0.3 s inside a shot: median 0, 62.6 % of shots contain none →
 a shot normally spans 1 pause-split phrase (IQR 1-2); phrase length (A20) median 3.9 s ≈ shot length. Implementation: plan 1 shot per clause, ~9 words (3 s); sentence of 2 clauses = 2 shots.
 
-## F-a16-006 First 3 s: usually zero or one transition; the opening shot is 2-6 s (MEASURED, medium; 24 videos)
+## F-a16-006 First 3 s: usually zero or one transition; the opening shot is 2-6 s (MEASURED, medium; 24 videos) - extended to 30 videos and split into edits vs beats by F-a16-103/104; the 'hook is not rapid cutting' conclusion is KEPT for edits but incomplete for beats
 Transitions with centre < 3 s: 0 in 14 videos, 1 in 9, 2 in 1 (RC30-20) — total 11. First shot length median 3.67 s (IQR 2.13-6.30); first transition at t 0.75 s (14) to 11.9 s (24). Final shot median 2.90 s (1.81-5.06).
 The visual hook is character/camera action inside a shot (A13 moves start at the cut; A02 expression bursts), plus 9 caption tokens (A20: 8-9 in 3 s), not rapid cutting.
 Contrast with A19 F-a19-005 "quick-cut opener 19/30 (2-3 shots in 1-3 s)": that count uses 1 fps tiles and includes hard cuts A15 may miss; not resolved (see contradictions).
@@ -78,3 +77,40 @@ Not cross-correlated with speech rate (rates are nearly constant across videos: 
 - A19 F-a19-005 (quick-cut opener 19/30) vs F-a16-006 (0-1 A15 boundaries in first 3 s for 23/24): different measuring bases (1 fps tiles incl. camera-driven scene shifts vs confirmed crossfade/cut list). Both kept.
 - A15 shot length 3.06 s vs F-a16-002 (≥ 7 cuts/10 s in RC30-22 at 1 fps): both kept; A15's is an upper bound.
 - Not done: A19 per-video act boundaries (only typical ranges exist); per-beat-type labels; expression-swap table; unprocessed videos 06, 09, 10, 11, 13, 21; no per-video every-frame sheets inspected (1 fps overviews only).
+
+## Phase 3B additions (2026-11-28)
+Inputs: A15 `transitions_confirmed.csv` (569 rows, 30 videos: real = XF/HC/ZT/FT/VB, merged within 15 f, boundary = span centre; FP rows whose note matches camera|pull|push|zoom|fly|descent|pan|tilt|follow|whip|continuous = "camera-driven candidates"), rcpipe `color.csv` (own detector), `captions/RC30-nn/caption_segments.csv`, every-frame sheets. Scripts: `scripts/units3b.py [thr]`, `scripts/openers3b.py`, `scripts/comp3b.py` (composites, private output). Tables: `data/shots_two_units_3b.csv`, `data/openers_3b.csv`, `data/beats_events_3b.json`.
+
+### F-a16-100 Two shot units, defined (METHOD)
+(a) **edit shot** = interval between confirmed edits (A15 real rows, incl. crossfade, hard cut, zoom/fall/veil transitions). (b) **visual beat** = interval between any major visual change = edits + continuous-camera scene changes (fly-through, whip pan, fast push/pull that replaces what is in frame). Beats are measured on three tiers: B = edits + A15 camera-driven FP rows not within 15 f of an edit (56 rows); C = B + own detector peaks. Own detector: window distance d(t) = L1 between mean features of frames [t+4,t+12] and [t-12,t-4] (12 hue bins, L, a, b, saturation; color.csv), peaks >= 0.7, 12 f apart, not within 15 f of an edit/camera row. Calibration: recovers 88 % of A15 edits within +-10 f at 0.7 (97 % at 0.35, 78 % at 1.0, 54 % at 1.4).
+
+### F-a16-101 Shot length and rate by unit, 30 videos (MEASURED edits and tier B; tier C proxy; medium)
+| Unit | Pooled shot length median (IQR), s | n shots | Per-video median of medians (IQR), s | Rate /10 s, per-video median (IQR) |
+|---|---|---|---|---|
+| edit shot (409 shots, 379 edits) | 3.18 (1.95-5.18) | 409 | 3.05 (2.74-4.07) | 2.15 (1.84-2.64) |
+| beat B (edits + 56 camera-driven rows) | 2.85 (1.73-4.53) | 465 | 2.85 (2.33-3.62) | 2.57 (2.15-2.92) |
+| beat C (+ 269 detector extras) | 1.77 (1.03-3.06) | 734 | 1.86 (1.50-2.11) | 4.21 (3.86-4.46) |
+Sensitivity of tier C rate (per-video median /10 s): threshold 0.35 -> 6.09; 0.7 -> 4.21; 1.0 -> 3.40; 1.4 -> 3.01 (at 1.4 only 54 % of real edits are even detected, so < 3 is not a valid reading). Per-video values incl. 03, 22: edits/10 s 0.85, 1.26; B 1.19, 1.89; C 3.05, 4.41 (`data/shots_two_units_3b.csv`).
+Limits: tier C extras are not individually verified (precision unknown; includes fast character motion and colour shifts); only RC30-22 was hand-counted (F-a16-102), so the C level is calibrated on one video.
+
+### F-a16-102 RC30-22 every-frame check: about 34 visual beats in 62.4 s = 5.4 /10 s, not >= 7 (OBSERVED, medium-low; one video, every 5th frame)
+Viewed f0-f1905 in four 12-column composites (every 5th frame, ledger). Hand tally of whole-frame content/viewpoint replacements (whips, cuts, crossfades, fast reframes; slow sunset drift and character acting not counted): about 8 in f0-475, 12 in f480-955, 7 in f960-1435, 7 in f1440-1870; total 34 (plausible range 28-40; ±6 from judging fast pans). Of these, A15 real edits are 8 (1.3 /10 s): the rest are camera-driven (e.g. f53 whip to sea, f73 tilt to sails, f600/f630 zoom into furnace, f730 pull out to beach, f805 into powder bag, f1525 hull to iron wall). Detector C at 0.7 gives 27 (4.4 /10 s), 18 % below the hand count. So the earlier ">= 7 cuts/10 s" (F-a16-002, 1 fps overview) overstated: 1 fps steps counted pans and character acting; and A15's 1.3/10 s is an edit count, not an error. Both are right for different units.
+Implementation: RC30-22-type 3D long-take videos run ~1.3 edits and ~5 beats per 10 s.
+
+### F-a16-103 First 3 s, all 30 videos: edits 0 (median), visual beats 1.5 (median) (OBSERVED, medium; 30/30 videos, every 3rd frame f0-f87)
+Per video in `data/openers_3b.csv`. Eye-counted edits in 0-3 s: 0 in 18 videos, 1 in 11, 2 in 1; A15 real rows < f90 agree in 29/30 (RC30-10: apparent hard cut f63-66, A15 lists none, unconfirmed). Eye-counted beats: 0 in 5 (13, 23, 24, 28, 30), 1 in 10, 2 in 10, 3 in 4, 4 in 1 (RC30-22): median 1.5 (IQR 1-2); >= 1 beat in 25/30, >= 2 in 15/30. Frame 0: mid-action in 14, posed/idle in 16; none is a title card or black frame. First caption starts at f0 or f1 in 28/30 (RC30-16 f2, RC30-25 f2; median onset f0), so the caption is already on screen at frame 0 in 28/30; 9-10 caption segments start inside 3 s (IQR 9-10). Four of my first reads were camera pans that I took for cuts (RC30-06, 12, 19 and 10 partly) -> A15's FP rows are right; this is why edits and beats must be kept apart.
+
+### F-a16-104 A19 vs A16 openers reconciled: both measured, on different units (OBSERVED + MEASURED, medium)
+A19 "quick-cut opener" (19/30: 01-12, 17-22, 26) = at least one visible scene change in t = 1-3 s. My beat counts: all 19 have >= 1 beat (13 have >= 2, median 2.0), but only 10 have an A15 edit < 3 s (median edits 1). A19 "stage opener" (11/30: 13-16, 23-25, 27-30) = one set, slow camera: median beats 1.0, median edits 0; 5 have 0 beats, 6 have 1 beat (14, 15, 16, 25, 27, 29 each contain one fast camera event, 14 and 15 up to 3). So A19 measured visual beats (roughly), A16 measured edits; A19's split is supported as a beat-based split (19/19 quick videos have a beat; 6/11 stage videos also have one, so the boundary is soft). Reconciled rule: **open with a visible change in the first 3 s in ~80 % of videos (25/30 have >= 1 beat), but implement it as an edit in only ~40 % (12/30 have an edit); the typical opener is one camera-driven or edit beat inside 1-3 s with captions running from frame 0.** Stage openers are the 5-6 videos with 0-1 beats; they rely on character acting and a slow push/pull.
+
+### Which number to use in production
+- Pacing the **EDL / transition slots / crossfade count**: edit shots (3.2 s median, IQR 2.0-5.2; 2.2 edits/10 s).
+- Pacing **visual change / retention / camera and scene budget**: visual beats (~1.9 s median on the proxy, ~4 beats/10 s, range 3-5; hand count RC30-22 5.4/10 s). Cameras in Three.js should therefore be scripted to create about two camera-driven scene changes per edit.
+- 3.06/3.18 s must not be quoted as "the shot length" of long-take 3D videos (03, 22, 24, 25, 12): there the edit shot length is 5-9 s but beats stay at ~2-2.5 s.
+
+## Phase 3B revisions
+- F-a16-002: ">= 7 cuts/10 s in RC30-22" SUPERSEDED by F-a16-102 (5.4 beats/10 s, 1.3 edits/10 s); "A15 shot length is an upper bound for rhythm" KEPT, now quantified (F-a16-101): edit 3.18 s vs beat 1.8-2.9 s.
+- F-a16-006: extended from 24 to 30 videos (F-a16-103); "0-1 transitions" confirmed (A15 agrees with eye in 29/30), but the claim "hook is not rapid cutting" is narrowed to "not rapid edits"; beats are present in 25/30. Confidence unchanged (medium).
+- F-a16-001/003/005/007: unchanged (still on 24 videos and A15 edit boundaries; not re-run with the six new videos).
+- Coverage: visual evidence for 30/30 videos is limited to f0-f87 (every 3rd frame) except RC30-22 (whole video, every 5th frame) and 3 overview sheets; the rest of each video is computational only.
+- Contradictions resolved: A15 3.06 s vs A16 "7 cuts/10 s": different units, A16's number was wrong. A19 19/30 vs A16 0-1 edits: different units, reconciled in F-a16-104. Not resolved: tier-C precision (only one video hand-counted); true frame-by-frame beat counts for the other 29 videos.

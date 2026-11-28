@@ -1,0 +1,31 @@
+key,a15_edits_0_3s,a15_FP_rows_0_3s,eye_edits_0_3s,eye_beats_0_3s,frame0,slow_camera_move,first_caption_f,first_caption_t,caption_at_f0_or_f1,captions_started_0_3s,detector_events_0_3s,a19_mode,note
+RC30-01,1,0,1,1,posed-gesture,y,0,0.033,1,10,1,quick,ZT pull-back out of porthole f38-44
+RC30-02,1,0,1,2,mid-action,y,0,0.033,1,10,1,quick,fast push to face f60-75; XF to cross-section f77-86
+RC30-03,0,1,0,1,mid-action,y,0,0.033,1,12,3,quick,camera snaps to rolling bomb/wide f27-38
+RC30-04,0,1,0,1,mid-action,y,0,0.033,1,10,1,quick,pan from tree to road f33-50
+RC30-05,1,3,1,3,posed,y,0,0.033,1,11,3,quick,"push-in f18-27, macro gun f30, cut to miner ~f58"
+RC30-06,0,2,0,3,posed,y,0,0.033,1,11,2,quick,"fast zoom f33, camera-driven change to drill f42, fast pan to castle f59-78 (A15 FP camera pan; read first as cuts)"
+RC30-07,1,0,1,1,mid-action,n,0,0.033,1,11,1,quick,cut car interior to exterior f39
+RC30-08,1,0,1,2,mid-action,y,0,0.033,1,12,2,quick,pull-back f38-45; XF f81-89
+RC30-09,0,0,0,1,mid-action,y,0,0.033,1,10,0,quick,whip to wall poster f72-80
+RC30-10,0,0,1,2,mid-action,y,0,0.033,1,6,2,quick,"apparent hard cut f63-66 (A15 lists none; possible missed HC, unconfirmed); pull-back f83"
+RC30-11,0,0,0,2,mid-action,y,0,0.033,1,10,3,quick,pan down to sea f35-45; whip to ship f68-75
+RC30-12,0,0,0,2,posed,n,1,0.067,1,9,2,quick,"piggy smash VFX f38-47, camera whip to horses ~f50; A15 XF horse->hall at f98-109 is outside 3 s"
+RC30-13,0,0,0,0,posed,n,0,0.033,1,10,0,stage,"static two-shot, expression changes only"
+RC30-14,1,2,1,3,mid-action,y,0,0.033,1,9,3,stage,flash XF f30 to bullet; reveal street f48; push f78
+RC30-15,0,3,0,2,posed,y,0,0.033,1,9,2,stage,fast push to ticket f27-33; pull to stranger f55
+RC30-16,0,0,0,1,posed,y,2,0.1,0,8,1,stage,push to cards f14-20
+RC30-17,0,1,0,2,posed,y,1,0.067,1,9,2,quick,descent into grave f20-35; pan to bell f68-90
+RC30-18,0,2,0,2,posed,y,0,0.033,1,9,2,quick,push to ticket f36-45; pull f75
+RC30-19,1,2,1,3,mid-action,y,0,0.033,1,9,3,quick,hammer-wipe style change f37 to chair man (A15 FP in-shot hammer); XF f69-76 to boss
+RC30-20,2,0,2,2,posed,n,0,0.033,1,9,2,quick,XF f52-62; XF f80-90
+RC30-21,1,1,1,2,posed,y,0,0.033,1,9,2,quick,push to dragon f22-30; ZT pull-back to throne room f64-70
+RC30-22,1,2,1,4,mid-action,y,0,0.033,1,9,2,quick,whip f50-62; cut f68; cut f75
+RC30-23,0,0,0,0,posed,y,0,0.033,1,9,0,stage,slow push-in only
+RC30-24,0,0,0,0,posed,n,0,0.033,1,10,0,stage,static wide
+RC30-25,0,0,0,1,posed,y,2,0.1,0,9,0,stage,slow push f0-40; reframe snap f63-66
+RC30-26,1,0,1,1,mid-action,n,1,0.067,1,10,1,quick,XF to wide street f64-70
+RC30-27,0,0,0,1,posed,y,1,0.067,1,10,0,stage,"macro reels, pull-back reveal f24-35"
+RC30-28,0,0,0,0,mid-action,y,0,0.033,1,9,3,stage,"continuous fall follow, no scene change"
+RC30-29,0,1,0,1,mid-action,y,0,0.033,1,10,0,stage,pull-back reveal f8-27
+RC30-30,0,0,0,0,posed,y,0,0.033,1,7,0,stage,"slow pull-back f0-30, then static"

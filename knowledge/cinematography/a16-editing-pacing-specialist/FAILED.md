@@ -5,3 +5,8 @@
 - Using A19 act boundaries per video: A19 reports only typical ranges (no per-video table). Used normalised-time proxies 25/65 % instead.
 - Trusting A15 boundaries for pacing in long-take 3D videos (03, 22): undercount hard cuts (F-a16-002).
 - Expression-swap and VFX contributions to change rate: no per-frame tables from A02/A12 (only hand tallies of 4 shots), so not combined quantitatively.
+
+## Phase 3B
+- 1 fps overview counting for cut rate (F-a16-002): counted whips/pans and acting as cuts, gave >= 7/10 s for RC30-22; every-5th-frame check gives ~5.4 beats/10 s. Do not count scene changes from 1 fps tiles.
+- First-3 s eye reads of RC30-06, 12, 19 labelled camera pans/wipes as cuts; A15 FP rows corrected this. Always separate "edit" from "camera-driven beat".
+- Own beat detector (window feature distance) is threshold-bound: 0.35 -> 6.1, 1.4 -> 3.0 beats/10 s; only RC30-22 hand-calibrated; tier C is a proxy, not a measurement of true beats.

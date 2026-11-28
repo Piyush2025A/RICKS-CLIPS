@@ -38,3 +38,8 @@ Report: per-act shot-length quartiles, events/10 s, max gap + frame, pause-align
 
 ## 6. Measurement recipe for new references (reproducible)
 `scripts/gaps.py` → `pacing.py` → `beats.py` → `deadtime.py`; inputs: A15 CSV, A20 capser npy, A13 moves, A27 shot_features/motion. Check long-take videos at 1 fps before trusting cut counts (F-a16-002).
+
+## Phase 3B: two-unit pacing budget (evidence F-a16-100..104; medium)
+- Per 60 s video: ~13 edits (A15 real, 2.2/10 s, shots 3.2 s median, IQR 2.0-5.2) AND ~25 visual beats (4/10 s, ~1.9 s median) - so about one extra camera-driven scene change (fly-through, whip, fast push/pull) between consecutive edits. Use edit shots for EDL slots, beats for camera/animation scripts.
+- Opener (0-3 s = 90 frames at 30 fps, 72 at 24): caption on screen from frame 0 (28/30); frame 0 is a live scene (mid-action 14/30, posed 16/30), never a title card; one visible beat (edit or fast camera event) inside 1-3 s (25/30 have >= 1; edit in 12/30; >= 2 beats in 15/30). If a stage opener is chosen (0-1 beats), carry it with a slow push/pull and expression changes.
+- Dev check: count beats by composite every 3rd-5th frame, not by 1 fps tiles.
