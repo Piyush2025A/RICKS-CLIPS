@@ -284,3 +284,23 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
 - Operational decisions taken autonomously (user-authorised): per-agent wrap-up on turn limits; director wrote refused
   deliverables verbatim; moved A15 CSV into its owned folder; parallel visual-first waves during the batch.
 - Status: awaiting user review of the Phase 3 gate. Report: `research/phase3-overnight-report.md`.
+
+## D031 · 2026-11-28 · Phase 3B completion round (user-requested); caption timeline without OCR
+- User request: strengthen incomplete/weak research before the Phase 3 gate; reuse the 50,898-frame computation;
+  ≤ 2 concurrent agents; no Phase 4, no generation, no paid credits.
+- Caption timeline: no OCR engine installed and none added (installing needs approval). Director tool
+  `tools/caption_events.py` detects caption segments on every native frame (caption band only, `-fps_mode passthrough`,
+  counts reconciled with the manifest) and builds private crop sheets; text was read visually by A20 (logged as overlay
+  views). Third-party narration text stays private (`~/ricks-clips-private/.../captions/`); only counts, timings and
+  ≤ 10-word quotes are committed.
+- Hook disagreement: resolved by a blind two-axis coding by two independent coders (A17 + a fresh general-purpose
+  agent), agreement measured (verbal κ 0.89, picture κ 0.57); A19's single-label scheme retired.
+- Status: done. Evidence: `research/phase3b-completion-plan.md`, `research/phase3b-hook-codebook.md`.
+
+## D032 · 2026-11-28 · Phase 3 (3A + 3B) complete; bibles v0.3; awaiting gate review
+- Both independent audits applied (AUDIT.md, AUDIT_3B.md). Superseded values recorded in the bibles (e.g. 220 wpm,
+  caption lead 140 ms, black p1 0.071, push +24 %, crossfade default 7 f, card shadows default off, DOF 9 % upper bound).
+- Operational notes: several agents ended at turn limits (A03, A28) and were resumed to wrap up; A17 had no Bash, so the
+  director logged its viewed sheets on its behalf (marked); A20 omitted 2 ledger records — director spot-checked both
+  transcripts against the sheets (word-for-word match) and logged its own views; nothing added for unconfirmed views.
+- Status: awaiting user review of the Phase 3 gate; report `research/phase3-completion-report.md`.

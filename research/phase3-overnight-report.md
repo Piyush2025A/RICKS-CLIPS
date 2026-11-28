@@ -1,3 +1,7 @@
+> **Superseded status (2026-11-28, Phase 3B):** coverage and status tables below describe the 3A run only. Corrections:
+> A10's ledger shows 18 (not 24) videos for 3A; A20's header record count was stale; several "partial" items were completed in 3B.
+> Current status: `research/phase3-completion-report.md`.
+
 # Phase 3 overnight run — final report (2026-11-28, ≈ 01:20–05:40 IST, with one usage-limit pause)
 
 ## Coverage (actual)

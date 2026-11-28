@@ -1,7 +1,8 @@
 # PROGRESS
 
-**Current phase:** **Phase 3 — research run COMPLETE (2026-11-28 ≈ 05:40 IST); awaiting user review of the gate.** Report: `research/phase3-overnight-report.md`.
-**Last updated:** 2026-11-27
+**Current phase:** **Phase 3 (incl. 3B completion round) — COMPLETE (2026-11-28); awaiting user review of the Phase 3 gate.** No Phase 4 work started.
+Reports: `research/phase3-completion-report.md` (final, supersedes the overnight report's status tables) · `research/phase3-overnight-report.md` (3A run).
+**Last updated:** 2026-11-28
 
 ## Phase 1 — approved (conditionally, 2026-11-27); corrections completed
 - [x] Permanent RC30 reference dataset rule added (CLAUDE.md, MASTER_PLAN.md Phase 3, `knowledge/dataset/README.md`,
@@ -173,7 +174,10 @@
   checkpoints resume inside a video.
 - Overview sheets (1 fps) for all 30: `~/ricks-clips-private/analysis-data/rc30/overview/` (56 PNG).
 - Specialist brief: `knowledge/_system/briefs/PHASE3-BRIEF.md`. Visual ledgers: `knowledge/dataset/coverage/visual/`.
-- Specialist status: see table below (filled as agents complete).
+- Specialist status: table below is the **historical 3A checkpoint as of the 03:00 interruption**; FINAL statuses
+  (corrected 2026-11-28): every wave completed — C1 A27 done; C2 A15 done (2 parts), A20 done; C3 A13 done, A16 done;
+  C4 A11 done (finished after its background passes); C7 A21 done (partial: SFX detectors below precision); C8 A22 done;
+  C9 A17, A18 done; Q A28 done (partial); K bibles v0.2 done. Phase 3B results: section "Phase 3B" below.
 - Open contradictions for A09/A28: character cast shadows (A01 F-a01-005 saw soft ground shadows in rendered sets; A06
   F-A06-002 saw none) — RESOLVED by A09 F-A09-001 (hard shadows only under strong key); leg length (A01 ≈ 2–3× torso by eye vs A03 ≈ 1.4–1.5× measured); A03 height 2.97 HW vs H-UP 3.5.
 | Wave | Agents | Status |
@@ -197,7 +201,7 @@
 1. ~~Agent discovery (D011).~~ **Resolved (D012).** All 29 registered; A27 and A23 verified by invocation; others on first use.
 2. ~~Analysis environment not installed.~~ **Resolved (D016 cloud; D027 local computer, `.venv-analysis/`).** Re-run `setup/setup-analysis.sh --with-audio` each new
    cloud session (~15 s) unless the user approves saving it as the environment setup script.
-3. **Phase 3 analysis not authorised.** Footage is on the user's computer (D025); still needed: acquisition authorisation confirmed, IDs/dates, manifest freeze, venv install approval.
+3. ~~Phase 3 analysis not authorised.~~ **Resolved (D027 venv approved, D028 acquisition decision + manifest frozen).** Video IDs/dates remain deferred metadata (`IDENTITY.json`), not a blocker.
 4. Google Flow (D013–D015):
    - ~~Chrome integration not set up~~ — local Claude in Chrome generation works (D015, reported by local session).
    - Cloud session has no browser access (D014); Flow work runs only in the local session.
@@ -211,8 +215,8 @@
    generation without approval.
 6. No GPU (software WebGL2 only).
 
-## Next actions (pending approval) — current list: `research/phase3-local-execution.md` §4–5
-## Earlier next actions
+## Next actions (pending approval) — current list: `research/phase3-completion-report.md` §7–8
+## Earlier next actions (historical, all superseded)
 1. User: decide the authorised acquisition method (`research/phase3-plan.md` §3; recommended: creator-supplied files).
 2. User: create a YouTube Data API key (metadata only) and enter it through the secure credential form.
 3. User: approve Phase 3 start; director then runs P3.1 (identify + freeze `MANIFEST.json`) and stops for the
@@ -227,3 +231,14 @@
 - Computational 50,898/50,898 frames (100 %); 60 coverage ledgers committed; visual ledgers 537 records (22 agents + director).
 - 22 department specialists + A25 + A27 + A28 delivered; bibles + STYLE_BIBLE v0.2 committed.
 - Next: user review; decisions listed in `research/phase3-overnight-report.md` §"Exact next steps". No Phase 4 work started.
+
+## Phase 3B — research completion and quality improvement (2026-11-28) ✅
+- Plan + checkpoint log: `research/phase3b-completion-plan.md`; brief `knowledge/_system/briefs/PHASE3B-BRIEF.md`.
+- New computational evidence: caption-event timeline for 30/30 videos (`tools/caption_events.py`, every native frame,
+  4,969 caption segments; frame counts = manifest) + full caption transcription (private, never committed).
+- Specialist runs (≤ 2 concurrent): A01, A02, A03, A04, A07, A08, A09, A10, A11, A12, A13, A15, A16, A20 (3 parts), A21,
+  A22, A17 + fresh coder B (blind two-axis hook coding), A28 re-audit (`evaluations/phase3-audit/AUDIT_3B.md`).
+  A14 not re-run (ledger PASS, caption band verified independently).
+- Consolidation: 9 bibles + `knowledge/STYLE_BIBLE.md` v0.3. Final report: `research/phase3-completion-report.md`.
+- Background loops: all bounded/foreground; overnight waiter shells closed; nothing left running.
+- Next: user review of the Phase 3 gate. Phase 4 not started.
