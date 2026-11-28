@@ -39,3 +39,17 @@ flashes: zooms, wipes, iris.
 
 ## Do not
 Use fades for hit effects; treat `flash_candidate` as a flash; double-count crossfade-based VFX (A15 owns transitions).
+
+## Phase 3B preset updates (frame counts @30 fps; evidence F-a12-102/104; @24 = x0.8)
+| ID | Update |
+|---|---|
+| E01 impact_debris | rays star 1 f then shards 6-8 f, hit starts at full density (09-f001544) |
+| E19 muzzle_burst (new) | 1 f build, 1 f peak (+49 luma), ~60 % width, #FFF3C0 star, next frame cut/smoke; draw on ones |
+| E20 fireball (new) | 4 f rise to ~60 % width, white core 3 f then orange, hold >10 f, outlined puffy sprite, luma +27 |
+| E21 smoke_cover (new) | puffs 15 f, full cover rise 3 f, full 6 f, clear 3 f; swap shot at peak (22-f000540) |
+| E22 lightning_bolt (new) | additive white-blue bolt redrawn every 1-2 f, rise 10 f, hold >12 f; screen pulse variant: 2 f on / 1-2 f off, twice, +23-27 luma |
+| E23 tyre_dust (new) | 4 f rise, 3 f peak, 4 f decay, grey-white, ~40 % width |
+| E24 glow_rise | 11 f ramp (golden) then cut; forge glow 8 f ramp then flicker hold |
+| E25 ui_whiteout | 8 f ramp to luma ~230, swap content at peak, 5 f decay |
+Rule: use luma pulses sparingly; strict bump rate about 0.45 per 10 s; peaks above 190 luma_mean only for smoke cover / bloom-to-white.
+Measurement recipe: returning-bump detector (data/luma_bumps_3B.csv header) + visual check.

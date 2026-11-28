@@ -7,3 +7,6 @@
    are offsets (±1 frame), weaker than A27 sheets. (Write tool refused the knowledge files; texts returned in hand-off.)
 4. luma_mean spikes alone mix cuts, lighting changes and wipes → only an upper bound on VFX frequency.
 5. Not done: effect-to-audio lag (hand-off A21); effect-area masks; no EXP-* experiments (no rendering this phase).
+6. (3B) Luma-bump detector with return test still yields 80 events of which many are cuts, pans, iris, crossfades: 12 of 18
+   windows judged non-VFX; needs visual filter. Overview sheets 24-26: overview_2 missing for 25, not viewed.
+7. (3B) Tile size (120 px) cannot show small effects (sparkles, glints): timing there is luma-blind.
