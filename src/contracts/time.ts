@@ -19,4 +19,21 @@ export const secondsToFrames = (seconds: number, fps: number): number => {
   return Number((BigInt(us) * BigInt(fps) + 500_000n) / 1_000_000n); // BigInt division floors for non-negative values
 };
 
-export const framesToSeconds = (frame: number, fps: number): number => frame / fps;
+/**
+ * Composition/clip duration that must CONTAIN media (D039): smallest integer N with N/fps >= t,
+ * on integer microseconds (us = floor(t*1e6+0.5); N = ceil(us*fps/1e6), exact BigInt). t=0 -> 0.
+ * Event timestamps keep secondsToFrames (nearest, half-up).
+ */
+export const durationFramesCovering = (seconds: number, fps: number): number => {
+  if (typeof seconds !== 'number' || !Number.isFinite(seconds) || seconds < 0) {
+    throw new Error(`durationFramesCovering: t must be a finite number >= 0, got ${seconds}`);
+  }
+  if (typeof fps !== 'number' || !Number.isInteger(fps) || fps <= 0) {
+    throw new Error(`durationFramesCovering: fps must be a positive integer, got ${fps}`);
+  }
+  const us = Math.floor(seconds * 1_000_000 + 0.5);
+  if (!Number.isFinite(us)) throw new Error(`durationFramesCovering: t too large: ${seconds}`);
+  return Number((BigInt(us) * BigInt(fps) + 999_999n) / 1_000_000n);
+};
+
+export const framesToSeconds= (frame: number, fps: number): number => frame / fps;
