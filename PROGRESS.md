@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
+**Current phase (2026-11-28):** Phase 5A — animation engine foundation, **verified, awaiting approval for 5B** (D037). Earlier:  **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
 Reports: `research/phase3-completion-report.md` (final, supersedes the overnight report's status tables) · `research/phase3-overnight-report.md` (3A run).
 **Last updated:** 2026-11-28
 
@@ -270,5 +270,32 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
       `.gitignore` `*.ts` → `*.m2ts`.
 - [x] Readiness: private 360×640/24 fps clip from an intaken Flow plate + normalised VO (169 frames, 7.059 s), frame viewed.
 - [x] **C2 Drive → cloud SHA-256 check** — done by the cloud session (D035, commit 5657bab): SHA-256 match, C2PA chunk intact.
-- [ ] Engine import (Remotion/Three.js) — needs the A25 scaffold (`npm install`); next phase.
-- Phase 5 NOT started (needs approval).
+- [x] Engine import (Remotion/Three.js) — done in Phase 5A (D037).
+
+## Phase 5A — Animation engine foundation (approved 2026-11-28; D037) ✅ verified, awaiting 5B approval
+- [x] **A25 engine** (`196f572`): exact pins remotion/@remotion/* 4.0.547, three + @types/three 0.187.0,
+      @react-three/fiber 9.8.2, react/react-dom 19.3.1, typescript 5.9.3 (+ @types); no paid packages; Remotion free
+      licence re-checked (≤ 3 people, commercial allowed). Structure: `remotion/` (Root, `EngineTest` 360×640 @ 24 fps,
+      48 f), `src/engine/` (plate card, placeholder card, texture hook), `src/contracts/` (asset facts, beats/time
+      seconds → frames). `npx tsc --noEmit` 0 errors (director rerun). Docs: `knowledge/engineering/a25-…/ENGINE.md`.
+- [x] **Private Flow plate in the engine:** lighthouse PNG served from git-ignored `assets/private/` via a hard link in
+      git-ignored `out/` (Remotion's bundler drops symlinks); SHA-256 `bd4fac1d…` unchanged after every run; watermark
+      visible in the render (viewed by A25 and the director).
+- [x] **Still + determinism (A26, director reproduced):** frame 24 identical across fresh processes and in-process;
+      frames 0/17/47 3/3; 48-frame sequence 432/432 identical over 9 runs at concurrency 1/2/4 and = director's own run;
+      MP4 byte-identical on rerun (incl. director's run with audio).
+- [x] **Performance (software WebGL, trivial scene = floor):** bundle 16.1 s cold / 2.6 s warm; still 0.61 s median
+      (p90 0.63); 48 f sequence 10.5 fps (c1), 16.2 (c2), 17.9 (c4); MP4 ≈ 2.0–2.2 s. Memory peak ≈ 1.25 GB total at c4
+      (node ≈ 210 MB, Chromium 0.5–1.04 GB). `node_modules` ≈ 1 GB (not committed).
+- [x] **Software WebGL:** chrome-headless-shell 158.0.8127.2; only `gl: "swangle"` works (WebGL 2, ANGLE → Vulkan
+      SwiftShader, max texture 8192, 4× MSAA); `angle`, `swiftshader`, `angle-egl` give no context. Chromium warns
+      automatic software fallback is deprecated → recheck on browser upgrades.
+- [x] **Encode:** H.264 High, yuv420p, 360×640, exactly 24/1, 48 frames; tags range tv / bt709 primaries / sRGB
+      transfer, matrix untagged (fix in final profile).
+- [x] **Contracts:** A20 beats.json loads and converts to 24/30 fps frames; synthetic WAV via `<Audio>` → AAC 48 kHz
+      stereo, non-silent (real narration not in the cloud; untested here). Captions: none rendered (default off).
+- Limitations / open: timings do not extrapolate to 1080p or lit scenes (GPU measurement later); cross-machine
+  determinism untested; studio untested; cover scaling trims ≈ 0.4 % of plate height; contract rounding mismatch
+  (CONTRACT `floor(t·fps+0.5)` vs `beats.py` `round()`, 1 frame on exact .5 ties) → A20 to reconcile; `THREE.Clock`
+  deprecation warning (harmless); MP4 colour-matrix tag.
+- Phase 5B NOT started (needs approval).

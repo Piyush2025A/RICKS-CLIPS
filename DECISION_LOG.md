@@ -360,3 +360,17 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   the recorded intake copy were untouched). Readiness clip 360×640/24 fps built privately and checked.
 - Status: all local Phase 4 verification complete; C2 (Drive → cloud) verified by the cloud session (D035). Remaining:
   engine-level imports (Remotion/Three.js scaffold = next phase). Phase 5 not started.
+
+## D037 · 2026-11-28 · Phase 5A engine foundation verified
+- Stack pinned exactly: Remotion 4.0.547 (+ cli/three/renderer/bundler), three 0.187.0, @react-three/fiber 9.8.2,
+  React 19.3.1, TypeScript 5.9.3; R3F 9.8.2 constrains React to < 19.4; TypeScript 7 not adopted (untested with
+  Remotion types). No paid packages; Remotion free licence applies (re-checked 2026-11-28).
+- Rendering in the cloud uses `chromiumOptions.gl = "swangle"` (only working mode, software WebGL 2). Animation is a pure
+  function of `useCurrentFrame()`; texture loading uses delayRender + explicit `advance()` because ThreeCanvas renders
+  with `frameloop="never"`.
+- Determinism verified on this machine: identical PNG/MP4 hashes across processes, in-process repeats and concurrency
+  1/2/4, reproduced independently by the director. Performance floor recorded (A26 BENCHMARK_5A.md).
+- Private media stay outside git (hard link in ignored `out/`; plate SHA-256 unchanged); the pre-commit guard is enabled
+  in this container (`core.hooksPath tools/git-hooks`).
+- Open: A20 rounding mismatch on .5 ties; MP4 colour matrix tag; GPU/1080p and cross-machine determinism untested.
+- Status: Phase 5A complete; Phase 5B awaits user approval.
