@@ -1,0 +1,23 @@
+#!/bin/bash
+# Ricks Clips pre-commit guard (D033). Blocks staged media, private-data paths, transcripts, provenance sidecars,
+# large files and obvious secrets. Install: git config core.hooksPath tools/git-hooks   (bypass only with user approval)
+set -u
+fail=0
+while IFS= read -r -d '' f; do
+  lc=$(printf '%s' "$f" | tr 'A-Z' 'a-z')
+  case "$lc" in
+    *.png|*.jpg|*.jpeg|*.webp|*.gif|*.bmp|*.tif|*.tiff|*.heic|*.avif|*.mp4|*.mov|*.mkv|*.webm|*.avi|*.m4v|*.wav|*.mp3|*.flac|*.aac|*.m4a|*.ogg|*.opus|*.psd|*.exr|*.c2pa)
+      echo "BLOCKED media file: $f"; fail=1;;
+    *provenance.json|*caption_text*|*caption_timeline*|*transcript*|*hook_packet*|*ricks-clips-private*|*.env|*.env.*|*.pem|*.key|*credentials*.json|*cookies*)
+      case "$lc" in *schemas/*|*.schema.json|*.env.example|*tests/fixtures/*) ;; *) echo "BLOCKED private/secret path: $f"; fail=1;; esac;;
+  esac
+  if [ -f "$f" ]; then
+    sz=$(wc -c < "$f")
+    if [ "$sz" -gt 1048576 ]; then echo "BLOCKED file > 1 MB: $f ($sz bytes)"; fail=1; fi
+    if grep -I -q -E '(sk_[A-Za-z0-9]{20,}|xi-api-key[" :=]+[A-Za-z0-9]{20,}|AIza[0-9A-Za-z_-]{35}|-----BEGIN (RSA |EC |OPENSSH )?PRIVATE KEY-----|ghp_[A-Za-z0-9]{36}|ya29\.[0-9A-Za-z_-]{20,})' "$f" 2>/dev/null; then
+      echo "BLOCKED possible secret in: $f"; fail=1
+    fi
+  fi
+done < <(git diff --cached --name-only --diff-filter=ACM -z)
+if [ "$fail" -ne 0 ]; then echo "pre-commit: commit refused (see above). Media and secrets never go into this public repo."; exit 1; fi
+exit 0

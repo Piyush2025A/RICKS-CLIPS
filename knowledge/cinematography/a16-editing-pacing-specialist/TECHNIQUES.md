@@ -14,9 +14,9 @@ Overall rate 2-2.6 transitions /10 s; no ramp-up (F-a16-001). Min shot ≈ 0.47 
 Scale for other runtimes by normalised time; keep shot length absolute.
 
 ## 2. Transition placement relative to narration (F-a16-003/004)
-- Default join: 6-frame crossfade (A15: median 6 f at 30 fps = 0.2 s; 5 f at 24 fps), centred on a clause boundary.
+- Default join: 7-frame crossfade at 30 fps (≈ 0.233 s; 6 f at 24 fps, converted by time; A15 3B + AUDIT_3B #3), centred on a clause boundary. [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md]
 - Target: centre of the blend at (pause_start + pause_end)/2 of the nearest A20-style speech gap ≥ 0.15 s, tolerance ±5 f (0.17 s); observed median offset 2.8 f, signed +1.2 f from a gap edge. Pauses ≥ 0.3 s are scarce (≈ 8-9 per video) - use them for act joins and reveals.
-- Do NOT lock to word onsets; they are every ~0.33 s. Word-locked items: captions (lead audio ~70 ms, A20), expression snaps (onset -3..+2 f, A02).
+- Do NOT lock to word onsets; they are every ~0.33 s. Word-locked items: captions only (lead audio ≈ 140 ms, A20 3B). Expression swaps follow story beats, not words (A02 3B F-A02-103). [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md]
 - If no pause within ±0.25 s, shift the cut to the nearest clause end; never cut mid-word-group for story reveals.
 - Camera move starts at or just after the cut (A13: 34-44 % within 6 f of the join).
 - Shot ≈ one clause (~9 tokens/3 s, one pause-phrase). A 2-clause sentence = 2 shots; 1 shot rarely > 2 pause-phrases.

@@ -42,7 +42,8 @@ Completion criteria:
 ### Phase 3 — Exhaustive reference video analysis
 - **Dataset rule (RC30, D007):** only the 30 most recently published Shorts of
   https://www.youtube.com/@RicksClips3000, by publication date (not popularity), frozen at phase start in
-  `knowledge/dataset/MANIFEST.json` with video IDs, publication dates, durations and source metadata. No older
+  `knowledge/dataset/MANIFEST.json` (core: keys, files, SHA-256, media facts; D028: video IDs, publication dates and URLs
+  are deferred metadata in `knowledge/dataset/IDENTITY.json`, order by user attestation). No older
   Shorts; no substitution for unavailable videos; all specialists use the same frozen dataset.
 - Precondition: user confirms the authorised acquisition and private storage method (never committed).
   Analysis environment: done (D016). Execution plan: `research/phase3-plan.md`.
@@ -67,10 +68,14 @@ Original cast; expression sheet; separated parts (head, eyes, mouth set, torso, 
 2.5D layered plates vs true 3D geometry decision per shot type; perspective, parallax, sight-line safety.
 
 ### Phase 7 — Lighting, shaders, textures, grading, VFX
-Two-tone/toon shading, world ink pass, card lighting, painted textures, grade, bloom, 2D effect sprites.
+Smooth-gradient card shading (no mandatory toon bands), optional world ink pass (scenery-ink treatment only), baked
+character ink that scales with the card, card lighting (cast shadows off by default, per scene), painted textures, grade,
+bloom, 2D effect sprites. Targets: `knowledge/STYLE_BIBLE.md` v0.3 + `knowledge/PRODUCTION_DEFAULTS.md`.
 
 ### Phase 8 — Camera, character movement, editing, audio sync
-Camera grammar, transitions, pacing, word-timed acting, SFX, music, ducking, loudness target.
+Camera grammar, transitions (crossfade default 7 f @30 fps ≈ 0.233 s), pacing, story-beat-driven acting (not
+mandatory word-triggered swaps), captions ≈ 140 ms ahead of the voice, SFX, static music bed (−20 dB re narration in the
+speech band as the initial default), loudness target.
 
 ### Phase 9 — Six-second integrated benchmark
 One 6 s shot through the full pipeline; side-by-side evaluation by independent evaluator agents; scored rubric.

@@ -304,3 +304,20 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   director logged its viewed sheets on its behalf (marked); A20 omitted 2 ledger records — director spot-checked both
   transcripts against the sheets (word-for-word match) and logged its own views; nothing added for unconfirmed views.
 - Status: awaiting user review of the Phase 3 gate; report `research/phase3-completion-report.md`.
+
+## D033 · 2026-11-28 · Phase 3 APPROVED (conditional, with documented limitations); Phase 4 authorised
+- User: external review of commit `c0eb61c`; Phase 3 conditionally approved; Phase 4 (Google Flow + ElevenLabs
+  integration) authorised after documentation corrections.
+- Adopted as current production reference: `knowledge/STYLE_BIBLE.md` v0.3 + 9 bibles v0.3 (with stated confidence and
+  limitations). New `knowledge/PRODUCTION_DEFAULTS.md` v1: caption lead ≈ 140 ms; crossfade 7 f @30 converted by time
+  (6 f @24); story-beat expression swaps; smooth gradient card shading (no mandatory toon bands); card cast shadows off
+  by default; static music bed −20 dB re narration in 400–2000 Hz; baked character ink scaling with size; measured values
+  are initial targets, not mandatory rules; dataset identity per D028 (deferred metadata).
+- Corrected active docs: CLAUDE.md (dataset identity), MASTER_PLAN.md (Phase 3 dataset, Phases 7–8), TECHNIQUES of A01,
+  A08, A09, A13, A15, A16, A20, A25 (each correction tagged D033). Historical FINDINGS/research records unchanged.
+- Git protections: `.gitignore` extended (all raster images, provenance sidecars, caption transcripts/timelines, hook
+  packets, alignment JSON, more audio/video formats, private-data paths, API-key patterns; schemas and test fixtures
+  excepted); pre-commit guard `tools/git-hooks/pre-commit` (media, private paths, > 1 MB, secret patterns) enabled via
+  `git config core.hooksPath tools/git-hooks` (repo-local). Verified: blocks a PNG, a provenance file and a fake key;
+  passes clean files. No tracked file removed (none matched the new rules).
+- Status: done.

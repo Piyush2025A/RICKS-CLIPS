@@ -23,7 +23,7 @@
 ## T-a01-03 Three.js / Remotion character card
 - Layered PNG planes: head, hair/hat, face parts (eyes × 3 states, brows × 2, mouth ≥ 6), torso, arms, legs.
 - Tint: `color = lerp(white, sceneAmbient, ~0.25)`; outline kept emissive (unlit).
-- Blob or projected contact shadow under the figure; outline constant in screen space.
+- Cast/contact shadow off by default, per scene (A09 3B F-A09-101); ink baked into the card art and scaling with the card, not constant in screen space (A10 3B F-a10-104). [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md]
 - Crowds: instanced cards, 3-colour palette, no face below ≈ 10 px head height.
 - Exceptions by material swap: additive translucent blue for x-ray; recoloured face for gags.
 

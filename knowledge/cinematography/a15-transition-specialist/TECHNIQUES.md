@@ -1,6 +1,7 @@
 # A15 TECHNIQUES (provisional; OBSERVED on 24 videos)
-- **Crossfade** (default scene join, 75 % of joins): linear alpha, 6 frames at 30 fps (0.2 s; typical 5–7); 24 fps dev
-  renders: 5 frames (same 0.2 s). Fast variant 4 frames (RC30-23/26 style); slow variant 8–10 frames for time/location
+- **Crossfade** (default scene join, 79 % of joins on 30 videos): linear alpha, **7 frames at 30 fps (≈ 0.233 s; typical
+  6–8)** — 3B: tile reads median 6 f, A28 every-frame reads +2 f; convert by time for other rates: 24 fps dev renders
+  round(0.233 × 24) = **6 frames**. [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md] Fast variant 4 frames (RC30-23/26 style); slow variant 8–10 frames for time/location
   change (day→night, RC30-15 style). Remotion: overlap two Sequences by N frames, outgoing opacity
   `interpolate([0,N],[1,0])`, incoming 1; keep camera moves and animation running through the overlap. Easing not yet
   measured → linear.

@@ -27,7 +27,7 @@ Parameters marked (ref) come from F-A08 measurements; the rest are engineering d
 | Liquid | MeshStandardMaterial flat saturated | per liquid | 0.2 | 0 | swirl texture + 2 spec dots |
 | Emissive screen / LED | MeshBasicMaterial or emissiveIntensity 1.5-3 + UnrealBloom (threshold 0.8, radius ~12 px) | dark bezel, glow C* 80+ | -- | -- | 7-seg with unlit ghost segments at 15-20 % |
 | Foil / holographic edge | MeshPhysicalMaterial iridescence 1 | rainbow | 0.2 | 0.5 | thin border only |
-Treatment B swap: MeshToonMaterial, gradientMap 3 steps (0.45/0.75/1.0), + inverted-hull outline (A10).
+Treatment B swap: inverted-hull/Sobel outline on scenery (A10); shading stays smooth (MeshStandard) — toon gradient bands are an optional experiment, not a default (A10 "no toon ramps", A01 3B soft gradients). [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md]
 Texel density: target 1 texel per 1 screen px at the closest planned camera distance for hero faces (text, labels): hero label texture 2048 px across <= 1080 px of screen (2x supersample for 360p downscale); set surfaces 0.5-1 texel/px; repeat tile >= 2 m physical to hide repetition. (HYPOTHESIS: reference density not measurable.)
 
 ## T-A08-03 Surface texture rules (F-003, F-004)

@@ -1,5 +1,8 @@
 # A25 TECHNIQUES — module architecture and implementation order
 Status: PROPOSAL (INFERRED, nothing built, no code files). Promote an item to "approved" only after an EXP record with a 360p still.
+> **Phase 4 production defaults (D033):** `knowledge/STYLE_BIBLE.md` v0.3 and `knowledge/PRODUCTION_DEFAULTS.md` supersede older
+> values in this file (C1 card shadows: off by default; C2: no toon bands; C3: ink baked in card art, scales with the card).
+
 Global rules (INFERRED from DOC-1/DOC-2): (1) every animated value is a pure function of `frame`, `fps`, and static props; no `useFrame`, `Date.now`, `performance.now`, `Math.random` (use seeded PRNG `mulberry32(hash(id))`); (2) author in seconds or 30-fps frames, convert once; (3) screen-space sizes in "px at 1080 wide", scaled by `renderWidth/1080`; (4) renders via `chromiumOptions.gl: 'angle'` (software fallback = SwiftShader; `swangle` recommended by docs for no-GPU), long renders split into segments (angle leak, DOC-2).
 
 ## Module list and contracts
@@ -17,7 +20,7 @@ Notation: In -> Out. Owners per OWNERSHIP.md; A25 owns `src/contracts/` and `src
 | M9 | Grade LUT toolchain | A11 | offline stills + mood id | `lut-<mood>.png` (neutral 16^3 strip) + params JSON (offline Python; not runtime) |
 | M10 | VFX library | A12 | `EffectCue` {id E01-E18, tStart s, params, seed, anchor} | meshes/sprites/overlays with analytic positions in t; DOM overlay layers for 2D-only effects |
 | M11 | Transitions | A15 | `Transition` {type crossfade/cut/zoom/iris/cover/fly, seconds, from, to, params} | overlap Sequences + opacity ramp (default), or shader mask for iris/zoom; sources: two scenes in overlap |
-| M12 | Captions | A14/A20 | `words.json` (word, t_on, t_off), style | DOM layer in safe band (y 1290-1420 @1920), lead 70 ms; outside WebGL |
+| M12 | Captions | A14/A20 | `words.json` (word, t_on, t_off), style | DOM layer in safe band (centre y 0.703 H ≈ 1350 @1920), lead ≈ 140 ms (3B F-A20-104), never blank between words; outside WebGL |
 | M13 | Asset registry | A24/A25 | Flow outputs in `assets/` (git-ignored), manifest with hash | preloaded textures with `delayRender`, sRGB flags, mipmap policy |
 | M14 | QC / dev overlays | A28/A29 | frame, render | safe-zone overlay, determinism hash test, tsc, 24-fps frame-accuracy test, per-frame timing log |
 | M15 | Render orchestrator | A25 | composition id, range, quality flag (dev/final) | segmented renders + ffmpeg concat + BT.709 limited tagging (A11 T0); logs seconds per still |
@@ -34,7 +37,7 @@ Types to define (names only): `Seconds`, `Frame30`, `FrameLocal`, `PxAt1080`, `S
 3. 5c M2 minimal set (floor, wall, 3 props) + M7 lighting presets DAY/NIGHT + M3 card with a placeholder alpha PNG + M5 shader. Check edge fringe on bright/dark at 360p.
 4. 5d M6 camera moves (T-01..T-03b, expDecay entry) with easing functions from A13; test frame positions numerically.
 5. 6a M8 minimal post: bloom + grade (A11 T1) + output; then M9 LUT fit on a still against A11 mood table.
-6. 6b M4/M3 face + blink + word-timed swaps (needs ElevenLabs word timestamps from A20, approved spend only).
+6. 6b M4/M3 face + blink + story-beat-driven swaps (word timestamps from A20 drive captions; expression swaps are placed on beats, not mandatory per word — A02 3B).
 7. 6c M11 crossfade (5/6 f), hard cut; then zoom/iris/cover.
 8. 7a M10 starter VFX E01, E02, E07, E08, E09, E12, E15 (cheap, high reuse); defer E13, E17, E14.
 9. 7b Outline pass (treatment B) + DOF; evaluate cost at 360p; decide A vs B via A28 stills; SSAO last, probably baked.
@@ -47,4 +50,4 @@ Same code path; knobs: `uiScale`, shadow map size (1024 dev / 2048 final), outli
 1. Pick treatment A (lit PBR, no ink) or B (ink pass) before Phase 6; outline pass is the biggest single cost and conflict source.
 2. Approve one `npm view` compat check and Remotion Free licence re-verification at setup.
 3. Where will final 1080p renders run (laptop HD 620 or rented GPU)? Container software GL is only for dev.
-4. Hand-offs: A10/A05 on toon vs standard (C2); A06/A07 on pitched cards (C10); A11 on face floor vs grade (C11); A26 for first benchmarks.
+4. Hand-offs: C2 toon vs standard RESOLVED (Phase 4): smooth gradient card shading, no mandatory toon bands (A01 3B F-a01-102, A10); A06/A07 on pitched cards (C10); A11 on face floor vs grade (C11); A26 for first benchmarks.

@@ -6,7 +6,7 @@ emissive bloom (UnrealBloom threshold ≈ 0.85). Target ambient/key irradiance �
 
 ## 2. Hard-key shadows
 `renderer.shadowMap.type = PCFSoftShadowMap`; `key.shadow.mapSize = 2048`, radius 2–4, bias −0.0005, normalBias 0.02.
-Cards: `castShadow = true` with an alpha-tested `customDepthMaterial`. Key azimuth ≈ 40° off camera axis; elevation 55°
+Cards: **`castShadow = false` by default** (3B F-A09-101: hard card shadows in 4/30 videos, per-scene switch); when a scene calls for it, `castShadow = true` with an alpha-tested `customDepthMaterial`. [Phase 4 correction 2026-11-28, D033: see knowledge/PRODUCTION_DEFAULTS.md] Key azimuth ≈ 40° off camera axis; elevation 55°
 (day), 15–25° from behind (sunset).
 
 ## 3. Per-mood presets (HYPOTHESIS values from F-A09-006; hex/Kelvin approximate)
@@ -31,7 +31,7 @@ card exposure so faces stay L* ≥ 85 in dark scenes; warm/cool tint from the ne
 toward fire); hard terminator across the face allowed; cards receive projected shadow-map and gobo patterns.
 
 ## 5. Hubs and beats
-One hub set exposes three lighting states (day, dusk, night); switch by cut or 6-frame crossfade on beats (A16/A18).
+One hub set exposes three lighting states (day, dusk, night); switch by cut or 7-frame crossfade (30 fps; 6 f at 24) on beats (A16/A18).
 
 ## 6. AO and blobs
 SSAO/GTAO or baked AO on props; optional blob under a card only where the key is weak (opacity 0.15–0.25).

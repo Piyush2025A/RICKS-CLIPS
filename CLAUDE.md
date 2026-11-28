@@ -34,7 +34,8 @@ the primary visual asset provider. The benchmark channel is studied for craft, n
 ## Reference dataset rule (RC30, permanent — D007)
 - Analyse **only** the 30 most recently published Shorts of https://www.youtube.com/@RicksClips3000, chosen by
   publication date (not popularity) at the start of Phase 3 and frozen in `knowledge/dataset/MANIFEST.json`
-  (IDs, publication dates, durations, source metadata). Every agent uses this same dataset.
+  (keys, files, SHA-256, durations, media facts). Per D028, video IDs, publication dates and URLs are deferred metadata in
+  `knowledge/dataset/IDENTITY.json`; order by user attestation. Every agent uses this same dataset.
 - No older Shorts, no substitutes for unavailable videos (record them as unavailable).
 - Process every native frame computationally (30 fps: every frame accounted for); keep computational and visual
   inspection coverage separate; analyse narration, SFX, music, editing and synchronisation too.

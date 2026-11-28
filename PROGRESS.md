@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase:** **Phase 3 (incl. 3B completion round) — COMPLETE (2026-11-28); awaiting user review of the Phase 3 gate.** No Phase 4 work started.
+**Current phase:** **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
 Reports: `research/phase3-completion-report.md` (final, supersedes the overnight report's status tables) · `research/phase3-overnight-report.md` (3A run).
 **Last updated:** 2026-11-28
 
@@ -242,3 +242,7 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
 - Consolidation: 9 bibles + `knowledge/STYLE_BIBLE.md` v0.3. Final report: `research/phase3-completion-report.md`.
 - Background loops: all bounded/foreground; overnight waiter shells closed; nothing left running.
 - Next: user review of the Phase 3 gate. Phase 4 not started.
+
+## Phase 4 — Google Flow + ElevenLabs integration (started 2026-11-28, D033)
+- [x] Task 1 documentation reconciliation: `knowledge/PRODUCTION_DEFAULTS.md` v1; active docs corrected (D033); Git
+      protections strengthened (.gitignore + pre-commit guard, verified).

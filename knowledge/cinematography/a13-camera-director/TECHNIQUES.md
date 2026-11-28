@@ -6,7 +6,7 @@ Translation % = % of frame width (10.8 native px at 1080). Easing functions: `sm
 
 | ID | Move | Dur 30 fps | Dur 24 fps | Easing | Magnitude | Notes |
 |---|---|---|---|---|---|---|
-| T-01 | Push-in (dolly/scale) | 35 f (IQR 20-54) | 28 f (16-43) | smoothstep (65 % of clean in-shot fits) | +22 % scale (IQR 13-40) | peak rate ~1.2 %/f at 30 fps (about 0.85 s mid-move); peak at 50 % of move; start on shot's first frame (F-a13-006) |
+| T-01 | Push-in (dolly/scale) | 35 f (IQR 20-54) | 28 f (16-43) | smoothstep (3B: 60 % of 30-video fits, 75 % native) | 3B: +24 % total scale (IQR 10-46) over ≈ 33 f, native-validated (F-a13-100/101; old +22 % summed proxy superseded) | peak rate ~1.2 %/f at 30 fps (about 0.85 s mid-move); peak at 50 % of move; start on shot's first frame (F-a13-006) |
 | T-02 | Pull-out | 27 f (12-42) | 22 f (10-34) | smoothstep | -15 % (7-30) | 34 % of scale moves are pulls; use for reveals / ends of beats |
 | T-03 | Pan/tilt track | 32 f (median, 17-52) | 26 f | smoothstep, or linear for constant-speed tracks | 45 % W total (IQR 21-72), peak 2.3 %W/f | rarely pure (19 %); combine with T-01 |
 | T-03b | Push + drift (combined) | 32 f | 26 f | one smoothstep on both channels, same timing | scale 22 % + pan/tilt 20-70 % W | 66 % of all moves are combined; the default move |
