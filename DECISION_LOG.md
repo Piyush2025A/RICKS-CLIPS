@@ -332,3 +332,14 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   usable on the free tier), alternative "James – Husky, Engaging and Bold" (`EkK5I93UQWFDigLMpZcX`); neither imitates
   the reference narrator. `eleven_v4` has no speed parameter (schema read); `eleven_multilingual_v2` has speed 0.7–1.2.
 - Status: waiting for user approval of the 6-s test spend (~136 credits TTS + Scribe TBD) and for the cloud C2 check.
+
+## D035 · 2026-11-28 · Phase 4 C2 verified: real Flow asset Drive → cloud byte-exact
+- Cloud session downloaded the lighthouse PNG (Drive id `1Z7A-w2CrTALkAxAWC2_yYTrvmJ9g6Ftz`, private folder
+  `ricks-clips-handoff`) with the Google Drive connector; the connector saved the bytes to the session's tool-results
+  directory and the copy was moved to the scratchpad only (never into the repo).
+- Results: 2,206,600 bytes; SHA-256 `bd4fac1d3593467ed7583b42146712b6ee7d8d622edcd1d8a9056ed3d62a7a3a` = expected;
+  PNG signature valid; IHDR 768 × 1376, 8-bit RGBA (colour type 6); chunks IHDR, caBX (C2PA, 15,050 B), 268 IDAT, IEND;
+  all CRCs valid; 0 trailing bytes; Pillow verify + full decode OK; alpha 255 everywhere (fully opaque).
+- Note: the connector shows PNG downloads as an inline preview in the conversation (behaviour seen in T5); the image
+  was therefore displayed, but no visual judgement was made or recorded. Nothing generated, no credits spent.
+- Status: C2 passed; local → Drive → cloud path verified for a real 2.2 MB Flow asset within the 10 MB limit.

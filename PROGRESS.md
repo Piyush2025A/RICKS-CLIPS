@@ -253,12 +253,13 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
       templates + schema `prompts/flow/`; Flow Agent/Tools not needed initially (credit tests E1–E4 proposed, not run).
       A24 intake `pipeline/assets/` (10/10 tests, director rerun OK); lighthouse dry-run byte-exact, C2PA chunk kept,
       **alpha 100 % opaque** (cut-outs need keyable backgrounds + matting — approval pending).
-- [~] Drive hand-off of a real Flow asset: local → Drive ✅ (folder `ricks-clips-handoff`, file id
-      `1Z7A-w2CrTALkAxAWC2_yYTrvmJ9g6Ftz`, 2,206,600 B = local); Drive → cloud SHA-256 check **pending (user runs the
-      cloud prompt in `research/phase4-validation-checklist.md` §C2)**.
+- [x] Drive hand-off of a real Flow asset: local → Drive ✅ (folder `ricks-clips-handoff`, file id
+      `1Z7A-w2CrTALkAxAWC2_yYTrvmJ9g6Ftz`, 2,206,600 B = local); **C2 Drive → cloud ✅ 2026-11-28 (D035):** Drive →
+      cloud → SHA-256 = `bd4fac1d…7a3a`, 2,206,600 B, PNG 768×1376 RGBA 8-bit, `caBX` 15,050 B present, 268 IDAT, 0 CRC
+      failures, no trailing bytes, full decode OK, alpha 100 % opaque. Copy kept only in the session scratchpad; not committed.
 - [x] Task 3 ElevenLabs (director read-only connector checks + A20): free tier, 5,011/10,000 credits used, voice slots
       3/3; TTS via flows (no alignment output); word timestamps via Scribe STT (credit cost TBD); free tier non-commercial
       + attribution; 6-s line priced 120 credits (estimate only, nothing charged). A20 `pipeline/voice/` contract,
       schemas, align/captions/silence/normalize (30/30 tests, director rerun OK); `TEST_PLAN_6S.md` (not run).
 - [x] Task 4 checklist: `research/phase4-validation-checklist.md`.
-- **Blocked on user:** approve the 6-s ElevenLabs test spend; run the cloud C2 prompt; licence/terms decisions.
+- **Blocked on user:** approve the 6-s ElevenLabs test spend; licence/terms decisions. (C2 done, D035.)

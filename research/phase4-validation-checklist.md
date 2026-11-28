@@ -26,7 +26,7 @@ Created 2026-11-28 (D033 authorisation). An item is ✅ only with evidence recor
 | # | Check | Pass criterion | Status |
 |---|---|---|---|
 | C1 | Local → Drive upload of a real Flow asset | `create_file` (file reference, no conversion); Drive size = local size | ✅ 2026-11-28: lighthouse PNG, Drive id `1Z7A-w2CrTALkAxAWC2_yYTrvmJ9g6Ftz`, 2,206,600 B = local |
-| C2 | Drive → cloud byte-exact | cloud session downloads into its filesystem; SHA-256 = bd4fac1d3593467ed7583b42146712b6ee7d8d622edcd1d8a9056ed3d62a7a3a; `caBX` chunk present | **pending — needs the user to run the cloud prompt below** |
+| C2 | Drive → cloud byte-exact | cloud session downloads into its filesystem; SHA-256 = bd4fac1d3593467ed7583b42146712b6ee7d8d622edcd1d8a9056ed3d62a7a3a; `caBX` chunk present | ✅ 2026-11-28 (D035): SHA-256 match, 2,206,600 B, 768×1376 RGBA 8-bit, chunks IHDR + caBX 15,050 B + 268 IDAT + IEND, 0 CRC failures, no trailing bytes, full decode OK |
 | C3 | Size limits respected | ≤ ~3.1 MB per upload from the cloud, ≤ 10 MB download into the cloud (D022); larger files processed locally | ✅ D022 (limits measured) |
 | C4 | Privacy | folder not shared; no link sharing | ✅ created without sharing changes |
 
