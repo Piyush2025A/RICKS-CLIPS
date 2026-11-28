@@ -18,3 +18,11 @@ First background batch of `get_frames.py` produced nothing (silently); re-run vi
 
 ## X-A08-005 Process note
 A command that tried to create and delete a dummy ledger record was blocked and had no effect; the ledger (24 records) was verified intact. Visual ledger counts only images actually opened.
+
+## Phase 3B additions
+### X-A08-006 Grid-cell patch picking from 360x640 composites
+Of 36 cells chosen from 4-frame grids, 15 were wrong or contaminated (caption text, ink, adjacent objects; 'orange earth' turned out to be a blue shadow, 'fabric', 'plastic crate', 'enamel fridge' caught text). A second round of 9 explicit boxes gave 4 usable (bell, glass, enamel, siding) and 5 failed (bedspread, planks under caption, forehead, red paint on a wheel). Lesson: the caption sits at y 1340-1530 (A27/captions table), never box there; pick boxes on a 4x crop, not a thumbnail. Fabric, plastic and steel remain unmeasured.
+### X-A08-007 Plank seam FWHM
+The strip (12 f209, y 1330-1420) lies inside the caption band, so 6-10 px widths are text edges. Discarded. Use captions/caption_segments.csv to mask.
+### X-A08-008 Treatment A/B by 1-fps tile
+At 180 px tiles the thick-ink-on-props question cannot be answered; needs native crops per video.

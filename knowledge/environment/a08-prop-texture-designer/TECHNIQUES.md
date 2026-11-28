@@ -49,3 +49,30 @@ Prop: "<object>, original design, chunky toy-like proportions, rounded bevelled 
 Treatment B keywords: "thick dark ink outline, flat colour fills, simple 2-3 tone cel shading, saturated primary palette, hazard stripes". Treatment A: "stylised game-engine render, soft PBR materials, subtle bloom".
 Texture: "seamless tileable <material> texture, hand-painted stylised, <flat | fine speckle> detail, no perspective, no lighting, no shadows, even exposure, 1:1". Man-made: add "perfectly flat colour, soft broad streaks only". Rock/earth: add "fine multicolour speckle".
 Never ask for a named channel, film or brand style; add text in canvas afterwards so it stays editable and original. Hand the result to A24 for tiling and A10 for line matching.
+
+## Phase 3B additions (2026-11-28) — numeric material presets from 14-video native patches (still derived-not-yet-built; verify in the first EXP with an OUR- frame)
+Screen targets (after our light and grade), not albedo. To get albedo for a Standard material, divide by the expected light: start colour L* = screen L* x 1.0 under neutral key and tune.
+| Class | three.js | color target (L*/C*/hue) | rough | metal | map | detail |
+|---|---|---|---|---|---|---|
+| Painted car/prop enamel | MeshStandardMaterial + clearcoat 0.6 | L 45-64, C 60-90, hue 31-38 | 0.35 | 0 | none | flat colour, 2-3 broad highlights; local std 0.2-0.5 |
+| Pale enamel appliance | MeshStandard | L 81, C 21 | 0.4 | 0 | none | flat, std 0.16 |
+| Dark painted metal | MeshStandard | L 29, C 14 | 0.45 | 0.6 | none | flat, std 0.15, rim spec only |
+| Gold | MeshStandard | L 65, C 46, hue 78 | 0.25 | 1.0 | envMap gradient | std ~1.8 from speculars; add warm point light |
+| Wood planks | MeshStandard | L 45 C 27 hue 48 | 0.7 | 0 | 1024 flat soft-streak, 1 knot per 1-2 m | std 0.6 L*; seams 5 px at 1080 (2 px at 360p) depth 16 L* |
+| Sand/dirt | MeshStandard | L 27-71, C 28-43, hue 52-72 | 0.95 | 0 | flat soft blobs | std 0.2; no grain |
+| Stone (pillar) | MeshStandard | L 23, C 8 | 0.8 | 0 | flat | std 0.8 |
+| Grass | instanced blades (3-12 px at 1080) or MeshStandard + 1024 blade-noise map | L 39-69, C 46-64, hue 112-130 | 0.9 | 0 | blade strokes 3-12 px | local std 3-12; the one grained surface |
+| Gravel/ballast | MeshStandard + 1024 pebble map | L 46-56, C 9-17 | 0.9 | 0 | pebbles 6-20 px | std 4-10 |
+| Lattice/mesh pattern | geometry or 512 tile, period ~14 px | L 35 C 45 | 0.7 | 0 | 512 repeat | std 13 (pattern); keep period >= 4 px at 360p |
+| Glass capsule/dome | MeshPhysicalMaterial transmission 0, opacity 0.3, clearcoat 1 | L 93, C 3 | 0.05 | 0 | none | soft gradient, near-clip highlight |
+| Flesh/skin world | MeshStandard | L 32-39, C 40-54, hue 13-29 | 0.7 | 0 | flat | std 0.3-0.4 |
+| Character fill | MeshBasic/Toon | L 93, C 6 | -- | -- | none | flat |
+| Floors/walls flat | MeshStandard | dark rooms L 17-38 C 16-34; bright rooms L 72-83 C 12-24 | 0.85 | 0 | flat | std 0-0.5 |
+| Sky | gradient shader (not a mesh) | L 47-81, C 16-66, hue ~283 | -- | -- | 2-stop gradient | std < 0.12 |
+Texture resolution: grained classes 1024 px tile covering 2 m; flat classes 256-512 px tile (nothing to resolve) or untextured vertex-colour; hero label faces 2048 px; mipmaps on, anisotropy 8 (T-A08-03). Texel density stays a HYPOTHESIS: target 1 texel per screen pixel on hero faces, 0.5 elsewhere.
+
+## T-A08-06 Prop budget per short (F-A08-101, 102)
+2-3 hero props per short (median 3), each a modelled mesh with ONE readable face (text or number, cap height >= 35 px); at least one sign/board/counter per short; 1 flat-card illustration panel mounted on a mesh frame when a picture is needed; no outline on props in lit-PBR scenes (outline only on characters; props get rim light + shadow shape). Camera must move >= 10 degrees around a hero prop at least once per beat so perspective proves it is 3D.
+
+## T-A08-07 In-world screen builds (F-A08-107)
+(a) Monitor: plane with dark bezel mesh, texture = pre-rendered 2D clip (render-to-texture or video), emissive 1.5, slight reflection stripe; content flat 2D, smaller than the room. (b) UI card: Remotion overlay, rounded white card, 12 px outer glow, loading spinner; no 3D. (c) Lens/scope insert: circular mask (gold ring 8-12 px) over a flat painted scene, slow 2D parallax only. Budget: at most 1 screen per short; A28's frame check: second scene inside must be legibly different from the room (different palette).

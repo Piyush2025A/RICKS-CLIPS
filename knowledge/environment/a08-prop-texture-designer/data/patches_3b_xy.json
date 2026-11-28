@@ -1,0 +1,220 @@
+[
+ {
+  "frame": "RC30-12-f000209",
+  "box": [
+   330,
+   1050,
+   100,
+   100
+  ],
+  "material": "fabric_bedspread",
+  "L_med": 39.8,
+  "L_p10": 29.4,
+  "L_p90": 96.3,
+  "C_med": 42.9,
+  "hue": 292,
+  "local_std_med": 1.7,
+  "strong_grad_frac": 0.147
+ },
+ {
+  "frame": "RC30-12-f000209",
+  "box": [
+   600,
+   1290,
+   100,
+   100
+  ],
+  "material": "wood_planks_b",
+  "L_med": 19.8,
+  "L_p10": 0.2,
+  "L_p90": 100.0,
+  "C_med": 2.9,
+  "hue": 22,
+  "local_std_med": 5.08,
+  "strong_grad_frac": 0.129
+ },
+ {
+  "frame": "RC30-12-f000209",
+  "box": [
+   590,
+   395,
+   90,
+   60
+  ],
+  "material": "skin_forehead_fill",
+  "L_med": 32.1,
+  "L_p10": 11.0,
+  "L_p90": 87.7,
+  "C_med": 13.3,
+  "hue": 42,
+  "local_std_med": 2.03,
+  "strong_grad_frac": 0.083
+ },
+ {
+  "frame": "RC30-21-f000329",
+  "box": [
+   300,
+   1030,
+   90,
+   90
+  ],
+  "material": "metal_bell_grey",
+  "L_med": 29.1,
+  "L_p10": 28.5,
+  "L_p90": 37.5,
+  "C_med": 13.6,
+  "hue": 293,
+  "local_std_med": 0.15,
+  "strong_grad_frac": 0.013
+ },
+ {
+  "frame": "RC30-21-f000329",
+  "box": [
+   30,
+   150,
+   100,
+   100
+  ],
+  "material": "stone_pillar",
+  "L_med": 22.7,
+  "L_p10": 12.5,
+  "L_p90": 35.8,
+  "C_med": 8.4,
+  "hue": 338,
+  "local_std_med": 0.8,
+  "strong_grad_frac": 0.003
+ },
+ {
+  "frame": "RC30-25-f000419",
+  "box": [
+   400,
+   1470,
+   80,
+   80
+  ],
+  "material": "glass_pill_cap",
+  "L_med": 93.1,
+  "L_p10": 75.5,
+  "L_p90": 96.3,
+  "C_med": 2.9,
+  "hue": 205,
+  "local_std_med": 0.51,
+  "strong_grad_frac": 0.0
+ },
+ {
+  "frame": "RC30-20-f000299",
+  "box": [
+   780,
+   1130,
+   100,
+   100
+  ],
+  "material": "enamel_fridge_face",
+  "L_med": 81.2,
+  "L_p10": 79.5,
+  "L_p90": 83.9,
+  "C_med": 20.9,
+  "hue": 233,
+  "local_std_med": 0.16,
+  "strong_grad_frac": 0.016
+ },
+ {
+  "frame": "RC30-04-f000539",
+  "box": [
+   30,
+   1330,
+   100,
+   100
+  ],
+  "material": "paint_red_b",
+  "L_med": 61.9,
+  "L_p10": 47.9,
+  "L_p90": 90.0,
+  "C_med": 16.0,
+  "hue": 83,
+  "local_std_med": 4.44,
+  "strong_grad_frac": 0.08
+ },
+ {
+  "frame": "RC30-17-f000749",
+  "box": [
+   250,
+   280,
+   100,
+   100
+  ],
+  "material": "wood_siding_b",
+  "L_med": 71.7,
+  "L_p10": 31.8,
+  "L_p90": 75.9,
+  "C_med": 28.3,
+  "hue": 299,
+  "local_std_med": 1.82,
+  "strong_grad_frac": 0.009
+ },
+ {
+  "seams": [
+   {
+    "x": 460,
+    "depth_L": 13.3,
+    "fwhm_px": 8
+   },
+   {
+    "x": 501,
+    "depth_L": 30.0,
+    "fwhm_px": 6
+   },
+   {
+    "x": 525,
+    "depth_L": 31.7,
+    "fwhm_px": 8
+   },
+   {
+    "x": 547,
+    "depth_L": 18.9,
+    "fwhm_px": 7
+   },
+   {
+    "x": 571,
+    "depth_L": 47.8,
+    "fwhm_px": 7
+   },
+   {
+    "x": 597,
+    "depth_L": 32.2,
+    "fwhm_px": 10
+   },
+   {
+    "x": 618,
+    "depth_L": 66.7,
+    "fwhm_px": 10
+   },
+   {
+    "x": 642,
+    "depth_L": 56.4,
+    "fwhm_px": 7
+   },
+   {
+    "x": 687,
+    "depth_L": 10.8,
+    "fwhm_px": 9
+   },
+   {
+    "x": 708,
+    "depth_L": 2.3,
+    "fwhm_px": 28
+   },
+   {
+    "x": 802,
+    "depth_L": 4.6,
+    "fwhm_px": 16
+   },
+   {
+    "x": 974,
+    "depth_L": 3.6,
+    "fwhm_px": 8
+   }
+  ],
+  "note": "column-median L* over rows 1330-1420 minus 41-px running mean; dips = plank seams (perspective-tilted so FWHM overestimates)"
+ }
+]
