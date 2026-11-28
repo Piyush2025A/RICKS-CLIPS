@@ -14,3 +14,6 @@ Turn rule: for a 3/4 or side turn keep head circle, narrow torso to ~0.5-0.55 HW
 Root = pill bottom centre (hip). Pivots: neck = chin point at pill top; shoulders = pill top corners (x = +-torso_W/2, y = chin+0.1 HW); arms = single stroke from shoulder to ball hand; hips = pill bottom at x = +-0.2 HW; legs straight strokes (no knee), foot pivot at sole; head pivot at chin so tilts hinge there. Long-robe: legs begin below robe hem.
 ## Measure recipe
 `python3 data/ratios.py data/landmarks.csv`; landmarks read from `data/grid.py` overlays of native frames (100 px grid). Add rows, rerun.
+
+## Phase 3B revision (n = 66 characters, 26 videos; medium confidence; tolerances = IQR)
+Head H/W 0.93 (0.89-0.98); torso W 0.66 adult / 0.89 large / 0.66 tall; torso L 0.89 HW; leg L 1.23 HW (1.12-1.32); leg/torso 1.38; height 3.0 HW = 3.27 HH; leg fraction 0.40; leg stroke 0.053 HW; child legs 0.6 HW (n=1). Annotation error median 3 px native (ratio 0.02-0.04). Rebuild: `python3 data/ratios_3b.py ...` (see FINDINGS 3B).

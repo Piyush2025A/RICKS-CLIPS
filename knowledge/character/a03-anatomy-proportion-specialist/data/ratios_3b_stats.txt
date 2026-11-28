@@ -1,0 +1,103 @@
+# rows: 82 (3A 22, 3B 60); distinct characters with any landmark row (excl. unmatched 14 cowboy): 66; videos with landmark rows: 26
+# characters in front-view standing stats: 61 in 26 videos
+# characters by type: {'large': 5, 'adult': 48, 'tall': 4, 'robe': 3, 'child': 1}
+
+## per measurement, n = characters (front-view, non-seated; head_hw/height exclude headgear characters)
+
+[all]
+  head_hw    n=34 median 0.933 IQR 0.889-0.980 range 0.806-1.110
+  torsoW_HW  n=60 median 0.704 IQR 0.621-0.816 range 0.365-1.213
+  torsoL_HW  n=60 median 0.891 IQR 0.848-0.998 range 0.673-1.653
+  leg_HW     n=56 median 1.233 IQR 1.117-1.322 range 0.399-2.922
+  leg_frac   n=29 median 0.396 IQR 0.371-0.421 range 0.135-0.593
+  height_HW  n=29 median 3.038 IQR 2.906-3.243 range 2.574-4.981
+  height_HH  n=29 median 3.234 IQR 3.099-3.464 range 2.734-4.905
+  limb_clean n=22 median 0.053 IQR 0.047-0.056 range 0.026-0.119
+
+[adult]
+  head_hw    n=28 median 0.942 IQR 0.886-0.982 range 0.806-1.110
+  torsoW_HW  n=48 median 0.664 IQR 0.617-0.799 range 0.365-0.966
+  torsoL_HW  n=48 median 0.900 IQR 0.857-1.004 range 0.673-1.414
+  leg_HW     n=44 median 1.224 IQR 1.134-1.314 range 0.759-2.922
+  leg_frac   n=24 median 0.394 IQR 0.375-0.404 range 0.244-0.587
+  height_HW  n=24 median 3.042 IQR 2.898-3.214 range 2.574-4.981
+  height_HH  n=24 median 3.227 IQR 3.094-3.458 range 2.734-4.905
+  limb_clean n=21 median 0.053 IQR 0.046-0.057 range 0.026-0.119
+
+[large]
+  head_hw    n=1 median 0.924 range 0.924-0.924
+  torsoW_HW  n=5 median 0.889 IQR 0.843-0.996 range 0.771-1.213
+  torsoL_HW  n=5 median 0.889 IQR 0.835-0.938 range 0.830-0.990
+  leg_HW     n=5 median 1.233 IQR 0.851-1.383 range 0.638-1.701
+  leg_frac   n=1 median 0.477 range 0.477-0.477
+  height_HW  n=1 median 3.564 range 3.564-3.564
+  height_HH  n=1 median 3.856 range 3.856-3.856
+
+[tall]
+  head_hw    n=2 median 0.908 range 0.895-0.920
+  torsoW_HW  n=4 median 0.655 IQR 0.551-0.750 range 0.519-0.755
+  torsoL_HW  n=4 median 0.871 IQR 0.843-0.882 range 0.777-0.898
+  leg_HW     n=4 median 1.259 IQR 1.236-1.621 range 1.234-2.644
+  leg_frac   n=2 median 0.513 range 0.434-0.593
+  height_HW  n=2 median 3.707 range 2.952-4.462
+  height_HH  n=2 median 4.073 range 3.299-4.848
+  limb_clean n=1 median 0.053 range 0.053-0.053
+
+[robe]
+  head_hw    n=2 median 0.883 range 0.837-0.929
+  torsoW_HW  n=2 median 0.679 range 0.620-0.738
+  torsoL_HW  n=2 median 1.181 range 0.709-1.653
+  leg_HW     n=2 median 0.863 range 0.399-1.326
+  leg_frac   n=1 median 0.135 range 0.135-0.135
+  height_HW  n=1 median 2.995 range 2.995-2.995
+  height_HH  n=1 median 3.173 range 3.173-3.173
+
+[child]
+  head_hw    n=1 median 0.953 range 0.953-0.953
+  torsoW_HW  n=1 median 0.673 range 0.673-0.673
+  torsoL_HW  n=1 median 1.262 range 1.262-1.262
+  leg_HW     n=1 median 0.598 range 0.598-0.598
+  leg_frac   n=1 median 0.213 range 0.213-0.213
+  height_HW  n=1 median 2.813 range 2.813-2.813
+  height_HH  n=1 median 2.951 range 2.951-2.951
+
+## adult+large+tall+child, excluding robe (robe legs hidden): leg and height
+  leg_HW     n=54 median 1.233 IQR 1.125-1.318 range 0.598-2.922
+  leg_frac   n=28 median 0.397 IQR 0.375-0.423 range 0.213-0.593
+  height_HW  n=28 median 3.042 IQR 2.898-3.251 range 2.574-4.981
+  height_HH  n=28 median 3.267 IQR 3.094-3.465 range 2.734-4.905
+
+## three-quarter rows (n rows): torsoW_HW, head_hw
+   RC30-14-f000179 RC30-14:redcowboy torsoW_HW 0.511 head_hw None
+   RC30-06-f000029 RC30-06:soldier_red torsoW_HW 0.748 head_hw 0.985
+   RC30-10-f000089 RC30-10:boy_striped_cap torsoW_HW 0.602 head_hw None
+   RC30-22-f000659 RC30-22:pirate_bluecap torsoW_HW 0.624 head_hw None
+   RC30-29-f001079 RC30-29:auditor_purple torsoW_HW 0.693 head_hw 1.151
+
+## within-character spread across shots (max-min)/median, characters with >=2 usable rows
+  RC30-03:boy_green                rows=2 head_hw 12%; torsoW_HW 10%; torsoL_HW 3%; leg_HW 9%
+  RC30-05:bowler_purple            rows=2 torsoW_HW 27%; torsoL_HW 69%; leg_HW 54%
+  RC30-07:yellow                   rows=2 head_hw 10%; torsoW_HW 18%; torsoL_HW 6%
+  RC30-11:captain                  rows=2 torsoW_HW 9%; torsoL_HW 30%; leg_HW 17%
+  RC30-11:sailor                   rows=2 torsoW_HW 20%; torsoL_HW 20%; leg_HW 3%
+  RC30-13:gary_red                 rows=2 head_hw 20%; torsoW_HW 3%; torsoL_HW 18%; leg_HW 1%
+  RC30-16:clerk_yellow             rows=2 head_hw 18%; torsoW_HW 26%; torsoL_HW 16%
+  RC30-17:redshirt_mustache        rows=2 head_hw 4%; torsoW_HW 9%; torsoL_HW 2%; leg_HW 7%
+  RC30-20:dad_teal_glasses         rows=3 head_hw 29%; torsoW_HW 15%; torsoL_HW 45%; leg_HW 7%
+  RC30-23:priest                   rows=3 head_hw 19%; torsoW_HW 2%; torsoL_HW 4%; leg_HW 3%
+  RC30-26:orange                   rows=2 head_hw 12%; torsoW_HW 0%; torsoL_HW 19%
+
+## re-annotation (6 frames of 60 rows = 10 % of frames? frames: 6 of 46 3B frames = 13 %)
+  head_l     |diff| px native: median 2.5 max 5 n=6
+  head_r     |diff| px native: median 1.5 max 11 n=6
+  head_top   |diff| px native: median 6.0 max 8 n=4
+  chin       |diff| px native: median 8.5 max 27 n=6
+  torso_bot  |diff| px native: median 3.0 max 10 n=6
+  torso_l    |diff| px native: median 2.0 max 7 n=6
+  torso_r    |diff| px native: median 2.5 max 18 n=6
+  sole       |diff| px native: median 4.5 max 13 n=6
+  all landmarks: median 3.0 px, p90 11.0 px, max 27 px (n=46); native frame is 1080x1920 (annotation error unit px@native; at 720p multiply by 0.667)
+  derived torsoW_HW  |diff| ratio units: median 0.033 max 0.089 n=6
+  derived leg_HW     |diff| ratio units: median 0.020 max 0.089 n=6
+  derived torsoL_HW  |diff| ratio units: median 0.021 max 0.166 n=6
+  derived head_hw    |diff| ratio units: median 0.037 max 0.164 n=4

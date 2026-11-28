@@ -1,0 +1,61 @@
+phase,video,frame_id,character_id,person,type,view,pose,headgear,head_l,head_r,head_top,chin,torso_bot,torso_l,torso_r,sole,notes
+3B,RC30-01,RC30-01-f000029,RC30-01:newguy_yellow,newguy_yellow,adult,front,stand,0,122,480,544,887,1201,189,394,1504,hand on hip; hair counted
+3B,RC30-01,RC30-01-f000839,RC30-01:flightdir_white,flightdir_white,adult,front,stand,0,339,730,902,1261,1658,397,717,,headset; legs cut; close shot
+3B,RC30-02,RC30-02-f000029,RC30-02:prisoner_orange,prisoner_orange,adult,front,stand,0,335,566,627,819,1011,358,563,1248,headlamp band; bun excluded; shovel
+3B,RC30-02,RC30-02-f000959,RC30-02:oldwoman_purple,oldwoman_purple,adult,front,stand,0,269,403,1018,1126,1280,292,390,1457,grey hair; bun top
+3B,RC30-02,RC30-02-f000959,RC30-02:guard_big,guard_big,adult,front,walk,1,742,1011,,992,1261,765,909,1600,cap hides top; close to camera
+3B,RC30-02,RC30-02-f000959,RC30-02:guard_mid,guard_mid,adult,front,stand,1,484,604,,1082,1184,502,612,1418,cap
+3B,RC30-03,RC30-03-f000209,RC30-03:boy_green,boy_green,adult,front,stand,0,234,582,486,755,1069,275,512,1504,topknot excluded; holds bomb
+3B,RC30-03,RC30-03-f000299,RC30-03:boy_green,boy_green,adult,front,stand,0,220,416,928,1098,1280,218,365,1549,same char as f209; close
+3B,RC30-03,RC30-03-f000299,RC30-03:commander_purple,commander_purple,adult,front,stand,1,634,883,,986,1216,659,883,1581,wide brim hat; goatee
+3B,RC30-03,RC30-03-f000749,RC30-03:samurai_orange,samurai_orange,tall,front,stand,0,156,420,448,691,928,228,365,1626,bald head; spear; very thin torso
+3B,RC30-05,RC30-05-f000299,RC30-05:ranger_red,ranger_red,adult,front,stand,1,352,717,,979,1293,429,666,2253,wide brim hat; low camera; gun occludes one leg
+3B,RC30-05,RC30-05-f000749,RC30-05:bowler_purple,bowler_purple,adult,front,stand,1,486,806,,1062,1203,563,730,1427,bowler hat; cane; glasses
+3B,RC30-05,RC30-05-f001079,RC30-05:bowler_purple,bowler_purple,adult,front,stand,1,106,275,,909,1062,134,250,1267,same char as f749 (wide shot)
+3B,RC30-05,RC30-05-f001079,RC30-05:tophat_white,tophat_white,tall,front,stand,1,375,717,,698,998,435,627,1421,top hat hides skull; very long legs
+3B,RC30-06,RC30-06-f000029,RC30-06:soldier_red,soldier_red,adult,threequarter,dynamic,0,192,589,563,954,1293,100,397,1651,headband; leaning forward pushing machine
+3B,RC30-06,RC30-06-f000149,RC30-06:soldier_helmet,soldier_helmet,adult,front,stand,1,476,621,,1293,1498,442,582,1613,helmet; yellow skirt
+3B,RC30-08,RC30-08-f000149,RC30-08:redcap_overalls,redcap_overalls,adult,front,stand,1,544,829,,1075,1344,563,787,1696,red cap; hand on hip
+3B,RC30-08,RC30-08-f000269,RC30-08:rival_cream,rival_cream,adult,front,stand,0,608,845,957,1184,1395,659,800,1677,hair counted; hand on hip
+3B,RC30-08,RC30-08-f000869,RC30-08:bluecoat_man,bluecoat_man,adult,front,stand,0,374,550,826,979,1158,397,525,1331,hair counted; wide shot
+3B,RC30-08,RC30-08-f000869,RC30-08:girl_dress,girl_dress,child,front,stand,0,591,698,1024,1126,1261,604,676,1325,small girl red check dress; holds balloon string
+3B,RC30-09,RC30-09-f000509,RC30-09:tie_man,tie_man,adult,front,stand,0,618,868,708,941,1152,666,804,1485,hair counted; stopwatch
+3B,RC30-09,RC30-09-f000509,RC30-09:prisoner_redhair,prisoner_redhair,adult,front,stand,0,246,435,838,1011,1178,266,374,1395,curly hair counted; walking pose
+3B,RC30-09,RC30-09-f000749,RC30-09:heavy_prisoner,heavy_prisoner,large,front,stand,0,461,672,746,941,1139,435,691,1498,wide pill; shorts; low camera
+3B,RC30-09,RC30-09-f000269,RC30-09:guard_mustache,guard_mustache,adult,front,stand,1,154,335,,986,1158,166,320,1421,cap; roller
+3B,RC30-09,RC30-09-f000269,RC30-09:guard_glasses,guard_glasses,adult,front,stand,1,659,851,,954,1101,704,774,1331,cap; roller
+3B,RC30-10,RC30-10-f000419,RC30-10:boss_yellowvest,boss_yellowvest,large,front,stand,1,431,701,,870,1094,422,691,1427,bowler hat; cane; wide pill
+3B,RC30-10,RC30-10-f000089,RC30-10:boy_striped_cap,boy_striped_cap,adult,threequarter,walk,1,518,762,,1184,1395,538,685,1626,striped cap; walking away 3/4
+3B,RC30-12,RC30-12-f000119,RC30-12:plaid_gambler,plaid_gambler,adult,front,stand,1,100,352,,960,1197,160,301,1510,bowler; cigar; close to camera
+3B,RC30-12,RC30-12-f000119,RC30-12:pinkhat_woman,pinkhat_woman,adult,front,stand,1,755,954,,1011,1152,800,896,1357,feathered hat; turned slightly
+3B,RC30-12,RC30-12-f000509,RC30-12:farmer_straw,farmer_straw,adult,front,stand,1,243,518,,1011,1261,292,454,1594,straw hat; overalls
+3B,RC30-13,RC30-13-f000299,RC30-13:cop_mustache,cop_mustache,adult,front,stand,1,79,215,,973,1094,90,205,1261,cap; wide-angle distortion
+3B,RC30-13,RC30-13-f000299,RC30-13:cop_glasses,cop_glasses,adult,front,stand,1,778,909,,909,1024,804,883,1165,cap; mug
+3B,RC30-13,RC30-13-f000959,RC30-13:purple_beanie,purple_beanie,adult,front,stand,1,166,403,,915,1126,189,339,1402,beanie; holds banknote
+3B,RC30-13,RC30-13-f000959,RC30-13:gary_red,gary_red,adult,front,stand,0,429,653,634,883,1043,454,595,1293,hair counted
+3B,RC30-13,RC30-13-f000959,RC30-13:teal_helmet,teal_helmet,adult,front,stand,1,666,860,,954,1126,685,838,1370,bike helmet
+3B,RC30-13,RC30-13-f000659,RC30-13:gary_red,gary_red,adult,front,stand,0,522,783,774,1011,1235,576,736,1523,hair counted; peace sign; same char as 13-f959 red
+3B,RC30-15,RC30-15-f000299,RC30-15:teal_woman_bun,teal_woman_bun,adult,front,stand,0,288,518,954,1184,1389,362,512,1651,bun excluded; foreground; torso bottom partly occluded
+3B,RC30-15,RC30-15-f000989,RC30-15:redhair_man,redhair_man,adult,front,stand,0,563,755,640,826,1024,563,691,1280,spiky hair top estimated
+3B,RC30-16,RC30-16-f000269,RC30-16:clerk_yellow,clerk_yellow,adult,front,stand,0,134,525,701,1037,1395,192,416,2349,close low-angle; very long legs
+3B,RC30-16,RC30-16-f000749,RC30-16:clerk_yellow,clerk_yellow,adult,front,stand,0,122,602,381,877,1395,173,531,,same char as f269; close; legs leave... plant occludes sole
+3B,RC30-17,RC30-17-f000629,RC30-17:redshirt_mustache,redshirt_mustache,adult,front,stand,0,58,461,518,883,1261,79,397,1741,hair counted; close wide-angle
+3B,RC30-17,RC30-17-f000599,RC30-17:redshirt_mustache,redshirt_mustache,adult,front,stand,0,233,602,621,941,1293,211,531,1766,same char as f629 (repeat reading)
+3B,RC30-17,RC30-17-f000629,RC30-17:bonnet_woman,bonnet_woman,robe,front,stand,1,627,998,,1139,1402,698,928,1894,long skirt hides legs; bonnet
+3B,RC30-19,RC30-19-f000209,RC30-19:grey_suit,grey_suit,adult,front,stand,0,695,1015,704,1030,1363,736,1005,2298,right head edge hidden by overlapping person (estimated); close low-angle
+3B,RC30-19,RC30-19-f000659,RC30-19:purple_worker,purple_worker,adult,front,stand,0,337,506,764,922,1094,371,480,1312,black hair covers upper head; 3/4 away-ish
+3B,RC30-20,RC30-20-f000299,RC30-20:dad_teal_glasses,dad_teal_glasses,adult,front,stand,0,70,243,768,960,1075,102,243,1286,hair tufts excluded
+3B,RC30-20,RC30-20-f000539,RC30-20:dad_teal_glasses,dad_teal_glasses,adult,front,stand,0,115,252,783,911,1056,128,230,1222,same char background small
+3B,RC30-20,RC30-20-f000749,RC30-20:dad_teal_glasses,dad_teal_glasses,adult,front,stand,0,666,819,781,973,1107,672,804,1306,same char; at lamp
+3B,RC30-20,RC30-20-f000539,RC30-20:cop_big,cop_big,large,front,stand,1,380,941,,909,1408,410,883,1766,cap; foreground; wide pill; short visible legs
+3B,RC30-20,RC30-20-f000749,RC30-20:woman_pink,woman_pink,adult,front,stand,0,102,301,612,783,954,113,271,1203,bun excluded; standing on couch
+3B,RC30-22,RC30-22-f000629,RC30-22:pirate_captain,pirate_captain,adult,front,stand,1,685,945,,1088,1280,717,915,1594,tricorn hat; maroon coat
+3B,RC30-22,RC30-22-f000659,RC30-22:pirate_bluecap,pirate_bluecap,adult,threequarter,stand,1,224,474,,832,1062,234,390,1382,striped shirt; cannonballs occlude legs; sole estimated
+3B,RC30-24,RC30-24-f000029,RC30-24:king_red,king_red,adult,front,stand,1,118,320,,963,1126,143,292,1389,crown; cape; holds spear
+3B,RC30-24,RC30-24-f000029,RC30-24:smith_orange,smith_orange,adult,front,stand,0,506,701,755,947,1184,506,672,,bald; legs occluded by anvil
+3B,RC30-28,RC30-28-f000449,RC30-28:scientist_labcoat,scientist_labcoat,adult,front,stand,0,215,476,646,902,1261,262,429,1459,hair counted; coat flares at hem (torso_bot = coat hem)
+3B,RC30-28,RC30-28-f000449,RC30-28:worker_redcap,worker_redcap,adult,front,stand,1,627,832,,902,1171,672,845,1459,backwards cap; orange vest
+3B,RC30-28,RC30-28-f000779,RC30-28:worker_green_a,worker_green_a,adult,front,stand,0,26,243,986,1178,1338,70,192,1581,bald; steam puffs at ears
+3B,RC30-28,RC30-28-f000779,RC30-28:worker_green_b,worker_green_b,adult,front,stand,0,422,640,970,1184,1408,461,612,1658,black hair; spiral eyes
+3B,RC30-29,RC30-29-f000629,RC30-29:clerk_yellow_tie,clerk_yellow_tie,adult,front,stand,0,634,1075,476,928,1357,685,1005,,hair counted; legs leave frame; close
+3B,RC30-29,RC30-29-f001079,RC30-29:auditor_purple,auditor_purple,adult,threequarter,walk,0,627,1005,576,1011,1210,685,947,1677,bun excluded; glasses; turned right
