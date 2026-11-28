@@ -387,3 +387,13 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   `assets/private/audio/<production>/`, verified by SHA-256 against a descriptor before rendering. No regeneration.
 - Reproducibility: lockfile + `npm ci` reproduce the engine in a fresh clone (identical render hash).
 - Status: Phase 5A complete; Phase 5B awaits user approval.
+
+## D039 · 2026-11-28 · Media-containing durations round up; Phase 5A closed
+- Policy: event timestamps (beats, cuts, holds) use the nearest frame, half up (D038). Durations of compositions/clips
+  that must contain media use `durationFramesCovering` (TS) / `duration_frames_covering` (Python): the smallest whole
+  frame count covering the media, on integer microseconds. Reason: the real TEST6S narration (7.058875 s) would lose its
+  last ~17 ms at 169 frames; 170 frames covers it (≤ 1 frame silent tail, placeholder holds).
+- Real narration verified end to end in the cloud engine: checksums, descriptor, BT.709, 24/1, 170 frames, audio
+  sample-aligned with the source (lag 0, r = 1.000), −14.2 LUFS preserved, beat-frame sync exact, deterministic render.
+  Rendered stereo shows −5.7 dBTP because mono is placed at −3 dB per channel (loudness unchanged).
+- Phase 5A closed; Phase 5B awaits user approval.

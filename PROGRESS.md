@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase (2026-11-28):** Phase 5A — animation engine foundation, **verified + corrected, awaiting approval for 5B** (D037, D038). Earlier:  **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
+**Current phase (2026-11-28):** Phase 5A — animation engine foundation, **CLOSED — all essential tests passed, awaiting approval for 5B** (D037–D039). Earlier:  **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
 Reports: `research/phase3-completion-report.md` (final, supersedes the overnight report's status tables) · `research/phase3-overnight-report.md` (3A run).
 **Last updated:** 2026-11-28
 
@@ -318,4 +318,19 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
      without the plate the render fails with ENOENT (no silent fallback).
   6. **Git exclusion audit:** no tracked media, no private paths, no tracked file > 1 MB; plate, synthetic audio, `out/`,
      `node_modules/` ignored; pre-commit guard active.
+- [x] **Real narration end-to-end (D039), 2026-11-28 — Phase 5A CLOSED.** Four files downloaded from Drive
+      `ricks-clips-handoff` (MP3 131,271 B, WAV 1,016,580 B, descriptor 409 B, SHA256SUMS 284 B = expected; SHA256SUMS
+      `bda9bcb0…887e` = expected; `sha256sum -c` 3/3 OK) into git-ignored `assets/private/audio/TEST6S/` (audio read-only).
+      Descriptor valid against the engine contract; WAV pcm_s24le 48 kHz mono 7.058875 s, −14.2 LUFS, TP −2.8 dBTP.
+      **Duration fix:** nearest-frame rounding gave 169 f (7.042 s) and would truncate ~17 ms → D039 adds
+      `durationFramesCovering` / `duration_frames_covering` (ceil on integer µs; Python 38/38, TS 114 checks incl. 22
+      shared duration cases) → **170 f = 7.0833 s**.
+      Render `NarrationTest` (swangle, 360×640, 24/1, no captions): 6.3 s render (9.4 s wall incl. bundle), peak total RSS
+      ≈ 1.09 GB; MP4 391,489 B, SHA-256 `dc3a1bac…4b7f`, identical on rerun. H.264 High yuv420p, BT.709 tags (tv/bt709×3),
+      170 frames; AAC LC 48 kHz stereo 7.104 s (narration not truncated: source tail fully present). Audio vs source:
+      lag 0 samples, correlation 1.000; loudness −14.2 LUFS (unchanged), true peak −5.7 dBTP (mono placed at −3 dB per
+      stereo channel; ≤ −2 dBTP target met). Beat sync: picture changes exactly at clause starts f2/f61/f102 and after
+      ends f51/f90/f164; silent tail holds. Frame 30 viewed: plate intact, placeholder card, watermark visible.
+      Originals and plate SHA-256 unchanged. Preview uploaded to private Drive `ricks-clips-handoff`:
+      `TEST6S_narration_preview_360x640_24fps_v01.mp4` (id `1HtcksSRMtacw1mxbbj0h0k0G4o-rnW1h`, 391,489 B). Nothing private committed.
 - Phase 5B NOT started (needs approval).
