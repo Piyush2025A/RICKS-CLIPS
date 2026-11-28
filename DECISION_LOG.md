@@ -374,3 +374,16 @@ Format: ID · date · decision · reasoning · status (proposed = awaiting user 
   in this container (`core.hooksPath tools/git-hooks`).
 - Open: A20 rounding mismatch on .5 ties; MP4 colour matrix tag; GPU/1080p and cross-machine determinism untested.
 - Status: Phase 5A complete; Phase 5B awaits user approval.
+
+## D038 · 2026-11-28 · Phase 5A final corrections
+- Rendering mode: `swangle` is the default and only supported software mode in the cloud; other gl modes are not pursued.
+  Risk: Chromium deprecates automatic software-WebGL fallback; re-verify after browser/Remotion upgrades.
+- Colour: development and final MP4 encodes use `colorSpace: 'bt709'` (BT.709 matrix, limited range, bt709 tags),
+  verified with a colour-patch test (≤ 2 levels error vs 23 under a wrong BT.601 decode).
+- Frame timing: one canonical rule for all code — round half up on integer microseconds
+  (us = floor(t·1e6 + 0.5); frame = floor((us·fps + 500000)/1e6)); Python and TypeScript share a 59-case fixture.
+  Supersedes Python banker's rounding; TEST6S clause 1 @30 fps is frame 77.
+- Narration: real ElevenLabs files enter only via the private Drive hand-off into git-ignored
+  `assets/private/audio/<production>/`, verified by SHA-256 against a descriptor before rendering. No regeneration.
+- Reproducibility: lockfile + `npm ci` reproduce the engine in a fresh clone (identical render hash).
+- Status: Phase 5A complete; Phase 5B awaits user approval.

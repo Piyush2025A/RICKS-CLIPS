@@ -1,6 +1,6 @@
 # PROGRESS
 
-**Current phase (2026-11-28):** Phase 5A — animation engine foundation, **verified, awaiting approval for 5B** (D037). Earlier:  **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
+**Current phase (2026-11-28):** Phase 5A — animation engine foundation, **verified + corrected, awaiting approval for 5B** (D037, D038). Earlier:  **Phase 4 — Google Flow + ElevenLabs integration (authorised 2026-11-28, D033).** Phase 3 APPROVED (conditional, documented limitations).
 Reports: `research/phase3-completion-report.md` (final, supersedes the overnight report's status tables) · `research/phase3-overnight-report.md` (3A run).
 **Last updated:** 2026-11-28
 
@@ -298,4 +298,24 @@ Reports: `research/phase3-completion-report.md` (final, supersedes the overnight
   determinism untested; studio untested; cover scaling trims ≈ 0.4 % of plate height; contract rounding mismatch
   (CONTRACT `floor(t·fps+0.5)` vs `beats.py` `round()`, 1 frame on exact .5 ties) → A20 to reconcile; `THREE.Clock`
   deprecation warning (harmless); MP4 colour-matrix tag.
+- [x] **Phase 5A final corrections (D038), 2026-11-28:**
+  1. `swangle` kept as the verified default; the three failing gl modes are not pursued. Risk recorded: Chromium
+     deprecates automatic software-WebGL fallback (re-verify after any browser/Remotion upgrade).
+  2. **BT.709 MP4** (A26, `fcd833b`): `renderMedia colorSpace: 'bt709'` (Remotion runs zscale matrix 709, limited range);
+     tags tv/bt709/bt709/bt709. Colour-patch test (14 CSS + 1 WebGL2 patch): decoded as BT.709 max error R/G/B 1/2/1
+     levels vs 23/5/12 when wrongly decoded as BT.601; Y′ black 16, white 235 — reproduced by the director. The old
+     encode had used BT.601 with the matrix untagged. Narration render uses the same setting.
+  3. **Timing parity** (A20 `4986b47`, A25 `ca3300e`): canonical rule = round half up on integer microseconds, identical in
+     Python and TypeScript; shared fixture `pipeline/voice/tests/fixtures/frame_conversion_vectors.json` (59 cases incl.
+     exact ties, ±1 µs, 600 s); Python suite 36/36, TS 59/59 + explicit ties + 14/14 TEST6S spans exact; only TEST6S
+     clause 1 @30 changed 76 → 77.
+  4. **Narration input ready** (A25): descriptor + SHA-256/size verifier (fails loudly), `NarrationTest` composition
+     (duration from the descriptor, beat-timed placeholder from beats.json frames_24), private path
+     `assets/private/audio/<production>/` (git-ignored); synthetic stand-in end-to-end: 169 frames @24/1, AAC, 7.061 s,
+     BT.709, byte-identical on rerun (director). Real files: user transfer steps in A25 ENGINE.md "Accepting private narration".
+  5. **Clean reproduction:** fresh clone of the pushed branch → `npm ci` installs exactly the pinned 14 top-level packages,
+     `tsc` 0 errors, `npm test` OK, EngineTest frame 24 hash identical (`aee435c5…`) once the private plate is linked;
+     without the plate the render fails with ENOENT (no silent fallback).
+  6. **Git exclusion audit:** no tracked media, no private paths, no tracked file > 1 MB; plate, synthetic audio, `out/`,
+     `node_modules/` ignored; pre-commit guard active.
 - Phase 5B NOT started (needs approval).
