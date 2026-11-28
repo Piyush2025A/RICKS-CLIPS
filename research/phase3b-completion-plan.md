@@ -45,3 +45,4 @@ A14: not re-run unless a later wave needs it (A28: ledger PASS; caption band ver
 - A16 DONE: both conflicts resolved as unit mismatches — edit shot median 3.18 s (2.15 edits/10 s) vs visual beat 2.85 s (A15 FP camera changes) / ≈1.8 s proxy; openers 30/30: edits in 0–3 s median 0 (≥1 in 12/30), beats ≥1 in 25/30, caption at f0–1 in 28/30; old RC30-22 '≥7 cuts/10 s' superseded (1.3 edits, 5.4 beats/10 s). Open: RC30-10 f63–66 possible missed cut.
 - Director check (A16 open item): RC30-10 f48–95 every-frame sheet viewed + shot_features (mad 14.5–18.9, ssim_dist 0.45–0.49 smooth over f58–71, no spike) → continuous camera orbit/pull-back, NOT a hard cut; A15 list stands (A16's 29/30 → 30/30 agreement).
 - A20 part 1 DONE: captions transcribed RC30-01..09 (1,624 segments, 1 illegible, 0 non-caption; private caption_text.csv).
+- A20 part 2 DONE: RC30-10..19 transcribed (1,861 segments, 0 illegible). Gaps in seg ids = segments < 2 frames dropped by design (MIN_SEG).
