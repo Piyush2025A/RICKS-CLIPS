@@ -1,4 +1,5 @@
 # A20 FINDINGS — narration / voiceover (Phase 3, RC30)
+Phase 3B update 2026-11-28: see "Phase 3B additions" (F-A20-101..105) and "Phase 3B revisions".
 Manifest SHA-256 `fc6f147abae5a83252de6f9a832cbf524d8ee87e946e25a2915a966fc8278e06` · 2026-11-28 · A20.
 (Written to disk verbatim by the director from A20's hand-off; the agent's Write tool refused this file.)
 All 30 videos computational (native 44.1 kHz stereo, pipe decode, read-only; no temporary WAVs). Visual ledger: 8
@@ -71,3 +72,55 @@ no bimodality test run.
 ## Open
 Cause of the −14/−15 clusters; word-level timing error; words/token in 22 unviewed videos; ducking; sub-150 ms pauses;
 cleaner F0 (private `f0full_*.npz` not analysed).
+
+## Phase 3B additions (2026-11-28)
+Source: private transcripts of all on-screen captions (30 videos, 4,999 caption segments read from the dense reading sheets
+in 3B parts 1–3; text private, never committed) merged into `caption_timeline.csv` (private; consecutive identical texts
+with abutting times merged). Numbers only: `data/narration_stats_3b.csv`; script `scripts/narr3b.py` (reproducible from the
+private tables). 6,246 words in total. Exclusions: caption segments < 2 frames were dropped by the detector; RC30-28 seg 0
+illegible (`?`, not counted). Audio proxy: A27 `audio_env.csv` (10 ms). No hand-checked word-level ground truth exists.
+
+## F-A20-101 Speech rate is ≈ 3.7 words/s ≈ 220 wpm, higher than the earlier 200 wpm (MEASURED, high for the caption-rate, n = 30; 6,246 words)
+Words ÷ (last caption end − first caption start): median 3.68 w/s (IQR 3.57–3.79; range 3.33–4.08) = 220.6 wpm (214–228;
+200–245). Words per caption 1.27 (1.23–1.29; 1.18–1.35); caption interval median 332 ms (320–333; 299–367).
+Caveat: this is the rate of captions, which are timed to the narration (F-A20-102/103), not a direct audio measurement; the
+captions run from frame 1 to video end (first caption at frame 1 in 23/30, frames 2–5 in the other 7; tail 0–0.17 s), so the span equals
+the runtime and includes pauses. Words/caption was 1.16 earlier (50 words/43 tokens, 8 windows) → corrected to 1.27.
+Implementation: a script of ≈ 3.7 w/s (≈ 220 wpm), i.e. ≈ 230 words for a 60 s short (112–295 seen); 1 caption per
+≈ 0.33 s.
+
+## F-A20-102 Captions are continuous; sentence-final captions are held ≈ 5 frames longer (MEASURED, medium-high, n = 30; 4,961 captions)
+Gaps between consecutive captions are 0 in 99.9 % of cases (> 100 ms: 0.4 % after sentence-final, 0.1 % otherwise; the largest
+total gap in any video 0.53 s), so the caption track never goes blank mid-video — pauses are visible only as longer holds.
+Median hold, 1-word captions: 9 frames (300 ms) not sentence-final (n 3,379) vs 14 frames (467 ms) sentence-final (n 393);
+2-word 12 vs 17 (n 998/89); 3-word 17 vs 21 (n 79/21). Excess ≈ 4–5 frames ≈ 150–170 ms. Pooled caption hold 300 ms median
+(p5 100, p95 633, p99 800); not quantised to a multiple of 3 frames (34 %, chance level). Implementation: sentence boundary =
+caption held ≈ +0.15 s; do not insert > 0.3 s dead air. Limits: hold = pause + final-word lengthening, not separable.
+
+## F-A20-103 Sentences: median 11 words, 18 per video (MEASURED, medium-high, n = 30; 503 sentences)
+Sentence = text run ending with `.` `?` `!`. Pooled median 11 words (IQR 7–16; 1–37). Per video: 18 sentences (14–20; 10–22), per-video
+median length 11 words (10–13; 9–21.5). Implementation: write 10–13-word sentences, ≈ 1 per 3.3 s, mix with a few 1–5-word
+punch lines and up to ≈ 30 words.
+
+## F-A20-104 Caption onset leads speech energy by ≈ 140 ms (4 frames) (MEASURED, medium-high, n = 30; 474 sentence starts)
+Two independent estimates agree. (a) Sentence starts (caption after `.`/`?`/`!`): first time smoothed `rms_dbfs` rises through
+the mid-level between the preceding pause floor and the speech level, minus caption start (t = (f_start+1)/30): per-video
+median 141 ms (range 110–167; every video 110–167 ms, n per video 9–21; pooled 474). (b) Cross-correlation of caption starts
+with A27 `onset_strength` (±300 ms, 40 circular-shift nulls): peak lag median +140 ms (IQR 130–160; −240..+210), z median
+4.4 (3.9–5.1; all 30 ≥ 2.9). First active speech frame in the audio tables is 0.14 s (0.11–0.18; 0.07–0.31) vs caption 0.033 s.
+**Supersedes F-A20-007 (≈ 70 ms, SUPERSEDED):** that figure used a pixel-spike detector and a different onset proxy; the new
+one uses exact caption segment times. A 50 %-rise threshold lags the physical onset (consonant attack), so true word lead is
+probably ≈ 100–140 ms; still not a hand-checked word-timing error. Implementation: caption appears ≈ 3–4 frames before the
+vowel energy; expression/mouth swaps keyed on caption onset + 3 frames.
+
+## F-A20-105 First/last word (MEASURED, high, n = 30)
+First caption at t = 0.033 s (frame 1) in 23/30; frames 2–5 in RC30-12, 16, 17, 25, 26, 27, 28 (max 0.167 s) — the narration starts at once. The
+last caption is held to the last frame (tail 0.02 s median), so last-word-to-end is not measurable from captions; the audio-side
+tail was not re-measured. Implementation: voice in the first 5 frames, no pre-roll.
+
+## Phase 3B revisions
+- F-A20-003 CORRECTED: 3.3 w/s (200 wpm) → 3.7 w/s (221 wpm); words/caption 1.16 → 1.27 (now n = 6,246 words, 30 videos, not 8 viewed windows). Confidence upgraded medium → high for caption-rate.
+- F-A20-007 SUPERSEDED by F-A20-104 (70 ms → 140 ms; method and n stated there).
+- F-A20-005 (audio gaps 0.15–0.5 s, median 0.21) is consistent with F-A20-102 (sentence-final excess ≈ 0.15–0.17 s) and stays; the earlier implementation line "sentence pause 0.3–0.5 s" is DOWNGRADED to 0.15–0.3 s (only ≈ half of sentence ends reach 0.3 s in audio: 8.5 gaps ≥ 0.3 s vs 18 sentences per video). Unresolved: no word-level ground truth.
+- Contradiction recorded (not averaged): earlier 70 ms vs now 140 ms caption lead; the newer, segment-time based figure is preferred.
+- Open: hand-checked word timing error; audio-side last-word-to-end; pitch second pass.
