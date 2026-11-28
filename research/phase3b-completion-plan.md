@@ -34,3 +34,4 @@ A14: not re-run unless a later wave needs it (A28: ledger PASS; caption band ver
 - A15 DONE: 30/30 edit lists (569 rows), XF visual n=263 in 29 videos median 6 f (medium), shots n=414 median 3.17 s (upper bound).
 - A03 DONE (turn-limit wrap-up): 26 videos / 66 characters measured; head H/W 0.933 (n=34), height 3.27 HH, leg/torso 1.38; eye spacing + arm length not measured.
 - A01 DONE: census 30/30 (overview sheet 1), 22 native frames; shading = soft gradient (corrects 'flat'); outline near-black/warm brown; ball hands; legs SUPERSEDED → 1.2–1.5× (agrees A03 3B). Bible CHARACTER C8/C9 to update in consolidation.
+- A04 DONE: walkers found 5, numeric step period still n=1 (RC30-14, 11 f); pose rate 11 segments/8 videos (ones, no twos; dialogue holds 24–48 f); 25 gestures/15 videos; bob 1.2 % (n=1) vs H-UP 3–7 % unresolved.

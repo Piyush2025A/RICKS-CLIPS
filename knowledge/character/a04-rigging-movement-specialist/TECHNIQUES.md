@@ -24,8 +24,8 @@ Prop detach: hat/held items are separate meshes; on a hit, remove from head and 
 ## 3. Presets (frames at 30 / 24 fps)
 | Preset | 30 fps | 24 fps | Notes (source) |
 |---|---|---|---|
-| walk step | 11 (range 10-12) | 9 | one walker, 14-f000662..f000695; cycle 22 / 18 |
-| walk bob | [H] 2-3 % of height | same | not measured; test per CONTROLLED EXPERIMENT (3 % vs 5 %) |
+| walk step | 11 (range 10-12) | 9 | 14-f000656..f000703 numeric n=4 intervals (10-11); 06 march visual 12; cycle 22 / 18 (3B) |
+| walk bob | 1-2 % of height (MEASURED 1.2 %, n=1, 14) | same | H-UP 3-7 % not supported; test 1 % vs 3 % in the controlled experiment |
 | walk lean | [H] forward 3-5 deg | same | observed slight forward tilt only |
 | blink | close 2, open 2-3 | 2 / 2 | 15-f000000..f000005 |
 | expression pop | 2-4 swaps then hold 7+ | 2-3 / 6+ | 15-f001397..f001408 |
@@ -47,3 +47,17 @@ Easing: ease-out-cubic (0.215, 0.61, 0.355, 1) for settles; push-ins ease-in-out
 ## 5. Production notes
 - Request from A27: tracked head/foot tables (F-a04 open question 1) before locking walk bob/slip numbers.
 - Run `data/iou.py` on any new walk or gesture segment to count held vs changed frames; report n.
+
+## 6. Phase 3B additions (measured, F-a04-100..104)
+Gesture/hold timing (30 fps -> 24 fps x0.8), n = events in F-a04-103:
+| Preset | 30 fps | 24 fps | Source |
+|---|---|---|---|
+| dialogue body hold (face swaps only) | 24-48 | 19-38 | 09 f480-527 (48), 10 f528-575 (48), 14 f384-407 (24), 06 f312-335 (24+) |
+| small gesture (kick, holster, raise object, head turn) | anticipation 2-3, action 5-10, hold 4-20 | 2 / 4-8 / 3-16 | 07, 14, 26 |
+| arm raise + wave | anticipation 2-3, action 12 | 2 / 10 | 09 f410-423 |
+| big hit anticipation | 12 | 10 | 06 f764-776 |
+| hold then sudden move | hold 29, action 11 on ones | 23 / 9 | 29 f1064-1103 |
+| entrance walk-in | 32 (one character crosses frame) | 26 | 09 f496-527 |
+| moving body drawing rate | new drawing each frame (ink overlap median 0.5-0.9) | each frame | 14, 09, 29, 10, 07 |
+| march step | 12 | 10 | 06 f104-139 (visual) |
+Rule: no twos/threes; during dialogue freeze the body completely (not a breathing loop) and put life into face swaps, steam/VFX and camera. Run `data/iou2.py` on new segments.

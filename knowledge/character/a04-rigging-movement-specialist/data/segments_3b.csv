@@ -1,0 +1,12 @@
+video,frames,roi_native,what,n_pairs,median_overlap,frac_ge_0.9,frac_lt_0.7,hold_runs_pairs,reading
+RC30-14,656-703,200;1060;850;1420,walker (Phase 3),47,0.66,0.00,,none,ones
+RC30-07,214-251,0;800;1080;1800 (caption masked),gesturing pair,37,0.88,0.27,0.03,"1,6,1,2",ones with short holds
+RC30-09,480-527,480;100;1080;1800 (caption masked),guard standing (body hold; face swaps only),47,0.98,1.00,0.00,47,full hold
+RC30-09,498-527,0;900;500;1750 (caption masked),prisoner walks in,29,0.71,0.03,0.41,1,ones
+RC30-10,048-095,150;200;1000;1800 (caption masked),boy crouch-lean to stand and hands on hips,47,0.66,0.04,0.53,"1,1",ones (camera orbit contaminates)
+RC30-29,1064-1092,300;200;1050;1800 (caption masked),auditor leaning pose,28,0.82,0.04,0.14,1,slow continuous drift (no exact holds; camera push)
+RC30-29,1093-1103,300;200;1050;1800 (caption masked),auditor arm swing/step,10,0.48,0.00,1.00,none,ones
+RC30-06,104-139,300;1300;800;1920,marching soldier,35,0.92,0.51,0.09,"1,5,3,5,1,3",short holds 3-5 pairs (camera scale change contaminates)
+RC30-20,1183-1204,(Phase 3),hold then fall,,,,,"7 hold pairs then ones",hold then ones
+RC30-15,1393-1411,(Phase 3 face ROI),face swaps,,,,,"7 frame hold",burst then hold
+DISCARDED RC30-26,336-383,0;300;800;1750,cop walk,47,0.98,1.00,,47,ROI dominated by static door background; invalid
